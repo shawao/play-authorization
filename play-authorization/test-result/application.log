@@ -36,3 +36,5 @@ Caused by: java.lang.ClassCastException: net.sf.oval.context.MethodParameterCont
 19 一月 2012 16:52:03,562 INFO  ~ Bootstrap started
 19 一月 2012 17:12:50,468 INFO  ~ Bootstrap started
 19 一月 2012 17:17:55,187 INFO  ~ << create role: {name:branch02, key:K_BRANCH_02, remark:部门02}
+19 一月 2012 17:24:44,250 INFO  ~ >> SysUser(10) deleted okay, and render page to index
+19 一月 2012 17:32:50,234 INFO  ~ << create user: {loginName:小米,...}
