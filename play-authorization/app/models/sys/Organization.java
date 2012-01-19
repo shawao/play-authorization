@@ -33,4 +33,12 @@ public class Organization extends Model {
 
     public Date createDate=new Date();
     public Date lastUpdate;
+
+
+    public Organization(String key, String name, String remark, Organization parent) {
+        this.key = key;
+        this.name = name;
+        this.remark = remark;
+        this.parent = parent;
+    }
 }

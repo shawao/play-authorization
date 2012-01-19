@@ -2,19 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="e71f724e-bdde-463e-bf26-ad785c5b63f2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/routes" afterPath="$PROJECT_DIR$/conf/routes" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/AppConstants.java" afterPath="$PROJECT_DIR$/app/controllers/AppConstants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Application.java" afterPath="$PROJECT_DIR$/app/controllers/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Functions.java" afterPath="$PROJECT_DIR$/app/controllers/Functions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/Organizations.java" afterPath="$PROJECT_DIR$/app/controllers/Organizations.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/SysRoles.java" afterPath="$PROJECT_DIR$/app/controllers/SysRoles.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/sys/UserFunction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/SysUsers.java" afterPath="$PROJECT_DIR$/app/controllers/SysUsers.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/Function.java" afterPath="$PROJECT_DIR$/app/models/sys/Function.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/Organization.java" afterPath="$PROJECT_DIR$/app/models/sys/Organization.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/SysRole.java" afterPath="$PROJECT_DIR$/app/models/sys/SysRole.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/SysUser.java" afterPath="$PROJECT_DIR$/app/models/sys/SysUser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/SysUsers/show.html" afterPath="$PROJECT_DIR$/app/views/SysUsers/show.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/tags/pagination.html" afterPath="$PROJECT_DIR$/app/views/tags/pagination.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/application.conf" afterPath="$PROJECT_DIR$/conf/application.conf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/play-authorization.ipr" afterPath="$PROJECT_DIR$/play-authorization.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/play-authorization.iws" afterPath="$PROJECT_DIR$/play-authorization.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/default.css" afterPath="$PROJECT_DIR$/public/stylesheets/default.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-result/application.log" afterPath="$PROJECT_DIR$/test-result/application.log" />
     </list>
     <ignored path="play-authorization.iws" />
@@ -76,34 +70,63 @@
       <file leaf-file-name="SysUsers.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/SysUsers.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="35" selection-start="803" selection-end="803" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="22" column="0" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="show.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/SysUsers/show.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="0" selection-start="3078" selection-end="3078" vertical-scroll-proportion="-7.423077">
+            <state line="94" column="6" selection-start="3184" selection-end="3184" vertical-scroll-proportion="0.986166">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.conf" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/conf/application.conf">
+      <file leaf-file-name="SysUser.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/sys/SysUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="176" selection-end="176" vertical-scroll-proportion="0.24667473">
+            <state line="65" column="9" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Application.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
+      <file leaf-file-name="SysRole.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/sys/SysRole.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="27" selection-start="930" selection-end="930" vertical-scroll-proportion="0.0">
+            <state line="40" column="23" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Organization.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/sys/Organization.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="0" selection-start="731" selection-end="731" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Function.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/sys/Function.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="27" selection-start="649" selection-end="649" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserFunction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/sys/UserFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="23" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -124,22 +147,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/public/javascripts/default.js" />
-        <option value="$PROJECT_DIR$/public/stylesheets/layout.css" />
-        <option value="$PROJECT_DIR$/app/controllers/Me.java" />
-        <option value="$PROJECT_DIR$/app/controllers/me/Me.java" />
-        <option value="$PROJECT_DIR$/app/views/me/me/index.html" />
         <option value="$PROJECT_DIR$/conf/routes" />
         <option value="$PROJECT_DIR$/app/controllers/AppConstants.java" />
         <option value="$PROJECT_DIR$/app/controllers/SysRoles.java" />
         <option value="$PROJECT_DIR$/app/controllers/Functions.java" />
         <option value="$PROJECT_DIR$/app/controllers/Organizations.java" />
-        <option value="$PROJECT_DIR$/app/controllers/SysUsers.java" />
-        <option value="$PROJECT_DIR$/app/views/SysUsers/show.html" />
         <option value="$PROJECT_DIR$/public/stylesheets/default.css" />
         <option value="$PROJECT_DIR$/app/views/tags/pagination.html" />
         <option value="$PROJECT_DIR$/app/controllers/Application.java" />
         <option value="$PROJECT_DIR$/conf/application.conf" />
+        <option value="$PROJECT_DIR$/app/controllers/SysUsers.java" />
+        <option value="$PROJECT_DIR$/app/models/sys/SysRole.java" />
+        <option value="$PROJECT_DIR$/app/models/sys/Organization.java" />
+        <option value="$PROJECT_DIR$/app/models/sys/Function.java" />
+        <option value="$PROJECT_DIR$/app/models/sys/UserFunction.java" />
+        <option value="$PROJECT_DIR$/app/models/sys/SysUser.java" />
+        <option value="$PROJECT_DIR$/app/views/SysUsers/show.html" />
       </list>
     </option>
   </component>
@@ -178,7 +201,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -413,6 +435,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Notifier" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="play-authorization" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="play-authorization" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Functions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -499,6 +543,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -517,9 +562,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -569,6 +614,24 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -602,24 +665,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -637,17 +682,6 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -674,6 +708,17 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -756,7 +801,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1288" height="1002" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -768,11 +813,12 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32943925" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20243903" sideWeight="0.5981308" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20243903" sideWeight="0.6705608" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48014018" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -815,7 +861,7 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -871,36 +917,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/models/sys/SysUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="37" selection-start="695" selection-end="695" vertical-scroll-proportion="0.12825279" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/Forums/show.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/Topics/show.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="42" selection-start="262" selection-end="262" vertical-scroll-proportion="-3.9230769" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/routes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="17" selection-start="2046" selection-end="2046" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Topics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="21" selection-start="312" selection-end="312" vertical-scroll-proportion="0.3267974" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Forums.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="41" selection-start="134" selection-end="134" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/SysRoles.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="41" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0" />
@@ -921,42 +937,82 @@
         <state line="14" column="0" selection-start="262" selection-end="262" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SysUsers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="35" selection-start="803" selection-end="803" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/default.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="23" selection-start="1498" selection-end="1498" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="113" column="23" selection-start="1498" selection-end="1498" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/tags/pagination.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="493" selection-end="493" vertical-scroll-proportion="1.0043764" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/application.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="176" selection-end="176" vertical-scroll-proportion="0.24667473" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SysUsers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="27" selection-start="930" selection-end="930" vertical-scroll-proportion="0.0">
+        <state line="19" column="11" selection-start="480" selection-end="480" vertical-scroll-proportion="-1.1904176">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/tags/pagination.html">
+    <entry file="file://$PROJECT_DIR$/app/models/sys/SysRole.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="493" selection-end="493" vertical-scroll-proportion="1.0043764">
+        <state line="40" column="23" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/sys/Organization.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="0" selection-start="731" selection-end="731" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/sys/Function.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="27" selection-start="649" selection-end="649" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/sys/UserFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="23" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/sys/SysUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="9" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/Topics/show.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="22" selection-start="631" selection-end="631" vertical-scroll-proportion="0.5562827">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/SysUsers/show.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="0" selection-start="3078" selection-end="3078" vertical-scroll-proportion="-7.423077">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/application.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="176" selection-end="176" vertical-scroll-proportion="0.24667473">
+        <state line="94" column="6" selection-start="3184" selection-end="3184" vertical-scroll-proportion="0.986166">
           <folding />
         </state>
       </provider>

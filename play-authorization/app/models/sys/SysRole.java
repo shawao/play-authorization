@@ -33,4 +33,11 @@ public class SysRole extends Model {
 
     public Date createDate=new Date();
     public Date lastUpdate;
+
+
+    public SysRole(String remark, String name, String key) {
+        this.remark = remark;
+        this.name = name;
+        this.key = key;
+    }
 }
