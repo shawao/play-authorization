@@ -45,7 +45,7 @@ public class SysUsers extends Application implements AppConstants{
         play.Logger.info("<< create user: {loginName:"+loginName+",...}");
         SysUser user=new SysUser(loginName.trim(),nickName==null?loginName.trim():nickName.trim(),password);
         user.save();
-        index();
+        show(1);
     }
 
 
@@ -59,7 +59,7 @@ public class SysUsers extends Application implements AppConstants{
         }else{
             play.Logger.info(">> SysUser("+id+") doesn't exist");
         }
-        index();
+        show(1);
     }
 
 
@@ -88,6 +88,6 @@ public class SysUsers extends Application implements AppConstants{
             log.info("User("+userId+") assigned roles("+buf.toString()+") okay");
         }
         
-        index();
+        show(1);
     }
 }

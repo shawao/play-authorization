@@ -26,9 +26,9 @@ public class SysRoles extends Application{
     public static void show(Integer page){
         Integer pageSequence=page==null || page<0?1:page;
         int from=(pageSequence-1)*pageSize;
-        List<SysRole> roleList= SysRole.all().from(from).fetch(pageSize);
-        Long roleCount=SysRole.count();
-        render(roleCount,roleList,pageSequence);
+        List<SysRole> entityList= SysRole.all().from(from).fetch(pageSize);
+        Long entityCount=SysRole.count();
+        render(entityCount,entityList,pageSequence);
     }
 
 
@@ -39,7 +39,7 @@ public class SysRoles extends Application{
         SysRole role=new SysRole(name,key,remark);
         role.save();
         flash.success("created role okay");
-        index();
+        show(1);
     }
 
 
@@ -53,6 +53,6 @@ public class SysRoles extends Application{
         }else{
             log.info(">> SysRole("+id+") doesn't exist");
         }
-        index();
+        show(1);
     }
 }

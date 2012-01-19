@@ -25,6 +25,16 @@ public class Application extends Controller {
     }
 
     @Before
+    static void authenticate(){
+        log.info("=========================================================");
+        log.info("request.url = "+request.url);
+        log.info("request.controllerClass.actionMethod = "+request.controllerClass+"."+request.actionMethod);
+//        log.info("request.actionMethod = "+request.actionMethod);
+        log.info("request.remoteAddress = "+request.remoteAddress);
+        log.info("=============================\n\n");
+    }
+
+    @Before
     static void checkSecure() {
         Secure secure = getActionAnnotation(Secure.class);
 //        if (secure != null) {
