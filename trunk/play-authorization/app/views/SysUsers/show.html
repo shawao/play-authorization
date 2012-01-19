@@ -70,7 +70,26 @@
     }
 
     function submitAssignInfo(){
-        if(confirm("Confirm assign these roles to ["
+        var ridArray=document.getElementsByName("roleId");
+
+        var empty=true;
+        var promptString='';
+
+        for(var i=0;i<ridArray.length;i++){
+            if(ridArray[i].checked){
+                empty=false;
+//                promptString+=ridArray[i].value+',';
+            }
+
+        }
+//        alert(promptString);
+
+        if(empty){
+            alert("请至少选择一个角色");
+            return;
+        }
+
+        if(!empty && confirm("Confirm assign these roles to ["
                 +document.getElementById('assign_user').innerHTML+"]")){
             //var assignForm=document.getElementById('assign_form');
             //assignForm.submit();
@@ -80,10 +99,11 @@
 #{/set}
 
 
-<h1 id="title">Users</h1>
-<p class="light">
+<h1 id="title">用户管理</h1>
+*{<p class="light">}*
+<p class="light_bar">
 #{pluralize size:userList.size(), word:'user' /} in #{pluralize size:userCount, word:'user' /}
-    &nbsp;<a href="javascript:showNewForm()">New User</a>
+    &nbsp;<a class="link_as_button" href="javascript:showNewForm()">创建用户</a>
 </p>
 
 #{pagination page:pageSequence ?: 1, size:userCount /}
@@ -91,13 +111,13 @@
 <table id="users-list">
     <thead>
     <tr>
-        <th class="main">Login Name</th>
-        <th class="main">Nickname</th>
-        <th class="main">Create time</th>
-        <th class="main">Last update</th>
-        <th class="main">Roles</th>
-        <th class="main">Organizations</th>
-        <th class="infos">Operations</th>
+        <th class="main">登录名</th>
+        <th class="main">昵称</th>
+        <th class="main" width="80px">创建时间</th>
+        <th class="main"  width="80px">最近更新</th>
+        <th class="main">角色</th>
+        <th class="main">所属组织</th>
+        <th width="100px">操作</th>
     </tr>
     </thead>
 #{if userList.size()>0}
@@ -108,13 +128,13 @@
             <td class="main">${user.createDate.format("yyyy-MM-dd")}</td>
             <td class="main">${user.lastUpdate?user.lastUpdate.format("yyyy-MM-dd"):""}</td>
             <td class="main">
-                <a class="button_link"
-                   href="javascript:showAssignForm('${user.id}','${user.loginName}');" >assign</a>
+                <a class="link_as_button"
+                   href="javascript:showAssignForm('${user.id}','${user.loginName}');" >分配</a>
             </td>
             <td class="main"></td>
             <td class="main">
-                <a class="button_link" href="#" >edit</a>
-                <a class="button_link" href="javascript:deleteByPost('@{SysUsers.delete}','${user.id}','Confirm to delete this user(${user.loginName})');">delete</a>
+                <a class="link_as_button" href="#" >编辑</a>
+                <a class="link_as_button" href="javascript:deleteByPost('@{SysUsers.delete}','${user.id}','Confirm to delete this user(${user.loginName})');">删除</a>
             </td>
         </tr>
     #{/list}
@@ -126,26 +146,26 @@
 <div id="add_user_div" style="display: none;" class="hidden_div">
     <form id="add_user_form" action="@{SysUsers.create}" method="post">
     <table class="myTable">
-        <tr><td colspan="2" style="border-bottom: solid 2px;"><b>New User:</b></td></tr>
+        <tr><td colspan="2" style="border-bottom: solid 2px;"><b>创建用户：</b></td></tr>
         <tr>
-            <td align="right" class="input_label"><label for="loginName">Login name</label>:</td>
+            <td align="right" class="input_label"><label for="loginName">登录名</label>:</td>
             <td><input id="loginName" name="loginName" type="text" maxlength="50"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="nickName">Nick name</label>:</td>
+            <td align="right" class="input_label"><label for="nickName">昵称</label>:</td>
             <td><input id="nickName" name="nickName" type="text" maxlength="50"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="password">Password</label>:</td>
+            <td align="right" class="input_label"><label for="password">密码</label>:</td>
             <td><input id="password" name="password" type="password" maxlength="20"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="password2">Reinput password</label>:</td>
+            <td align="right" class="input_label"><label for="password2">重新输入密码</label>:</td>
             <td><input id="password2" name="password2" type="password" maxlength="20"/></td>
         </tr>
         <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
-            <input style="padding-top: 5px" type="button" value="Cancel" onclick="cancelNewEntity();"/>&nbsp;&nbsp;
-            <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="Submit"/>
+            <input style="padding-top: 5px" type="button" value="取消" onclick="cancelNewEntity();"/>&nbsp;&nbsp;
+            <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="保存"/>
         </td></tr>
     </table>
     </form>
@@ -157,18 +177,18 @@
     <form id="assign_form" action="@{SysUsers.assignRoles()}" method="post">
         <table class="myTable">
             <tr><td colspan="2" style="border-bottom: solid 2px;">
-                <b>Assign User (<span id="assign_user" style="color: #ba120f;"></span>) Role:</b>
+                <b>为用户 (<span id="assign_user" style="color: #ba120f;"></span>) 分配角色:</b>
             </td></tr>
             <input type="hidden" id="assign_user_id" name="userId" value=""/>
             <tr>
-                <td align="right" class="input_label" valign="top"><label>Roles</label>:</td>
+                <td align="right" class="input_label" valign="top" width="50px"><label></label></td>
                 <td>
                     <table class="myTable">
                         <thead style="background-color: #888888;">
                         <tr>
-                            <th class="main">Name</th>
-                            <th class="main">Key</th>
-                            <th class="main">Remark</th>
+                            <th class="main">角色名</th>
+                            <th class="main">键值</th>
+                            <th class="main">备注</th>
                         </tr>
                         </thead>
                     #{if roleList.size()>0}

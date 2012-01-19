@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <title>Play! Authorization - #{get 'title' /}</title>
+        <title>Fault AI System - #{get 'title' /}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=${_response_encoding}"/>
         <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}" />
         <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/jkmegamenu.css'}" />
@@ -13,37 +13,35 @@
         <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}"></script>
         <script src="@{'/public/javascripts/jkmegamenu.js'}"></script>
         <script type="text/javascript">
-            //jkmegamenu.definemenu("anchorid", "menuid", "mouseover|click")
             jkmegamenu.definemenu("megaanchor", "megamenu1", "mouseover")
         </script>
     #{get 'moreScripts' /}
     </head>
 
     <body>
-	
+
 		<div id="main">
 	
 			<div id="header">
 				#{if connected}
 					<p>
-						Welcome <a class="connectedUser" href="@{Users.show(connected.id)}">${connected.name}</a>
-						(<a href="@{Application.logout}">Logout</a>)
+						欢迎 <a class="connectedUser" href="@{Users.show(connected.id)}">${connected.name}</a>
+						(<a href="@{Application.logout}">退出</a>)
 					</p>
 				#{/if}
 				#{else}
-					<p>
-						Still not a member ? <a href="@{Application.signup}">Signup</a>.
-						Or if you already have an account, just <a href="@{Application.login}">Login</a>.
+                    <p>
+						<a href="@{Application.signup}">注册</a>&nbsp;&nbsp;<a href="@{Application.login}">登录</a>
 					</p>
 				#{/else}
 		
 				<ul id="menu">
-					<li><a class="${request?.controller == 'SysUsers'? 'selected' : ''}" href="@{SysUsers.index}">Users</a></li>
-					<li><a class="${request?.controller == 'SysRoles'? 'selected' : ''}" href="@{SysRoles.index}">Roles</a></li>
-					<li><a class="${request?.controller == 'Functions'? 'selected' : ''}" href="@{Functions.index}">Functions</a></li>
-					<li><a class="${request?.controller == 'Organizations'? 'selected' : ''}" href="@{Organizations.index}">Organizations</a></li>
-					*{<li><a class="" href="#">TotalMenu</a></li>}*
-					<li><a id="megaanchor" style="background-color: #6495ed;" href="#">TotalMenu</a></li>
+                    <li><a id="megaanchor" style="background-color: #6495ed;" href="#">系统地图</a></li>
+					<li><a class="${request?.controller == 'Welcome'? 'selected' : ''}" href="@{Welcome.index}">欢迎</a></li>
+					<li><a class="${request?.controller == 'SysUsers'? 'selected' : ''}" href="@{SysUsers.index}">用户</a></li>
+					<li><a class="${request?.controller == 'SysRoles'? 'selected' : ''}" href="@{SysRoles.index}">角色</a></li>
+					<li><a class="${request?.controller == 'Functions'? 'selected' : ''}" href="@{Functions.index}">功能</a></li>
+					<li><a class="${request?.controller == 'Organizations'? 'selected' : ''}" href="@{Organizations.index}">组织</a></li>
 				</ul>
 			</div>
 			
@@ -61,11 +59,10 @@
 			
 			<div id="footer">
 				<p>
-					Just a sample authorization implementation with <a href="http://www.playframework.org">Play!</a>, &nbsp;
+					Just a sample fault AI system with <a href="http://www.playframework.org">Play!</a>, &nbsp;
                     Author:<a href="mailto:ember319@gmail.com">ember</a>
 				</p>
 			</div>
-		
 		</div>
 
 
@@ -74,66 +71,52 @@
         <div id="megamenu1" class="megamenu">
 
             <div class="column">
-                <h3>Web Development</h3>
+                <h3>站点</h3>
                 <ul>
-                    <li><a href="http://www.javascriptkit.com">JavaScript Kit</a></li>
-                    <li><a href="http://www.dynamicdrive.com/">Dynamic Drive</a></li>
-                    <li><a href="http://www.cssdrive.com">CSS Drive</a></li>
-                    <li><a href="http://www.codingforums.com">Coding Forums</a></li>
-                    <li><a href="http://www.javascriptkit.com/domref/">DOM Reference</a></li>
+                    <li><a href="＃">基本信息</a></li>
+                    <li><a href="＃">相册</a></li>
+                    <li><a href="＃">历史</a></li>
+                    <li><a href="＃">模块</a></li>
+                    <li><a href="＃">联系人</a></li>
                 </ul>
             </div>
 
             <div class="column">
-                <h3>News Related</h3>
+                <h3>故障</h3>
                 <ul>
-                    <li><a href="http://www.cnn.com/">CNN</a></li>
-                    <li><a href="http://www.msnbc.com">MSNBC</a></li>
-                    <li><a href="http://www.google.com">Google</a></li>
-                    <li><a href="http://news.bbc.co.uk">BBC News</a></li>
+                    <li><a href="＃">基本信息</a></li>
+                    <li><a href="＃">维修报告</a></li>
+                    <li><a href="＃">分析／助诊</a></li>
                 </ul>
             </div>
 
             <div class="column">
-                <h3>Technology</h3>
+                <h3>辅助信息</h3>
                 <ul>
-                    <li><a href="http://www.news.com/">News.com</a></li>
-                    <li><a href="http://www.slashdot.com">SlashDot</a></li>
-                    <li><a href="http://www.digg.com">Digg</a></li>
-                    <li><a href="http://www.techcrunch.com">Tech Crunch</a></li>
+                    <li><a href="＃">省市区</a></li>
+                    <li><a href="＃">模块类型</a></li>
+                    <li><a href="＃">厂家</a></li>
+                    <li><a href="＃">常量</a></li>
                 </ul>
             </div>
 
             <br style="clear: left" /> <!--Break after 3rd column. Move this if desired-->
 
             <div class="column">
-                <h3>Web Development</h3>
+                <h3>故障单查询</h3>
                 <ul>
-                    <li><a href="http://www.javascriptkit.com">JavaScript Kit</a></li>
-                    <li><a href="http://www.dynamicdrive.com/">Dynamic Drive</a></li>
-                    <li><a href="http://www.cssdrive.com">CSS Drive</a></li>
-                    <li><a href="http://www.codingforums.com">Coding Forums</a></li>
-                    <li><a href="http://www.javascriptkit.com/domref/">DOM Reference</a></li>
+                    <li><a href="＃">符合查询</a></li>
+                    <li><a href="＃">统计报表</a></li>
                 </ul>
             </div>
 
             <div class="column">
-                <h3>News Related</h3>
+                <h3>权限</h3>
                 <ul>
-                    <li><a href="http://www.cnn.com/">CNN</a></li>
-                    <li><a href="http://www.msnbc.com">MSNBC</a></li>
-                    <li><a href="http://www.google.com">Google</a></li>
-                    <li><a href="http://news.bbc.co.uk">BBC News</a></li>
-                </ul>
-            </div>
-
-            <div class="column">
-                <h3>Technology</h3>
-                <ul>
-                    <li><a href="http://www.news.com/">News.com</a></li>
-                    <li><a href="http://www.slashdot.com">SlashDot</a></li>
-                    <li><a href="http://www.digg.com">Digg</a></li>
-                    <li><a href="http://www.techcrunch.com">Tech Crunch</a></li>
+                    <li><a href="＃">用户</a></li>
+                    <li><a href="＃">角色</a></li>
+                    <li><a href="＃">功能</a></li>
+                    <li><a href="＃">组织</a></li>
                 </ul>
             </div>
 
