@@ -1,5 +1,6 @@
 package models.sys;
 
+import models.AbstractEntity;
 import play.data.validation.Required;
 import play.db.jpa.JPA;
 import play.db.jpa.Model;
@@ -16,7 +17,7 @@ import java.util.*;
  */
 @Entity
 @Table(name = "sys_user")
-public class SysUser extends Model {
+public class SysUser extends AbstractEntity {
     @Required
     @Column(nullable = false,length = 50,unique = true)
     public String loginName;
@@ -43,10 +44,6 @@ public class SysUser extends Model {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     public List<SysRole> roles=new ArrayList<SysRole>();
-
-    public Date createDate=new Date();
-    public Date lastUpdate;
-
 
 
     public SysUser(String loginName, String nickName, String password) {

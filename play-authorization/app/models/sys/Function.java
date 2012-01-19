@@ -1,5 +1,6 @@
 package models.sys;
 
+import models.AbstractEntity;
 import play.db.jpa.Model;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "sys_function")
-public class Function extends Model {
+public class Function extends AbstractEntity {
     // marked like style: 001001001
     @Column(name="func_key",length = 100,nullable = false,unique = true)
     public String key;
@@ -31,10 +32,6 @@ public class Function extends Model {
     public Function parent;
     
     public int status;//0：未被使用，1：正常使用，2：禁用
-
-    public Date createDate=new Date();
-    public Date lastUpdate;
-
     public Function(String name, String key, String remark, Function parent) {
         this.key = key;
         this.name = name;

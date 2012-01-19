@@ -1,5 +1,6 @@
 package models.sys;
 
+import models.AbstractEntity;
 import play.db.jpa.Model;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "sys_organization")
-public class Organization extends Model {
+public class Organization extends AbstractEntity {
 
     // marked like style: 001001001
     @Column(name="org_key",length = 100,nullable = false,unique = true)
@@ -30,9 +31,6 @@ public class Organization extends Model {
 
     @ManyToOne
     public Organization parent;
-
-    public Date createDate=new Date();
-    public Date lastUpdate;
 
 
     public Organization(String key, String name, String remark, Organization parent) {
