@@ -94,11 +94,13 @@ form .error {
 
 
 /*zoubo appended*/
-.button_link{
-    border: solid 1px #cd5c5c;
-    background-color: #a1c3cc;
+.link_as_button {
+    /*border: solid 1px #cd5c5c;*/
+    background-color: #e6e6e0;
     padding-left: 5px;
-    font-size: 11px;
+    padding-right: 5px;
+    font-size: 12px;
+    text-decoration:none;
 }
 
 .current_page_num{

@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home
-GET		/																SysUsers.index
+GET		/																Welcome.index
 
 # Registration/Authentication
 GET		/signup															Application.signup

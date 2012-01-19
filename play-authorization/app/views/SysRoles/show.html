@@ -46,10 +46,10 @@
 #{/set}
 
 
-<h1 id="title">Roles</h1>
-<p class="light">
+<h1 id="title">角色管理</h1>
+<p class="light_bar">
 #{pluralize size:roleList.size(), word:'role' /} in #{pluralize size:roleCount, word:'role' /}
-    &nbsp;<a href="javascript:showNewForm()">New Role</a>
+    &nbsp;<a class="link_as_button" href="javascript:showNewForm()">创建角色</a>
 </p>
 
 #{pagination page:pageSequence ?: 1, size:roleCount /}
@@ -57,13 +57,13 @@
 <table id="users-list">
     <thead>
     <tr>
-        <th class="main">Name</th>
-        <th class="main">Key</th>
-        <th class="main">Remark</th>
-        <th class="main">Create time</th>
-        <th class="main">Last update</th>
-        <th class="main">Functions</th>
-        <th class="infos">Operations</th>
+        <th class="main">角色名</th>
+        <th class="main">键值</th>
+        <th class="main">备注</th>
+        <th class="main" width="80px">创建时间</th>
+        <th class="main" width="80px">最后更新</th>
+        <th class="main">功能</th>
+        <th width="100px">操作</th>
     </tr>
     </thead>
 #{if roleList.size()>0}
@@ -74,10 +74,10 @@
             <td class="main">${role.remark}</td>
             <td class="main">${role.createDate.format("yyyy-MM-dd")}</td>
             <td class="main">${role.lastUpdate?role.lastUpdate.format("yyyy-MM-dd"):""}</td>
-            <td class="main"><a class="button_link" href="#" >assign</a></td>
+            <td class="main"><a class="link_as_button" href="#" >分配</a></td>
             <td class="main">
-                <a class="button_link" href="#" >edit</a>
-                <a class="button_link" href="javascript:deleteByPost('@{SysRoles.delete}','${role.id}','Confirm to delete this role(${role.name})');">delete</a>
+                <a class="link_as_button" href="#" >编辑</a>
+                <a class="link_as_button" href="javascript:deleteByPost('@{SysRoles.delete}','${role.id}','Confirm to delete this role(${role.name})');">删除</a>
             </td>
         </tr>
     #{/list}
@@ -89,22 +89,22 @@
 <div id="add_div" style="display: none;">
     <form id="add_form" action="@{SysRoles.create}" method="post">
         <table id="newTable">
-            <tr><td colspan="2" style="border-bottom: solid 2px;" id="table_title"><b>New Role:</b></td></tr>
+            <tr><td colspan="2" style="border-bottom: solid 2px;" id="table_title"><b>创建角色：</b></td></tr>
             <tr>
-                <td align="right" class="input_label"><label for="name">Name</label>:</td>
+                <td align="right" class="input_label"><label for="name">角色名：</label></td>
                 <td><input id="name" name="name" type="text" maxlength="50"/></td>
             </tr>
             <tr>
-                <td align="right" class="input_label"><label for="key">Key</label>:</td>
+                <td align="right" class="input_label"><label for="key">键值：</label></td>
                 <td><input id="key" name="key" type="text" maxlength="50"/></td>
             </tr>
             <tr>
-                <td align="right" class="input_label"><label for="remark">Remark</label>:</td>
+                <td align="right" class="input_label"><label for="remark">备注：</label></td>
                 <td><input id="remark" name="remark" type="text" maxlength="20"/></td>
             </tr>
             <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
-                <input style="padding-top: 5px" type="button" value="Cancel" onclick="cancelNewEntity();"/>&nbsp;&nbsp;
-                <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="Submit"/>
+                <input style="padding-top: 5px" type="button" value="取消" onclick="cancelNewEntity();"/>&nbsp;&nbsp;
+                <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="保存"/>
             </td></tr>
         </table>
     </form>
