@@ -32,4 +32,11 @@ public class Function extends Model {
 
     public Date createDate=new Date();
     public Date lastUpdate;
+
+    public Function(String key, String name, String remark, Function parent) {
+        this.key = key;
+        this.name = name;
+        this.remark = remark;
+        this.parent = parent;
+    }
 }

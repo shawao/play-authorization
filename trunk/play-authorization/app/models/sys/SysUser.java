@@ -5,6 +5,8 @@ import play.db.jpa.Model;
 import play.libs.Codec;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -51,5 +53,16 @@ public class SysUser extends Model {
         this.nickName = nickName;
         this.password = Codec.hexMD5(password);
         create();
+    }
+
+
+    //todo: reduplicate roles should be filtered here
+    public void assignRoles(SysRole ...rolesArray ){
+        if(roles==null){
+            roles=new ArrayList<SysRole>();
+            Collections.addAll(roles, rolesArray);
+        }else{
+            Collections.addAll(roles, rolesArray);
+        }
     }
 }

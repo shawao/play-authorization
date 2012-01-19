@@ -1,12 +1,9 @@
 package controllers;
 
 import models.sys.SysUser;
-import org.apache.log4j.Logger;
-import play.data.validation.Email;
 import play.data.validation.Equals;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
-import play.mvc.Controller;
 
 import java.util.List;
 
@@ -18,9 +15,6 @@ import java.util.List;
  */
 public class SysUsers extends Application implements AppConstants{
 
-//    static Logger log=Logger.getLogger(SysUsers.class);
-
-
 
     public static void index(){
         show(1);
@@ -29,7 +23,6 @@ public class SysUsers extends Application implements AppConstants{
 
     public static void show(Integer page){
         Integer pageSequence=page==null || page<0?1:page;
-        // Parameters input
         // users specified by page number and page size
         int from=(pageSequence-1)*pageSize;
         List<SysUser> userList=SysUser.all().from(from).fetch(pageSize);
