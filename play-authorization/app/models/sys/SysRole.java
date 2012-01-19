@@ -3,6 +3,7 @@ package models.sys;
 import play.db.jpa.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class SysRole extends Model {
     @JoinTable(name = "rel_role_func",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "func_id", referencedColumnName = "id"))
-    public List<Function> functions;
+    public List<Function> functions=new ArrayList<Function>();
 
     public Date createDate=new Date();
     public Date lastUpdate;

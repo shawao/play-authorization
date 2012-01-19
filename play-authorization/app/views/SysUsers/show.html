@@ -16,6 +16,11 @@
     .myTable tr{height: 25px;border-left: none;border-right: none;}
     .myTable tr td{height: 25px;border-left: none;border-right: none;}
     .input_label{font-style: oblique;}
+
+    .role_col {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 </style>
 #{/set}
 
@@ -91,8 +96,8 @@
 
         if(!empty && confirm("Confirm assign these roles to ["
                 +document.getElementById('assign_user').innerHTML+"]")){
-            //var assignForm=document.getElementById('assign_form');
-            //assignForm.submit();
+//            var assignForm=document.getElementById('assign_form');
+            document.getElementById('assign_form').submit();
         }
     }
 </script>
@@ -114,8 +119,8 @@
         <th class="main">登录名</th>
         <th class="main">昵称</th>
         <th class="main" width="80px">创建时间</th>
-        <th class="main"  width="80px">最近更新</th>
-        <th class="main">角色</th>
+        <th class="main" width="80px">最近更新</th>
+        <th class="main" width="250px">角色</th>
         <th class="main">所属组织</th>
         <th width="100px">操作</th>
     </tr>
@@ -130,6 +135,9 @@
             <td class="main">
                 <a class="link_as_button"
                    href="javascript:showAssignForm('${user.id}','${user.loginName}');" >分配</a>
+            #{if user.roles.size()>0}#{list items:user.roles, as:'role'}
+                <span class="role_col">${role.name}</span>
+            #{/list}#{/if}
             </td>
             <td class="main"></td>
             <td class="main">

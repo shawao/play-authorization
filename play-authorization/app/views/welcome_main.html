@@ -38,7 +38,6 @@
 				<ul id="menu">
                     <li><a id="megaanchor" style="background-color: #6495ed;" href="#">系统地图</a></li>
 					<li><a class="${request?.controller == 'Welcome'? 'selected' : ''}" href="@{Welcome.index}">欢迎</a></li>
-                    #{get 'moreCustomMenus' /}
 				</ul>
 			</div>
 			
@@ -54,10 +53,9 @@
 	       		#{doLayout /}
 			</div>
 			
-			<div id="footer">
-            #{include 'common/footer.html'/}
-			</div>
+			<div id="footer">#{include 'common/footer.html'/}</div>
 		</div>
+
 
 
         <!--Mega Drop Down Menu HTML. Retain given CSS classes-->

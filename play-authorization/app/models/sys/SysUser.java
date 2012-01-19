@@ -29,6 +29,9 @@ public class SysUser extends Model {
     @Column(nullable = false,length = 50)
     public String password;
 
+    @Column(length = 80)
+    public String email;
+
     @ManyToMany
     @JoinTable(name = "rel_user_org",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -39,7 +42,7 @@ public class SysUser extends Model {
     @JoinTable(name = "rel_user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    public List<SysRole> roles;
+    public List<SysRole> roles=new ArrayList<SysRole>();
 
     public Date createDate=new Date();
     public Date lastUpdate;
@@ -50,7 +53,7 @@ public class SysUser extends Model {
         this.loginName = loginName;
         this.nickName = nickName;
         this.password = Codec.hexMD5(password);
-        create();
+//        create();
     }
 
 
@@ -76,16 +79,11 @@ public class SysUser extends Model {
 
 
     public void assignRoles(List<SysRole> rolesList ){
-        if(roles==null){
-            roles=new ArrayList<SysRole>();
-        }
-        roles.addAll(rolesList);
-
+        roles=rolesList;
         this.save();
 
         // save in batch
         EntityManager entityManager=JPA.em();
-
         for(SysRole role:roles){
             for(Function function:role.functions){
                 entityManager.persist(new UserFunction(id,function.id));
