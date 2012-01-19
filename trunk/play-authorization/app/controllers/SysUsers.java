@@ -64,13 +64,16 @@ public class SysUsers extends Application implements AppConstants{
 
 
     public static void assignRoles(Long userId,Long[] roleId){
+
+        SysUser user=SysUser.findById(userId);
+        
         if(roleId==null){
-            flash.error("Invalid role id array input");
+            log.info("No roles id input, so clear all roles of user: "+userId);
+            user.roles.clear();
+            user.save();
         }else{
-            SysUser user=SysUser.findById(userId);
-            
             List<SysRole> roles=new ArrayList<SysRole>();
-            
+
             for(Long rid:roleId){
                 SysRole sysRole=SysRole.findById(rid);
                 roles.add(sysRole);
@@ -84,5 +87,7 @@ public class SysUsers extends Application implements AppConstants{
             }
             log.info("User("+userId+") assigned roles("+buf.toString()+") okay");
         }
+        
+        index();
     }
 }
