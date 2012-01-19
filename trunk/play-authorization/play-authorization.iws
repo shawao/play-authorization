@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="e71f724e-bdde-463e-bf26-ad785c5b63f2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/SysRoles/show.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/SysRoles.java" afterPath="$PROJECT_DIR$/app/controllers/SysRoles.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/SysUsers.java" afterPath="$PROJECT_DIR$/app/controllers/SysUsers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/SysRole.java" afterPath="$PROJECT_DIR$/app/models/sys/SysRole.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/SysUser.java" afterPath="$PROJECT_DIR$/app/models/sys/SysUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/UserFunction.java" afterPath="$PROJECT_DIR$/app/models/sys/UserFunction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/SysUsers/show.html" afterPath="$PROJECT_DIR$/app/views/SysUsers/show.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/default.js" afterPath="$PROJECT_DIR$/public/javascripts/default.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/default.css" afterPath="$PROJECT_DIR$/public/stylesheets/default.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/auth_main.html" afterPath="$PROJECT_DIR$/app/views/auth_main.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-result/application.log" afterPath="$PROJECT_DIR$/test-result/application.log" />
     </list>
     <ignored path="play-authorization.iws" />
@@ -101,10 +94,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="show.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/SysUsers/show.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="7" selection-start="445" selection-end="445" vertical-scroll-proportion="-0.9146982">
+            <state line="78" column="9" selection-start="2596" selection-end="2596" vertical-scroll-proportion="-16.23077">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="auth_main.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/auth_main.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="63" selection-start="1684" selection-end="1684" vertical-scroll-proportion="0.4238845">
               <folding />
             </state>
           </provider>
@@ -143,7 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/Functions.java" />
         <option value="$PROJECT_DIR$/app/controllers/Organizations.java" />
         <option value="$PROJECT_DIR$/app/views/tags/pagination.html" />
         <option value="$PROJECT_DIR$/app/controllers/Application.java" />
@@ -159,6 +160,7 @@
         <option value="$PROJECT_DIR$/app/controllers/SysRoles.java" />
         <option value="$PROJECT_DIR$/app/controllers/SysUsers.java" />
         <option value="$PROJECT_DIR$/app/views/SysUsers/show.html" />
+        <option value="$PROJECT_DIR$/app/views/auth_main.html" />
       </list>
     </option>
   </component>
@@ -977,13 +979,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/opensources/playframework.org/play-1.2.4/framework/src/play/db/jpa/GenericModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="202" column="11" selection-start="9379" selection-end="9379" vertical-scroll-proportion="0.36466166">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/sys/UserFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="29" selection-start="449" selection-end="449" vertical-scroll-proportion="0.0">
@@ -1091,7 +1086,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/SysUsers/show.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="7" selection-start="445" selection-end="445" vertical-scroll-proportion="-0.9146982">
+        <state line="78" column="9" selection-start="2596" selection-end="2596" vertical-scroll-proportion="-16.23077">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/auth_main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="63" selection-start="1684" selection-end="1684" vertical-scroll-proportion="0.4238845">
           <folding />
         </state>
       </provider>

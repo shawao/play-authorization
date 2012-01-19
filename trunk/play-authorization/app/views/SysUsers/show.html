@@ -70,8 +70,11 @@
     }
 
     function submitAssignInfo(){
-        var assignForm=document.getElementById('assign_form');
-//        assignForm.submit();
+        if(confirm("Confirm assign these roles to ["
+                +document.getElementById('assign_user').innerHTML+"]")){
+            //var assignForm=document.getElementById('assign_form');
+            //assignForm.submit();
+        }
     }
 </script>
 #{/set}
@@ -154,7 +157,7 @@
     <form id="assign_form" action="@{SysUsers.assignRoles()}" method="post">
         <table class="myTable">
             <tr><td colspan="2" style="border-bottom: solid 2px;">
-                <b>Assign User (<span id="assign_user" style="color: #2244BB;"></span>) Role:</b>
+                <b>Assign User (<span id="assign_user" style="color: #ba120f;"></span>) Role:</b>
             </td></tr>
             <input type="hidden" id="assign_user_id" name="userId" value=""/>
             <tr>
@@ -185,7 +188,7 @@
             <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
                 <input style="padding-top: 5px" type="reset" value="Reset"/>&nbsp;&nbsp;
                 <input style="padding-top: 5px" type="button" value="Cancel" onclick="cancelAssignForm();"/>&nbsp;&nbsp;
-                <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="Submit"/>
+                <input style="padding-top: 5px" type="button" onclick="submitAssignInfo();" value="Submit"/>
             </td></tr>
         </table>
     </form>
