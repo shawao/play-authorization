@@ -1,0 +1,20 @@
+#{extends 'auth_main.html' /}
+
+<h1 id="title">Users</h1>
+<p class="light">
+	#{pluralize size:userCount, word:'user' /}
+</p>
+
+#{pagination page:pageSequence ?: 1, size:userCount /}
+
+<table id="users-list">
+	<thead>
+		<tr>
+			<th class="main">Login Name</th>
+			<th class="main">Nickname</th>
+			<th class="main">Roles</th>
+			<th class="main">Organizations</th>
+			<th class="infos">Operations</th>
+		</tr>
+	</thead>
+</table>

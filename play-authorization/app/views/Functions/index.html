@@ -1,0 +1,17 @@
+#{extends 'auth_main.html' /}
+
+<h1 id="title">Functions</h1>
+<p class="light">
+	*{#{pluralize size:nbUsers, word:'user' /}}*
+</p>
+
+*{#{pagination page:page ?: 1, size:nbUsers /}}*
+
+<table id="users-list">
+	<thead>
+		<tr>
+			<th class="main">User Name</th>
+			<th class="infos">Roles</th>
+		</tr>
+	</thead>
+</table>

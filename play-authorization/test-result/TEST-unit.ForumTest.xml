@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="1.766" errors="0" skipped="0" tests="4" name="unit.ForumTest">
+  <testcase classname="unit.ForumTest" name="countObjects" time="1.156">
+      </testcase>
+  <testcase classname="unit.ForumTest" name="tryHelpForum" time="0.235">
+      </testcase>
+  <testcase classname="unit.ForumTest" name="tryPagination" time="0.218">
+      </testcase>
+  <testcase classname="unit.ForumTest" name="newForum" time="0.157">
+      </testcase>
+</testsuite>

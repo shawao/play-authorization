@@ -1,0 +1,121 @@
+#{extends 'auth_main.html' /}
+
+#{set "moreStyles"}
+<style type="text/css">
+    #add_user_div{
+        padding-top: 30px;
+        width: 50%;
+    }
+    #newTable{border: none;}
+    #newTable tr{height: 25px;border-left: none;border-right: none;}
+    #newTable tr td{height: 25px;border-left: none;border-right: none;}
+    .input_label{font-style: italic;}
+</style>
+#{/set}
+
+#{set 'moreScripts'}
+<script type="text/javascript">
+    function showNewUserForm(){
+        document.getElementById('loginName').value='';
+        document.getElementById('nickName').value='';
+        document.getElementById('password').value='';
+        document.getElementById('password2').value='';
+        document.getElementById('add_user_div').style.display='';
+    }
+
+    function cancelNewUser(){
+        document.getElementById('add_user_div').style.display='none';
+    }
+
+    function submitNewUser(){
+        var eleLName=document.getElementById('loginName');
+        var eleNName=document.getElementById('nickName');
+        var elePswd=document.getElementById('password');
+        var elePswd2=document.getElementById('password2');
+
+        if(eleLName.value.trim()==""){
+            alert("No loginName, please input it");
+            eleLName.focus();
+        }
+        else if(elePswd.value.trim()==""){
+            alert("No password, please input it");
+            elePswd.focus();
+        }
+        else if(elePswd.value.trim()!=elePswd2.value.trim()){
+            alert("Retyped password is wrong, please typed again carefully");
+            elePswd2.value='';
+            elePswd2.focus();
+        }else{
+            if(eleNName.value.trim()=='') eleNName.value=eleLName.value;
+            document.getElementById('add_user_form').submit();
+        }
+    }
+
+    function deleteUser(userId){
+        deleteByPost('@{SysUsers.delete}',userId,'Confirm to delete this user');
+    }
+</script>
+#{/set}
+
+
+<h1 id="title">Users</h1>
+<p class="light">
+#{pluralize size:userCount, word:'user' /} in #{pluralize size:userList.size(), word:'user' /}
+    &nbsp;<a href="javascript:showNewUserForm()">Add</a>
+</p>
+
+*{#{pagination page:pageSequence ?: 1, size:nbUsers /}}*
+
+<table id="users-list">
+    <thead>
+    <tr>
+        <th class="main">Login Name</th>
+        <th class="main">Nickname</th>
+        <th class="main">Roles</th>
+        <th class="main">Organizations</th>
+        <th class="infos">Operations</th>
+    </tr>
+    </thead>
+#{if userList.size()>0}
+    #{list items:userList, as:'user'}
+        <tr>
+            <td class="main"><a href="#">${user.loginName}</a></td>
+            <td class="main"><a href="#">${user.loginName}</a></td>
+            <td class="main"></td>
+            <td class="main"></td>
+            <td class="infos">
+                <a href="#">edit</a>&nbsp;&nbsp;
+                <a href="javascript:deleteByPost('@{SysUsers.delete}','${user.id}','Confirm to delete this user(${user.loginName})');">delete</a>
+            </td>
+        </tr>
+    #{/list}
+#{/if}
+</table>
+
+<div id="add_user_div" style="display: none;">
+    <form id="add_user_form" action="@{SysUsers.create}">
+    <table id="newTable">
+        <tr><td colspan="2" style="border-bottom: solid 2px;"><b>New User:</b></td></tr>
+        <tr>
+            <td align="right" class="input_label"><label for="loginName">Login name</label>:</td>
+            <td><input id="loginName" name="loginName" type="text" maxlength="50"/></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="nickName">Nick name</label>:</td>
+            <td><input id="nickName" name="nickName" type="text" maxlength="50"/></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="password">Password</label>:</td>
+            <td><input id="password" name="password" type="password" maxlength="20"/></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="password2">Reinput password</label>:</td>
+            <td><input id="password2" name="password2" type="password" maxlength="20"/></td>
+        </tr>
+        <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
+            <input style="padding-top: 5px" type="button" value="Cancel" onclick="cancelNewUser();"/>&nbsp;&nbsp;
+            <input style="padding-top: 5px" type="button" onclick="submitNewUser();" value="Submit"/>
+        </td></tr>
+    </table>
+    </form>
+</div>

@@ -1,0 +1,223 @@
+19 一月 2012 09:47:40,265 INFO  ~ Starting D:\my_projects\play_projects\play-authorization\trunk\play-authorization\.
+19 一月 2012 09:47:41,078 WARN  ~ You're running Play! in DEV mode
+19 一月 2012 09:47:41,281 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+19 一月 2012 09:49:19,515 INFO  ~ Connected to jdbc:mysql://localhost/play_forum
+19 一月 2012 09:49:21,843 INFO  ~ Application 'Common Authorization System' is now started !
+19 一月 2012 09:49:22,296 INFO  ~ Bootstrap started
+19 一月 2012 09:49:23,500 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 09:50:26,406 ERROR ~ 
+
+@695c498ib
+sysusers.showNewUserForm() action not found
+
+Action not found
+Action sysusers.showNewUserForm() could not be found. Error raised is No method public static void showNewUserForm()() was found in class controllers.sysusers
+
+play.exceptions.ActionNotFoundException: Action sysusers.showNewUserForm() not found
+	at play.mvc.ActionInvoker.getActionMethod(ActionInvoker.java:601)
+	at play.mvc.ActionInvoker.resolve(ActionInvoker.java:85)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.Exception: No method public static void showNewUserForm()() was found in class controllers.sysusers
+	... 3 more
+19 一月 2012 09:50:46,640 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 09:50:48,765 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 09:53:06,296 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 09:56:00,390 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 09:56:38,437 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 09:57:25,687 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 09:57:54,656 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 09:59:04,312 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:02:57,359 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:03:19,562 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:03:57,734 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:04:10,062 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:04:44,500 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:05:43,453 INFO  ~ << received page = null, pageSequence = 1
+19 一月 2012 10:05:49,546 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:06:13,328 ERROR ~ 
+
+@695c498ic
+Internal Server Error (500) for request GET /sysusers/show/1
+
+Oops: PatternSyntaxException
+An unexpected error occured caused by exception PatternSyntaxException: wrong class name: 
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.Invoker$Invocation.onException(Invoker.java:244)
+	at play.Invoker$Invocation.run(Invoker.java:286)
+	at Invocation.HTTP Request(Play!)
+Caused by: jregex.PatternSyntaxException: wrong class name: 
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:649)
+	at jregex.CharacterClass.parseName(jregex/CharacterClass.java:359)
+	at jregex.Term.append(jregex/Term.java:482)
+	at jregex.Term.makeTree(jregex/Term.java:259)
+	at jregex.Term.makeTree(jregex/Term.java:219)
+	at jregex.Term.makeTree(jregex/Term.java:206)
+	at jregex.Pattern.compile(jregex/Pattern.java:164)
+	at jregex.Pattern.<init>(jregex/Pattern.java:150)
+	at jregex.Pattern.<init>(jregex/Pattern.java:108)
+	at play.mvc.Router$Route.compute(Router.java:747)
+	at play.mvc.Router.getRoute(Router.java:134)
+	at play.mvc.Router.appendRoute(Router.java:118)
+	at play.mvc.Router.parse(Router.java:199)
+	at play.mvc.Router.parse(Router.java:164)
+	at play.mvc.Router.load(Router.java:48)
+	at play.mvc.Router.detectChanges(Router.java:219)
+	... 1 more
+19 一月 2012 10:06:58,000 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:07:51,500 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:08:45,671 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:08:53,843 ERROR ~ 
+
+@695c498id
+sysusers.SysUsers.create action not found
+
+Action not found
+Action sysusers.SysUsers.create could not be found. Error raised is Controller controllers.sysusers.SysUsers not found
+
+play.exceptions.ActionNotFoundException: Action sysusers.SysUsers.create not found
+	at play.mvc.ActionInvoker.getActionMethod(ActionInvoker.java:590)
+	at play.mvc.ActionInvoker.resolve(ActionInvoker.java:85)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.Exception: Controller controllers.sysusers.SysUsers not found
+	... 3 more
+19 一月 2012 10:14:40,078 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:14:55,375 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:15:16,718 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:15:19,734 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:15:24,000 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:16:04,875 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:18:48,328 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:18:59,343 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:19:21,203 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:35:20,937 INFO  ~ Bootstrap started
+19 一月 2012 10:35:20,937 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:36:22,328 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:36:27,312 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:38:33,750 ERROR ~ 
+
+@695c498ie
+sysusers.1 action not found
+
+Action not found
+Action sysusers.1 could not be found. Error raised is No method public static void 1() was found in class controllers.sysusers
+
+play.exceptions.ActionNotFoundException: Action sysusers.1 not found
+	at play.mvc.ActionInvoker.getActionMethod(ActionInvoker.java:601)
+	at play.mvc.ActionInvoker.resolve(ActionInvoker.java:85)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.Exception: No method public static void 1() was found in class controllers.sysusers
+	... 3 more
+19 一月 2012 10:38:36,890 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:40:36,625 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:41:02,046 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:41:16,703 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:42:59,312 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:43:50,296 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:44:41,984 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:45:15,843 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:48:24,062 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:50:00,796 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:50:26,812 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:51:42,265 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:58:03,796 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 10:58:15,218 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:00:37,046 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:00:44,359 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:01:02,578 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:01:29,609 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:02:03,296 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:03:24,531 INFO  ~ Bootstrap started
+19 一月 2012 11:03:24,531 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:05:10,218 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:07:14,843 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:08:09,109 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:08:55,234 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:10:23,468 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:10:49,109 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:11:03,265 INFO  ~ create user: {loginName:john,...}
+19 一月 2012 11:11:03,312 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:16:43,359 INFO  ~ Bootstrap started
+19 一月 2012 11:16:43,359 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:17:04,000 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:21:24,640 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:21:27,000 ERROR ~ 
+
+@695c498if
+sysusers.deleteUser(5) action not found
+
+Action not found
+Action sysusers.deleteUser(5) could not be found. Error raised is No method public static void deleteUser(5)() was found in class controllers.sysusers
+
+play.exceptions.ActionNotFoundException: Action sysusers.deleteUser(5) not found
+	at play.mvc.ActionInvoker.getActionMethod(ActionInvoker.java:601)
+	at play.mvc.ActionInvoker.resolve(ActionInvoker.java:85)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.Exception: No method public static void deleteUser(5)() was found in class controllers.sysusers
+	... 3 more
+19 一月 2012 11:21:31,671 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:21:50,281 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:22:27,687 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:38:08,640 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:38:12,093 INFO  ~ SysUser(5) deleted okay, and render page to index
+19 一月 2012 11:38:12,140 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:38:14,046 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:39:59,750 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:40:13,046 INFO  ~ create user: {loginName:kitty,...}
+19 一月 2012 11:40:13,093 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:40:57,609 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:41:00,750 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:41:05,250 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:42:33,343 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:43:07,265 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:43:12,718 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:45:41,765 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:45:49,203 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:46:14,328 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:46:18,328 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:46:31,515 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:46:31,718 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:46:31,953 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:47:00,250 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:47:00,531 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:50:09,328 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:50:12,093 INFO  ~ SysUser(6) deleted okay, and render page to index
+19 一月 2012 11:50:12,156 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:50:22,937 INFO  ~ create user: {loginName:kitty,...}
+19 一月 2012 11:50:23,000 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:51:17,953 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:51:40,593 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:52:08,421 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:53:45,000 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:53:51,687 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:53:55,484 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:53:59,359 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:54:04,187 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:55:48,421 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:55:59,593 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:56:03,812 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:58:37,453 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:58:39,796 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:58:40,906 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:58:41,578 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:58:41,968 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:58:57,078 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:58:58,468 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:59:15,406 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:59:16,078 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:59:21,187 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 11:59:31,187 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:01:20,484 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:01:24,171 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:01:27,921 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:01:32,578 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:02:17,609 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:02:39,203 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:02:40,671 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:03:07,843 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:03:29,062 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:03:42,343 INFO  ~ SysUser(7) deleted okay, and render page to index
+19 一月 2012 12:03:42,375 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:03:52,750 INFO  ~ create user: {loginName:kitty,...}
+19 一月 2012 12:03:52,781 INFO  ~ << received page = 1, pageSequence = 1
+19 一月 2012 12:28:24,281 INFO  ~ << received page = 1, pageSequence = 1
