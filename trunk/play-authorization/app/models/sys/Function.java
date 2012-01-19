@@ -29,11 +29,13 @@ public class Function extends Model {
 
     @ManyToOne
     public Function parent;
+    
+    public int status;//0：未被使用，1：正常使用，2：禁用
 
     public Date createDate=new Date();
     public Date lastUpdate;
 
-    public Function(String key, String name, String remark, Function parent) {
+    public Function(String name, String key, String remark, Function parent) {
         this.key = key;
         this.name = name;
         this.remark = remark;
