@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home
-GET		/																Forums.index
+GET		/																SysUsers.index
 
 # Registration/Authentication
 GET		/signup															Application.signup
@@ -52,3 +52,7 @@ POST	/sysusers/delete											    SysUsers.delete
 GET		/sysroles													    SysRoles.index
 GET		/functions													    Functions.index
 GET		/organization												    Organizations.index
+
+# -------------------------------------------------------
+# Setting for test
+# -------------------------------------------------------

@@ -91,3 +91,26 @@ form .error {
 	background: white;
 	font-weight: normal;
 }
+
+
+
+.button_link{
+    border: solid 1px #cd5c5c;
+    background-color: #a1c3cc;
+    padding-left: 5px;
+    font-size: 11px;
+}
+
+.current_page_num{
+    /*border:#cd5c5c solid 1px;*/
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #a7a9cc;
+}
+
+.page_num{
+    /*border:#cd5c5c solid 1px;*/
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #99CC66;
+}

@@ -13,20 +13,18 @@ public class Application extends Controller {
 
     static org.apache.log4j.Logger log= org.apache.log4j.Logger.getLogger(Application.class);
 
-    static Integer pageSize = Integer.parseInt(Play.configuration.getProperty("forum.pageSize", "10"));
+    static Integer pageSize = Integer.parseInt(Play.configuration.getProperty("auth.pageSize", "10"));
     
     // ~~~~~~~~~~~~ @Before interceptors
     
     @Before
     static void globals() {
-        log.info("@Before globals");
-        renderArgs.put("connected", connectedUser());
+//        renderArgs.put("connected", connectedUser());
         renderArgs.put("pageSize", pageSize);
     }
 
     @Before
     static void checkSecure() {
-        log.info("@Before checkSecure");
         Secure secure = getActionAnnotation(Secure.class);
         if (secure != null) {
             if (connectedUser() == null || (secure.admin() && !connectedUser().isAdmin())) {

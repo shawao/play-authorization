@@ -1,5 +1,7 @@
 package controllers;
 
+import play.Play;
+
 /**
  * Desc:
  * --------
@@ -8,5 +10,5 @@ package controllers;
  */
 public interface AppConstants {
     
-    public static final int SYS_USER_PAGE_SIZE=5;
+//    public static Integer pageSize = Integer.parseInt(Play.configuration.getProperty("auth.pageSize", "10"));
 }

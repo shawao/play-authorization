@@ -60,11 +60,12 @@
 
 <h1 id="title">Users</h1>
 <p class="light">
-#{pluralize size:userCount, word:'user' /} in #{pluralize size:userList.size(), word:'user' /}
-    &nbsp;<a href="javascript:showNewUserForm()">Add</a>
+#{pluralize size:userList.size(), word:'user' /} in #{pluralize size:userCount, word:'user' /}
+    &nbsp;<a href="javascript:showNewUserForm()">New User</a>
 </p>
 
 *{#{pagination page:pageSequence ?: 1, size:nbUsers /}}*
+#{pagination page:pageSequence ?: 1, size:userCount /}
 
 <table id="users-list">
     <thead>
@@ -80,17 +81,19 @@
     #{list items:userList, as:'user'}
         <tr>
             <td class="main"><a href="#">${user.loginName}</a></td>
-            <td class="main"><a href="#">${user.loginName}</a></td>
+            <td class="main"><a href="#">${user.nickName}</a></td>
             <td class="main"></td>
             <td class="main"></td>
-            <td class="infos">
-                <a href="#">edit</a>&nbsp;&nbsp;
-                <a href="javascript:deleteByPost('@{SysUsers.delete}','${user.id}','Confirm to delete this user(${user.loginName})');">delete</a>
+            <td class="main">
+                <a class="button_link" href="#" >edit</a>
+                <a class="button_link" href="javascript:deleteByPost('@{SysUsers.delete}','${user.id}','Confirm to delete this user(${user.loginName})');">delete</a>
             </td>
         </tr>
     #{/list}
 #{/if}
 </table>
+
+
 
 <div id="add_user_div" style="display: none;">
     <form id="add_user_form" action="@{SysUsers.create}">
