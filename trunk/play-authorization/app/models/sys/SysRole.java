@@ -1,5 +1,6 @@
 package models.sys;
 
+import models.AbstractEntity;
 import play.db.jpa.Model;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "sys_role")
-public class SysRole extends Model {
+public class SysRole extends AbstractEntity {
     // marked like style: 001001001
     @Column(name="role_key",length = 100,nullable = false,unique = true)
     public String key;
@@ -31,10 +32,6 @@ public class SysRole extends Model {
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "func_id", referencedColumnName = "id"))
     public List<Function> functions=new ArrayList<Function>();
-
-    public Date createDate=new Date();
-    public Date lastUpdate;
-
 
     public SysRole(String name,String key,String remark) {
         this.name = name;
