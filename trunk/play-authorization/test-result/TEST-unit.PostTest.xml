@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="0.344" errors="0" skipped="0" tests="2" name="unit.PostTest">
+  <testcase classname="unit.PostTest" name="countObjects" time="0.188">
+      </testcase>
+  <testcase classname="unit.PostTest" name="tryAPost" time="0.156">
+      </testcase>
+</testsuite>
