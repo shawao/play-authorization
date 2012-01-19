@@ -10,17 +10,17 @@
 		<strong>« Previous</strong>
 	#{/if}
 	#{else}
-		<a href="${request.path}?page=${_page-1}">« Previous</a>
+		<a class="page_num" href="${request.path}?page=${_page-1}">« Previous</a>
 	#{/else}
 
 	*{ Pages }*
 
 	%{ for (i in 1..nbPages) { }%
 		#{if _page == i}
-			<strong>${i}</strong>
+			<strong class="current_page_num">${i}</strong>
 		#{/if}
 		#{else}
-			<a href="${request.path}?page=${i}">${i}</a>
+			<a class="page_num" href="${request.path}?page=${i}">${i}</a>
 		#{/else}
 	%{ } }%
 
@@ -30,7 +30,7 @@
 		<strong>Next »</strong>
 	#{/if}
 	#{else}
-		<a href="${request.path}?page=${_page+1}">Next »</a>
+		<a class="page_num" href="${request.path}?page=${_page+1}">Next »</a>
 	#{/else}
 
 	</div>

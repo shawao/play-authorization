@@ -8,7 +8,7 @@ import play.mvc.Controller;
  * SysUser: zou bo
  * Date: 12-1-18 上午10:22
  */
-public class Organizations extends Controller{
+public class Organizations extends Application{
 
     public static void index(){
         render();
