@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="e71f724e-bdde-463e-bf26-ad785c5b63f2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/sys/UserFunction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/SysRoles/show.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/SysRoles.java" afterPath="$PROJECT_DIR$/app/controllers/SysRoles.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/SysUsers.java" afterPath="$PROJECT_DIR$/app/controllers/SysUsers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/Function.java" afterPath="$PROJECT_DIR$/app/models/sys/Function.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/Organization.java" afterPath="$PROJECT_DIR$/app/models/sys/Organization.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/SysRole.java" afterPath="$PROJECT_DIR$/app/models/sys/SysRole.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/SysUser.java" afterPath="$PROJECT_DIR$/app/models/sys/SysUser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/sys/UserFunction.java" afterPath="$PROJECT_DIR$/app/models/sys/UserFunction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/SysUsers/show.html" afterPath="$PROJECT_DIR$/app/views/SysUsers/show.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/default.js" afterPath="$PROJECT_DIR$/public/javascripts/default.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/default.css" afterPath="$PROJECT_DIR$/public/stylesheets/default.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test-result/application.log" afterPath="$PROJECT_DIR$/test-result/application.log" />
     </list>
     <ignored path="play-authorization.iws" />
@@ -67,10 +69,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="Application.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="13" selection-start="186" selection-end="186" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="SysUsers.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/SysUsers.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
+            <state line="74" column="54" selection-start="2308" selection-end="2308" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2194#2203#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SysRoles.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/SysRoles.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="39" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,52 +104,25 @@
       <file leaf-file-name="show.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/SysUsers/show.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="6" selection-start="3184" selection-end="3184" vertical-scroll-proportion="0.986166">
+            <state line="19" column="7" selection-start="445" selection-end="445" vertical-scroll-proportion="-0.9146982">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SysUser.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/sys/SysUser.java">
+      <file leaf-file-name="show.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/Forums/show.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="9" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.0">
+            <state line="27" column="30" selection-start="581" selection-end="581" vertical-scroll-proportion="-10.346154">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SysRole.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/sys/SysRole.java">
+      <file leaf-file-name="show.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/SysRoles/show.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="23" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Organization.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/sys/Organization.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="0" selection-start="731" selection-end="731" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Function.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/sys/Function.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="27" selection-start="649" selection-end="649" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserFunction.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/sys/UserFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="23" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0">
+            <state line="61" column="36" selection-start="1681" selection-end="1681" vertical-scroll-proportion="-6.6923075">
               <folding />
             </state>
           </provider>
@@ -147,21 +143,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/conf/routes" />
-        <option value="$PROJECT_DIR$/app/controllers/AppConstants.java" />
-        <option value="$PROJECT_DIR$/app/controllers/SysRoles.java" />
         <option value="$PROJECT_DIR$/app/controllers/Functions.java" />
         <option value="$PROJECT_DIR$/app/controllers/Organizations.java" />
-        <option value="$PROJECT_DIR$/public/stylesheets/default.css" />
         <option value="$PROJECT_DIR$/app/views/tags/pagination.html" />
         <option value="$PROJECT_DIR$/app/controllers/Application.java" />
         <option value="$PROJECT_DIR$/conf/application.conf" />
-        <option value="$PROJECT_DIR$/app/controllers/SysUsers.java" />
-        <option value="$PROJECT_DIR$/app/models/sys/SysRole.java" />
         <option value="$PROJECT_DIR$/app/models/sys/Organization.java" />
         <option value="$PROJECT_DIR$/app/models/sys/Function.java" />
         <option value="$PROJECT_DIR$/app/models/sys/UserFunction.java" />
+        <option value="$PROJECT_DIR$/public/javascripts/default.js" />
+        <option value="$PROJECT_DIR$/public/stylesheets/default.css" />
+        <option value="$PROJECT_DIR$/app/views/SysRoles/show.html" />
         <option value="$PROJECT_DIR$/app/models/sys/SysUser.java" />
+        <option value="$PROJECT_DIR$/app/models/sys/SysRole.java" />
+        <option value="$PROJECT_DIR$/app/controllers/SysRoles.java" />
+        <option value="$PROJECT_DIR$/app/controllers/SysUsers.java" />
         <option value="$PROJECT_DIR$/app/views/SysUsers/show.html" />
       </list>
     </option>
@@ -497,6 +493,50 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="errors" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="play-authorization" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="play-authorization" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="play-authorization" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="play-authorization" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -799,26 +839,46 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1288" height="1002" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40186915" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33614457" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32943925" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943925" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891566" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20243903" sideWeight="0.6705608" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20243903" sideWeight="0.66385543" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48014018" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -917,102 +977,121 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/SysRoles.java">
+    <entry file="file://D:/opensources/playframework.org/play-1.2.4/framework/src/play/db/jpa/GenericModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="41" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Functions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="42" selection-start="166" selection-end="166" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Organizations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="5" selection-start="228" selection-end="228" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/AppConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="262" selection-end="262" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/default.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="23" selection-start="1498" selection-end="1498" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/tags/pagination.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="493" selection-end="493" vertical-scroll-proportion="1.0043764" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/application.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="176" selection-end="176" vertical-scroll-proportion="0.24667473" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/SysUsers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="11" selection-start="480" selection-end="480" vertical-scroll-proportion="-1.1904176">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/sys/SysRole.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="23" selection-start="1025" selection-end="1025" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/sys/Organization.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="0" selection-start="731" selection-end="731" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/sys/Function.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="27" selection-start="649" selection-end="649" vertical-scroll-proportion="0.0">
+        <state line="202" column="11" selection-start="9379" selection-end="9379" vertical-scroll-proportion="0.36466166">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/sys/UserFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="23" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0">
+        <state line="22" column="29" selection-start="449" selection-end="449" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/SysRoles/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/SysUsers/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/layout.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.7545345">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/default.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="28" selection-start="341" selection-end="341" vertical-scroll-proportion="0.360799">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/default.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="118" column="0" selection-start="1565" selection-end="1565" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="13" selection-start="186" selection-end="186" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/sys/SysUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="9" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.0">
+        <state line="81" column="32" selection-start="2213" selection-end="2213" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/Topics/show.html">
+    <entry file="file://$PROJECT_DIR$/app/models/sys/SysRole.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="22" selection-start="631" selection-end="631" vertical-scroll-proportion="0.5562827">
+        <state line="27" column="40" selection-start="559" selection-end="559" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/Forums.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="30" selection-start="866" selection-end="866" vertical-scroll-proportion="0.3172691">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SysRoles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="39" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/Forums/show.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="30" selection-start="581" selection-end="581" vertical-scroll-proportion="-10.346154">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/SysRoles/show.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="36" selection-start="1681" selection-end="1681" vertical-scroll-proportion="-6.6923075">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/SysUsers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="54" selection-start="2308" selection-end="2308" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2194#2203#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/SysUsers/show.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="6" selection-start="3184" selection-end="3184" vertical-scroll-proportion="0.986166">
+        <state line="19" column="7" selection-start="445" selection-end="445" vertical-scroll-proportion="-0.9146982">
           <folding />
         </state>
       </provider>

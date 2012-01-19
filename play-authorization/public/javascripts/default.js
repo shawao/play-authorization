@@ -11,6 +11,7 @@ String.prototype.trim= function(){
     return this.replace(/(^\s*)|(\s*$)/g, "");
 }
 
+
 function deleteByPost(action, entityId,confirmation) {
     if (entityId.trim() == '')
         alert('Invalid ID given');

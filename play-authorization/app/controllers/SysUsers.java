@@ -1,10 +1,12 @@
 package controllers;
 
+import models.sys.SysRole;
 import models.sys.SysUser;
 import play.data.validation.Equals;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +30,12 @@ public class SysUsers extends Application implements AppConstants{
         List<SysUser> userList=SysUser.all().from(from).fetch(pageSize);
         // record count of SysUser
         Long userCount=SysUser.count();
+        
+        
+        List<SysRole> roleList=SysRole.findAll();
+        
         // rend them to page
-        render(userCount,userList,pageSequence);
+        render(userCount,userList,pageSequence,roleList);
     }
 
     public static void create(@Required(message = "Login name is required") String loginName,
@@ -54,5 +60,29 @@ public class SysUsers extends Application implements AppConstants{
             play.Logger.info(">> SysUser("+id+") doesn't exist");
         }
         index();
+    }
+
+
+    public static void assignRoles(Long userId,Long[] roleId){
+        if(roleId==null){
+            flash.error("Invalid role id array input");
+        }else{
+            SysUser user=SysUser.findById(userId);
+            
+            List<SysRole> roles=new ArrayList<SysRole>();
+            
+            for(Long rid:roleId){
+                SysRole sysRole=SysRole.findById(rid);
+                roles.add(sysRole);
+            }
+            
+            user.assignRoles(roles);
+            
+            StringBuilder buf=new StringBuilder();
+            for(Long rid:roleId){
+                buf.append(rid).append(",");
+            }
+            log.info("User("+userId+") assigned roles("+buf.toString()+") okay");
+        }
     }
 }

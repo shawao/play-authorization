@@ -93,7 +93,7 @@ form .error {
 }
 
 
-
+/*zoubo appended*/
 .button_link{
     border: solid 1px #cd5c5c;
     background-color: #a1c3cc;
@@ -113,4 +113,8 @@ form .error {
     padding-left: 5px;
     padding-right: 5px;
     background-color: #99CC66;
+}
+
+.tr_data_row{
+
 }

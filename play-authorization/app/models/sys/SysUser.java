@@ -1,14 +1,12 @@
 package models.sys;
 
 import play.data.validation.Required;
+import play.db.jpa.JPA;
 import play.db.jpa.Model;
 import play.libs.Codec;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Desc:
@@ -60,9 +58,39 @@ public class SysUser extends Model {
     public void assignRoles(SysRole ...rolesArray ){
         if(roles==null){
             roles=new ArrayList<SysRole>();
-            Collections.addAll(roles, rolesArray);
-        }else{
-            Collections.addAll(roles, rolesArray);
         }
+        Collections.addAll(roles, rolesArray);
+
+        this.save();
+
+        // save in batch
+        EntityManager entityManager=JPA.em();
+
+        for(SysRole role:roles){
+            for(Function function:role.functions){
+                entityManager.persist(new UserFunction(id,function.id));
+            }
+        }
+        entityManager.flush();
+    }
+
+
+    public void assignRoles(List<SysRole> rolesList ){
+        if(roles==null){
+            roles=new ArrayList<SysRole>();
+        }
+        roles.addAll(rolesList);
+
+        this.save();
+
+        // save in batch
+        EntityManager entityManager=JPA.em();
+
+        for(SysRole role:roles){
+            for(Function function:role.functions){
+                entityManager.persist(new UserFunction(id,function.id));
+            }
+        }
+        entityManager.flush();
     }
 }
