@@ -35,9 +35,9 @@ public class SysRole extends Model {
     public Date lastUpdate;
 
 
-    public SysRole(String remark, String name, String key) {
-        this.remark = remark;
+    public SysRole(String name,String key,String remark) {
         this.name = name;
         this.key = key;
+        this.remark = remark;
     }
 }

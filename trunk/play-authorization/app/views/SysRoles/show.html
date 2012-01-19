@@ -1,0 +1,111 @@
+#{extends 'auth_main.html' /}
+
+#{set "moreStyles"}
+<style type="text/css">
+    #add_div{
+        padding-top: 30px;
+        width: 50%;
+    }
+    #newTable{border: none;}
+    #newTable tr{height: 25px;border-left: none;border-right: none;}
+    #newTable tr td{height: 25px;border-left: none;border-right: none;}
+    .input_label{font-style:oblique;}
+</style>
+#{/set}
+
+#{set 'moreScripts'}
+<script type="text/javascript">
+    function showNewForm(){
+        document.getElementById('name').value='';
+        document.getElementById('key').value='';
+        document.getElementById('remark').value='';
+        document.getElementById('add_div').style.display='';
+    }
+
+    function cancelNewEntity(){
+        document.getElementById('add_div').style.display='none';
+    }
+
+    function submitNewEntity(){
+        var eleName=document.getElementById('name');
+        var eleKey=document.getElementById('key');
+
+        if(eleName.value.trim()==""){
+            alert("No role name, please input it");
+            eleName.focus();
+        }
+        else if(eleKey.value.trim()==""){
+            alert("No key, please input it");
+            eleKey.focus();
+        }
+        else{
+            document.getElementById('add_form').submit();
+        }
+    }
+</script>
+#{/set}
+
+
+<h1 id="title">Roles</h1>
+<p class="light">
+#{pluralize size:roleList.size(), word:'role' /} in #{pluralize size:roleCount, word:'role' /}
+    &nbsp;<a href="javascript:showNewForm()">New Role</a>
+</p>
+
+#{pagination page:pageSequence ?: 1, size:roleCount /}
+
+<table id="users-list">
+    <thead>
+    <tr>
+        <th class="main">Name</th>
+        <th class="main">Key</th>
+        <th class="main">Remark</th>
+        <th class="main">Create time</th>
+        <th class="main">Last update</th>
+        <th class="main">Functions</th>
+        <th class="infos">Operations</th>
+    </tr>
+    </thead>
+#{if roleList.size()>0}
+    #{list items:roleList, as:'role'}
+        <tr>
+            <td class="main"><a href="#">${role.name}</a></td>
+            <td class="main"><a href="#">${role.key}</a></td>
+            <td class="main">${role.remark}</td>
+            <td class="main">${role.createDate.format("yyyy-MM-dd")}</td>
+            <td class="main">${role.lastUpdate?role.lastUpdate.format("yyyy-MM-dd"):""}</td>
+            <td class="main"><a class="button_link" href="#" >assign</a></td>
+            <td class="main">
+                <a class="button_link" href="#" >edit</a>
+                <a class="button_link" href="javascript:deleteByPost('@{SysRoles.delete}','${role.id}','Confirm to delete this role(${role.name})');">delete</a>
+            </td>
+        </tr>
+    #{/list}
+#{/if}
+</table>
+
+
+
+<div id="add_div" style="display: none;">
+    <form id="add_form" action="@{SysRoles.create}" method="post">
+        <table id="newTable">
+            <tr><td colspan="2" style="border-bottom: solid 2px;" id="table_title"><b>New Role:</b></td></tr>
+            <tr>
+                <td align="right" class="input_label"><label for="name">Name</label>:</td>
+                <td><input id="name" name="name" type="text" maxlength="50"/></td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="key">Key</label>:</td>
+                <td><input id="key" name="key" type="text" maxlength="50"/></td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="remark">Remark</label>:</td>
+                <td><input id="remark" name="remark" type="text" maxlength="20"/></td>
+            </tr>
+            <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
+                <input style="padding-top: 5px" type="button" value="Cancel" onclick="cancelNewEntity();"/>&nbsp;&nbsp;
+                <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="Submit"/>
+            </td></tr>
+        </table>
+    </form>
+</div>

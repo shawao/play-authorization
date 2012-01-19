@@ -1,119 +1,38 @@
-19 一月 2012 13:59:11,453 INFO  ~ Starting D:\my_projects\play_projects\play-authorization\trunk\play-authorization\.
-19 一月 2012 13:59:12,187 WARN  ~ You're running Play! in DEV mode
-19 一月 2012 13:59:12,359 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
-19 一月 2012 14:00:20,343 INFO  ~ Connected to jdbc:mysql://localhost/play_forum?useUnicode=true&characterEncoding=UTF-8
-19 一月 2012 14:00:22,921 INFO  ~ Application 'Common Authorization System' is now started !
-19 一月 2012 14:00:23,093 INFO  ~ Bootstrap started
-19 一月 2012 14:00:23,609 INFO  ~ @Before globals
-19 一月 2012 14:00:23,609 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:31,671 INFO  ~ @Before globals
-19 一月 2012 14:00:31,671 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:32,984 INFO  ~ @Before globals
-19 一月 2012 14:00:32,984 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:33,921 INFO  ~ @Before globals
-19 一月 2012 14:00:33,921 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:34,687 INFO  ~ @Before globals
-19 一月 2012 14:00:34,687 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:35,828 INFO  ~ @Before globals
-19 一月 2012 14:00:35,828 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:36,921 INFO  ~ @Before globals
-19 一月 2012 14:00:36,921 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:37,656 INFO  ~ @Before globals
-19 一月 2012 14:00:37,656 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:38,546 INFO  ~ @Before globals
-19 一月 2012 14:00:38,546 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:39,156 INFO  ~ @Before globals
-19 一月 2012 14:00:39,156 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:40,406 INFO  ~ @Before globals
-19 一月 2012 14:00:40,406 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:43,000 INFO  ~ @Before globals
-19 一月 2012 14:00:43,000 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:51,953 INFO  ~ @Before globals
-19 一月 2012 14:00:51,953 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:52,562 INFO  ~ @Before globals
-19 一月 2012 14:00:52,562 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:53,125 INFO  ~ @Before globals
-19 一月 2012 14:00:53,125 INFO  ~ @Before checkSecure
-19 一月 2012 14:00:59,750 INFO  ~ @Before globals
-19 一月 2012 14:00:59,750 INFO  ~ @Before checkSecure
-19 一月 2012 14:01:00,484 INFO  ~ @Before globals
-19 一月 2012 14:01:00,484 INFO  ~ @Before checkSecure
-19 一月 2012 14:01:01,062 INFO  ~ @Before globals
-19 一月 2012 14:01:01,062 INFO  ~ @Before checkSecure
-19 一月 2012 14:01:01,781 INFO  ~ @Before globals
-19 一月 2012 14:01:01,781 INFO  ~ @Before checkSecure
-19 一月 2012 14:01:01,796 INFO  ~ @Before globals
-19 一月 2012 14:01:01,796 INFO  ~ @Before checkSecure
-19 一月 2012 14:01:42,468 INFO  ~ @Before globals
-19 一月 2012 14:01:42,468 INFO  ~ @Before checkSecure
-19 一月 2012 14:01:50,656 INFO  ~ @Before globals
-19 一月 2012 14:01:50,656 INFO  ~ @Before checkSecure
-19 一月 2012 14:02:04,515 INFO  ~ @Before globals
-19 一月 2012 14:02:04,515 INFO  ~ @Before checkSecure
-19 一月 2012 14:02:35,734 INFO  ~ @Before globals
-19 一月 2012 14:02:35,734 INFO  ~ @Before checkSecure
-19 一月 2012 14:03:13,531 INFO  ~ @Before globals
-19 一月 2012 14:03:13,531 INFO  ~ @Before checkSecure
-19 一月 2012 14:03:23,453 INFO  ~ @Before globals
-19 一月 2012 14:03:23,453 INFO  ~ @Before checkSecure
-19 一月 2012 14:03:24,500 INFO  ~ @Before globals
-19 一月 2012 14:03:24,500 INFO  ~ @Before checkSecure
-19 一月 2012 14:03:42,468 INFO  ~ @Before globals
-19 一月 2012 14:03:42,468 INFO  ~ @Before checkSecure
-19 一月 2012 14:03:57,593 INFO  ~ @Before globals
-19 一月 2012 14:03:57,593 INFO  ~ @Before checkSecure
-19 一月 2012 14:05:55,437 INFO  ~ @Before globals
-19 一月 2012 14:05:55,437 INFO  ~ @Before checkSecure
-19 一月 2012 14:06:03,234 INFO  ~ @Before globals
-19 一月 2012 14:06:03,234 INFO  ~ @Before checkSecure
-19 一月 2012 14:06:04,828 INFO  ~ @Before globals
-19 一月 2012 14:06:04,828 INFO  ~ @Before checkSecure
-19 一月 2012 14:06:58,734 INFO  ~ @Before globals
-19 一月 2012 14:06:58,734 INFO  ~ @Before checkSecure
-19 一月 2012 14:08:45,281 INFO  ~ @Before globals
-19 一月 2012 14:08:45,281 INFO  ~ @Before checkSecure
-19 一月 2012 14:09:36,859 INFO  ~ @Before globals
-19 一月 2012 14:09:36,859 INFO  ~ @Before checkSecure
-19 一月 2012 14:09:44,781 INFO  ~ @Before globals
-19 一月 2012 14:09:44,781 INFO  ~ @Before checkSecure
-19 一月 2012 14:09:45,531 INFO  ~ @Before globals
-19 一月 2012 14:09:45,531 INFO  ~ @Before checkSecure
-19 一月 2012 14:09:46,484 INFO  ~ @Before globals
-19 一月 2012 14:09:46,484 INFO  ~ @Before checkSecure
-19 一月 2012 14:09:47,921 INFO  ~ @Before globals
-19 一月 2012 14:09:47,921 INFO  ~ @Before checkSecure
-19 一月 2012 14:09:48,546 INFO  ~ @Before globals
-19 一月 2012 14:09:48,546 INFO  ~ @Before checkSecure
-19 一月 2012 14:09:49,718 INFO  ~ @Before globals
-19 一月 2012 14:09:49,718 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:05,781 INFO  ~ @Before globals
-19 一月 2012 14:11:05,781 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:07,703 INFO  ~ @Before globals
-19 一月 2012 14:11:07,703 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:08,296 INFO  ~ @Before globals
-19 一月 2012 14:11:08,296 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:09,359 INFO  ~ @Before globals
-19 一月 2012 14:11:09,359 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:10,062 INFO  ~ @Before globals
-19 一月 2012 14:11:10,062 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:12,250 INFO  ~ @Before globals
-19 一月 2012 14:11:12,250 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:12,812 INFO  ~ @Before globals
-19 一月 2012 14:11:12,812 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:16,203 INFO  ~ @Before globals
-19 一月 2012 14:11:16,203 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:16,781 INFO  ~ @Before globals
-19 一月 2012 14:11:16,781 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:35,375 INFO  ~ Bootstrap started
-19 一月 2012 14:11:35,375 INFO  ~ @Before globals
-19 一月 2012 14:11:35,375 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:40,156 INFO  ~ @Before globals
-19 一月 2012 14:11:40,156 INFO  ~ @Before checkSecure
-19 一月 2012 14:11:40,171 INFO  ~ @Before globals
-19 一月 2012 14:11:40,171 INFO  ~ @Before checkSecure
-19 一月 2012 14:12:44,234 INFO  ~ Bootstrap started
-19 一月 2012 14:13:01,578 INFO  ~ << create user: {loginName:ee,...}
-19 一月 2012 14:13:11,156 INFO  ~ << create user: {loginName:uu,...}
-19 一月 2012 14:13:40,578 INFO  ~ Bootstrap started
-19 一月 2012 14:14:15,203 INFO  ~ << create user: {loginName:fatCat,...}
-19 一月 2012 14:39:52,203 INFO  ~ Bootstrap started
+19 一月 2012 15:43:21,296 INFO  ~ Starting D:\my_projects\play_projects\play-authorization\trunk\play-authorization\.
+19 一月 2012 15:43:22,015 WARN  ~ You're running Play! in DEV mode
+19 一月 2012 15:43:22,171 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+19 一月 2012 15:44:15,937 INFO  ~ Connected to jdbc:mysql://localhost/play_forum?useUnicode=true&characterEncoding=UTF-8
+19 一月 2012 15:44:18,015 INFO  ~ Application 'Common Authorization System' is now started !
+19 一月 2012 15:44:18,171 INFO  ~ Bootstrap started
+19 一月 2012 15:44:20,656 ERROR ~ 
+
+@695dol9km
+Internal Server Error (500) for request GET /sysroles/create?name=admin&key=K_ADMIN&remark=%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%98%EF%BC%88%E6%9C%80%E9%AB%98%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%EF%BC%89
+
+Oops: ClassCastException
+An unexpected error occured caused by exception ClassCastException: net.sf.oval.context.MethodParameterContext cannot be cast to net.sf.oval.context.FieldContext
+
+play.exceptions.UnexpectedException: Unexpected Error
+	at play.data.validation.ValidationPlugin.beforeActionInvocation(ValidationPlugin.java:59)
+	at play.plugins.PluginCollection.beforeActionInvocation(PluginCollection.java:594)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:134)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.ClassCastException: net.sf.oval.context.MethodParameterContext cannot be cast to net.sf.oval.context.FieldContext
+	at play.data.validation.UniqueCheck.isSatisfied(UniqueCheck.java:59)
+	at net.sf.oval.Validator._checkConstraint(Validator.java:575)
+	at net.sf.oval.Validator.checkConstraint(Validator.java:887)
+	at net.sf.oval.guard.Guard._validateParameterChecks(Guard.java:190)
+	at net.sf.oval.guard.Guard.validateMethodParameters(Guard.java:1321)
+	at play.data.validation.ValidationPlugin$Validator.validateAction(ValidationPlugin.java:97)
+	at play.data.validation.ValidationPlugin.beforeActionInvocation(ValidationPlugin.java:51)
+	... 3 more
+19 一月 2012 15:45:21,109 INFO  ~ Bootstrap started
+19 一月 2012 15:45:44,906 INFO  ~ << create role: {name:admin, key:K_ADMIN, remark:超级管理员}
+19 一月 2012 15:59:24,515 INFO  ~ >> SysUser(11) deleted okay, and render page to index
+19 一月 2012 16:15:35,718 INFO  ~ Bootstrap started
+19 一月 2012 16:17:32,843 INFO  ~ << create role: {name:branch01, key:K_BRANCH_01, remark:部门01}
+19 一月 2012 16:18:15,359 INFO  ~ << create role: {name:cc, key:cc, remark:test}
+19 一月 2012 16:18:21,156 INFO  ~ >> SysRole(3) deleted okay, and render page to index
+19 一月 2012 16:52:03,562 INFO  ~ Bootstrap started
+19 一月 2012 17:12:50,468 INFO  ~ Bootstrap started
+19 一月 2012 17:17:55,187 INFO  ~ << create role: {name:branch02, key:K_BRANCH_02, remark:部门02}

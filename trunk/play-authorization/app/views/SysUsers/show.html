@@ -2,20 +2,26 @@
 
 #{set "moreStyles"}
 <style type="text/css">
-    #add_user_div{
+    /*#add_user_div{
         padding-top: 30px;
-        width: 50%;
+        width: 60%;
+    }*/
+
+    .hidden_div{
+        padding-top: 30px;
+        width: 60%;
     }
-    #newTable{border: none;}
-    #newTable tr{height: 25px;border-left: none;border-right: none;}
-    #newTable tr td{height: 25px;border-left: none;border-right: none;}
-    .input_label{font-style: italic;}
+
+    .myTable{border: none;}
+    .myTable tr{height: 25px;border-left: none;border-right: none;}
+    .myTable tr td{height: 25px;border-left: none;border-right: none;}
+    .input_label{font-style: oblique;}
 </style>
 #{/set}
 
 #{set 'moreScripts'}
 <script type="text/javascript">
-    function showNewUserForm(){
+    function showNewForm(){
         document.getElementById('loginName').value='';
         document.getElementById('nickName').value='';
         document.getElementById('password').value='';
@@ -23,11 +29,11 @@
         document.getElementById('add_user_div').style.display='';
     }
 
-    function cancelNewUser(){
+    function cancelNewEntity(){
         document.getElementById('add_user_div').style.display='none';
     }
 
-    function submitNewUser(){
+    function submitNewEntity(){
         var eleLName=document.getElementById('loginName');
         var eleNName=document.getElementById('nickName');
         var elePswd=document.getElementById('password');
@@ -51,8 +57,21 @@
         }
     }
 
-    function deleteUser(userId){
-        deleteByPost('@{SysUsers.delete}',userId,'Confirm to delete this user');
+    function showAssignForm(userId,userLoginName){
+        document.getElementById('assign_user').innerHTML=userLoginName;
+        document.getElementById('assign_user_id').value=userId;
+        document.getElementById('assign_div').style.display='';
+    }
+
+    function cancelAssignForm(){
+        document.getElementById('assign_div').style.display='none';
+        document.getElementById('assign_user').text='';
+        document.getElementById('assign_user_id').text='';
+    }
+
+    function submitAssignInfo(){
+        var assignForm=document.getElementById('assign_form');
+//        assignForm.submit();
     }
 </script>
 #{/set}
@@ -61,10 +80,9 @@
 <h1 id="title">Users</h1>
 <p class="light">
 #{pluralize size:userList.size(), word:'user' /} in #{pluralize size:userCount, word:'user' /}
-    &nbsp;<a href="javascript:showNewUserForm()">New User</a>
+    &nbsp;<a href="javascript:showNewForm()">New User</a>
 </p>
 
-*{#{pagination page:pageSequence ?: 1, size:nbUsers /}}*
 #{pagination page:pageSequence ?: 1, size:userCount /}
 
 <table id="users-list">
@@ -73,6 +91,7 @@
         <th class="main">Login Name</th>
         <th class="main">Nickname</th>
         <th class="main">Create time</th>
+        <th class="main">Last update</th>
         <th class="main">Roles</th>
         <th class="main">Organizations</th>
         <th class="infos">Operations</th>
@@ -80,11 +99,15 @@
     </thead>
 #{if userList.size()>0}
     #{list items:userList, as:'user'}
-        <tr>
+        <tr class="tr_data_row">
             <td class="main"><a href="#">${user.loginName}</a></td>
             <td class="main"><a href="#">${user.nickName}</a></td>
             <td class="main">${user.createDate.format("yyyy-MM-dd")}</td>
-            <td class="main"></td>
+            <td class="main">${user.lastUpdate?user.lastUpdate.format("yyyy-MM-dd"):""}</td>
+            <td class="main">
+                <a class="button_link"
+                   href="javascript:showAssignForm('${user.id}','${user.loginName}');" >assign</a>
+            </td>
             <td class="main"></td>
             <td class="main">
                 <a class="button_link" href="#" >edit</a>
@@ -97,9 +120,9 @@
 
 
 
-<div id="add_user_div" style="display: none;">
-    <form id="add_user_form" action="@{SysUsers.create}">
-    <table id="newTable">
+<div id="add_user_div" style="display: none;" class="hidden_div">
+    <form id="add_user_form" action="@{SysUsers.create}" method="post">
+    <table class="myTable">
         <tr><td colspan="2" style="border-bottom: solid 2px;"><b>New User:</b></td></tr>
         <tr>
             <td align="right" class="input_label"><label for="loginName">Login name</label>:</td>
@@ -118,9 +141,52 @@
             <td><input id="password2" name="password2" type="password" maxlength="20"/></td>
         </tr>
         <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
-            <input style="padding-top: 5px" type="button" value="Cancel" onclick="cancelNewUser();"/>&nbsp;&nbsp;
-            <input style="padding-top: 5px" type="button" onclick="submitNewUser();" value="Submit"/>
+            <input style="padding-top: 5px" type="button" value="Cancel" onclick="cancelNewEntity();"/>&nbsp;&nbsp;
+            <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="Submit"/>
         </td></tr>
     </table>
+    </form>
+</div>
+
+
+
+<div id="assign_div" style="display: none;" class="hidden_div">
+    <form id="assign_form" action="@{SysUsers.assignRoles()}" method="post">
+        <table class="myTable">
+            <tr><td colspan="2" style="border-bottom: solid 2px;">
+                <b>Assign User (<span id="assign_user" style="color: #2244BB;"></span>) Role:</b>
+            </td></tr>
+            <input type="hidden" id="assign_user_id" name="userId" value=""/>
+            <tr>
+                <td align="right" class="input_label" valign="top"><label>Roles</label>:</td>
+                <td>
+                    <table class="myTable">
+                        <thead style="background-color: #888888;">
+                        <tr>
+                            <th class="main">Name</th>
+                            <th class="main">Key</th>
+                            <th class="main">Remark</th>
+                        </tr>
+                        </thead>
+                    #{if roleList.size()>0}
+                        #{list items:roleList, as:'role'}
+                            <tr style="border-right: none;">
+                                <td height="18px"><input type="checkbox" name="roleId" id="roleId_${role.id}"
+                                                         value="${role.id}"/>
+                                    <label for="roleId_${role.id}">${role.name}</label></td>
+                                <td height="18px">${role.key}</td>
+                                <td height="18px">${role.remark}</td>
+                            </tr>
+                        #{/list}
+                    #{/if}
+                    </table>
+                </td>
+            </tr>
+            <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
+                <input style="padding-top: 5px" type="reset" value="Reset"/>&nbsp;&nbsp;
+                <input style="padding-top: 5px" type="button" value="Cancel" onclick="cancelAssignForm();"/>&nbsp;&nbsp;
+                <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="Submit"/>
+            </td></tr>
+        </table>
     </form>
 </div>
