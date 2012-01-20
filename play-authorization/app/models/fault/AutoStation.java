@@ -5,6 +5,7 @@ import models.sys.District;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Desc: 自动站实体
@@ -121,7 +122,17 @@ public class AutoStation extends AbstractEntity {
     // 备注
     @Column(length = 500)
     public String remark;
+
+
+
+    @ManyToMany
+    @JoinTable(name = "rel_sta_mod",
+            joinColumns = @JoinColumn(name = "station_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "module_id", referencedColumnName = "id"))
+    public List<Module> modules;
+
+
     // status
-    public int status;
+    public int status=1;//1:works, 2:broken
 
 }

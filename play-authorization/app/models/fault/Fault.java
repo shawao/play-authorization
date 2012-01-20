@@ -4,6 +4,7 @@ import models.AbstractEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,22 +18,27 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "t_fault")
 public class Fault extends AbstractEntity {
-    @Column(nullable = false,name="sta_id")
-    public Long stationId;
+    @ManyToOne(optional = false)
+    public AutoStation station;
 
-    // todo:考虑到可能同时有几件设备发生故障，这种情况开机张故障单？
-    @Column(name="fau_mod_type")
-    public Long faultModuleType;//故障模块类型
-    @Column(name="fau_mod_type_name")
-    public Long faultModuleTypeName;//故障模块类型名称(冗余)
-    @Column(name="fau_mod_type_value")
-    public Long faultModuleTypeValue;//故障模块类型--具体型号
+    @ManyToOne(optional = false)
+    public Module module;//故障模块(with type and model)
+
+    //
+    @ManyToOne(optional = false)
+    public Module module2;//故障模块(with type and model)
+
+    @ManyToOne(optional = false)
+    public Module module3;//故障模块(with type and model)
+
 
     public int fixed;//0:待维修, 1:修好, 2:未修好
 
-    @Column(name = "beha",length = 1000,nullable = false)
+    @Column(nullable = false,length = 1000)
     public String behavior;//故障现象
-    @Column(length = 250)
+
+
+    @Column(length = 500)
     public String remark;//备注
 
 
