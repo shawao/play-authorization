@@ -49,8 +49,17 @@ GET		/sysusers													    SysUsers.index
 #GET	/sysusers/{<[0-9]+>page}								    SysUsers.show
 POST	/sysusers/create											    SysUsers.create
 POST	/sysusers/delete											    SysUsers.delete
+POST	/sysusers/forbid											    SysUsers.forbid
+POST	/sysusers/resume											    SysUsers.resume
+
+
 GET		/sysroles													    SysRoles.index
+
 GET		/functions													    Functions.index
+GET		/functions/ajaxList												Functions.ajaxList
+
+
+
 GET		/organization												    Organizations.index
 
 # -------------------------------------------------------

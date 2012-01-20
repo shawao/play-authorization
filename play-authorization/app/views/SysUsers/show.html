@@ -29,6 +29,7 @@
     function showNewForm(){
         document.getElementById('loginName').value='';
         document.getElementById('nickName').value='';
+        document.getElementById('mobile').value='';
         document.getElementById('password').value='';
         document.getElementById('password2').value='';
         document.getElementById('add_user_div').style.display='';
@@ -38,26 +39,32 @@
         document.getElementById('add_user_div').style.display='none';
     }
 
-    function submitNewEntity(){
-        var eleLName=document.getElementById('loginName');
-        var eleNName=document.getElementById('nickName');
-        var elePswd=document.getElementById('password');
-        var elePswd2=document.getElementById('password2');
+    function submitNewEntity() {
+        var eleLName = document.getElementById('loginName');
+        var eleNName = document.getElementById('nickName');
+        var eleMobile = document.getElementById('mobile');
+        var elePswd = document.getElementById('password');
+        var elePswd2 = document.getElementById('password2');
 
-        if(eleLName.value.trim()==""){
-            alert("No loginName, please input it");
+        if (eleLName.value.trim() == "") {
+            alert("请输入登录名");
             eleLName.focus();
         }
-        else if(elePswd.value.trim()==""){
-            alert("No password, please input it");
+        else if (elePswd.value.trim() == "") {
+            alert("请输入密码");
             elePswd.focus();
         }
-        else if(elePswd.value.trim()!=elePswd2.value.trim()){
-            alert("Retyped password is wrong, please typed again carefully");
-            elePswd2.value='';
+//        else if (elePswd.value.trim() != elePswd2.value.trim()) {
+//            alert("请输入手机号码");
+//            elePswd2.value = '';
+//            elePswd2.focus();
+//        }
+        else if (elePswd.value.trim() != elePswd2.value.trim()) {
+            alert("请输入确认密码");
+            elePswd2.value = '';
             elePswd2.focus();
-        }else{
-            if(eleNName.value.trim()=='') eleNName.value=eleLName.value;
+        } else {
+            if (eleNName.value.trim() == '') eleNName.value = eleLName.value;
             document.getElementById('add_user_form').submit();
         }
     }
@@ -76,18 +83,13 @@
 
     function submitAssignInfo(){
         var ridArray=document.getElementsByName("roleId");
-
         var empty=true;
-        var promptString='';
 
         for(var i=0;i<ridArray.length;i++){
             if(ridArray[i].checked){
                 empty=false;
-//                promptString+=ridArray[i].value+',';
             }
-
         }
-//        alert(promptString);
 
         if(empty){
             alert("请至少选择一个角色");
@@ -118,6 +120,8 @@
     <tr>
         <th class="main">登录名</th>
         <th class="main">昵称</th>
+        <th class="main">手机</th>
+        <th class="main">状态</th>
         <th class="main" width="80px">创建时间</th>
         <th class="main" width="80px">最近更新</th>
         <th class="main" width="250px">角色</th>
@@ -130,6 +134,8 @@
         <tr class="tr_data_row">
             <td class="main"><a href="#">${user.loginName}</a></td>
             <td class="main"><a href="#">${user.nickName}</a></td>
+            <td class="main"><a href="#">${user.mobile}</a></td>
+            <td class="main">${user.statusRemark()}</td>
             <td class="main">${user.createDate.format("yyyy-MM-dd")}</td>
             <td class="main">${user.lastUpdate?user.lastUpdate.format("yyyy-MM-dd"):""}</td>
             <td class="main">
@@ -141,8 +147,16 @@
             </td>
             <td class="main"></td>
             <td class="main">
-                <a class="link_as_button" href="#" >编辑</a>
-                <a class="link_as_button" href="javascript:deleteByPost('@{SysUsers.delete}','${user.id}','Confirm to delete this user(${user.loginName})');">删除</a>
+                #{if user.status==1}
+                <a class="link_as_button"
+                   href="javascript:requireActionByPost('@{SysUsers.forbid}','${user.id}','确定禁用用户(${user.loginName})？');">禁用</a>
+                #{/if}
+                #{if user.status==2}
+                <a class="link_as_button"
+                   href="javascript:requireActionByPost('@{SysUsers.resume}','${user.id}','确定恢复用户(${user.loginName})？');">恢复</a>
+                #{/if}
+                <a class="link_as_button"
+                   href="javascript:requireActionByPost('@{SysUsers.delete}','${user.id}','确认删除用户(${user.loginName})？');">强制删除</a>
             </td>
         </tr>
     #{/list}
@@ -156,22 +170,27 @@
     <table class="myTable">
         <tr><td colspan="2" style="border-bottom: solid 2px;"><b>创建用户：</b></td></tr>
         <tr>
-            <td align="right" class="input_label"><label for="loginName">登录名</label>:</td>
+            <td align="right" class="input_label"><label for="loginName">登录名：</label></td>
             <td><input id="loginName" name="loginName" type="text" maxlength="50"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="nickName">昵称</label>:</td>
+            <td align="right" class="input_label"><label for="nickName">昵称：</label></td>
             <td><input id="nickName" name="nickName" type="text" maxlength="50"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="password">密码</label>:</td>
+            <td align="right" class="input_label"><label for="mobile">手机：</label></td>
+            <td><input id="mobile" name="mobile" type="text" maxlength="50"/></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="password">密码：</label></td>
             <td><input id="password" name="password" type="password" maxlength="20"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="password2">重新输入密码</label>:</td>
+            <td align="right" class="input_label"><label for="password2">重新输入密码：</label></td>
             <td><input id="password2" name="password2" type="password" maxlength="20"/></td>
         </tr>
         <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
+            以上全部是必输项
             <input style="padding-top: 5px" type="button" value="取消" onclick="cancelNewEntity();"/>&nbsp;&nbsp;
             <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="保存"/>
         </td></tr>

@@ -27,10 +27,10 @@ public class SysUsers extends Application{
         Integer pageSequence=page==null || page<0?1:page;
         // users specified by page number and page size
         int from=(pageSequence-1)*pageSize;
-        List<SysUser> userList=SysUser.all().from(from).fetch(pageSize);
+        List<SysUser> userList=SysUser.find("select o from SysUser o order by id desc")
+                .from(from).fetch(pageSize);
         // record count of SysUser
         Long userCount=SysUser.count();
-        
         
         List<SysRole> roleList=SysRole.findAll();
         
@@ -41,9 +41,13 @@ public class SysUsers extends Application{
     public static void create(@Required(message = "Login name is required") String loginName,
                               @Required(message = "You MUST specify a password") @MinSize(5) String password,
                               @Equals("password") String password2,
-                              @Required String nickName){
+                              @Required String nickName,
+                              String mobile){
         play.Logger.info("<< create user: {loginName:"+loginName+",...}");
-        SysUser user=new SysUser(loginName.trim(),nickName==null?loginName.trim():nickName.trim(),password);
+        SysUser user=new SysUser(loginName.trim(),
+                nickName==null?loginName.trim():nickName.trim(),
+                password,
+                mobile ==null?null:mobile.trim());
         user.save();
         show(1);
     }
@@ -54,7 +58,7 @@ public class SysUsers extends Application{
         SysUser user=SysUser.findById(id);
         
         if(user!=null){
-            user.delete();
+            user.force2delete();
             play.Logger.info(">> SysUser("+id+") deleted okay, and render page to index");
         }else{
             play.Logger.info(">> SysUser("+id+") doesn't exist");
@@ -88,6 +92,23 @@ public class SysUsers extends Application{
             log.info("User("+userId+") assigned roles("+buf.toString()+") okay");
         }
         
+        show(1);
+    }
+
+
+    public static void forbid(Long id){
+        SysUser user=SysUser.findById(id);
+        if(user!=null){
+            user.changeStatus(2);
+        }
+        show(1);
+    }
+
+    public static void resume(Long id) {
+        SysUser user = SysUser.findById(id);
+        if (user != null) {
+            user.changeStatus(1);
+        }
         show(1);
     }
 }

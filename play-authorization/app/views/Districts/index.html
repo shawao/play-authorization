@@ -5,11 +5,7 @@
 <link rel="stylesheet" type="text/css" media="screen"
       href="@{'/public/stylesheets/jquery-ui/pepper-grinder/jquery.ui.all.css'}" />
 
-<link rel="stylesheet" type="text/css" media="screen"
-      href="@{'/public/stylesheets/jqpagination.css'}" />
-
 <style type="text/css">
-    /*demo page css*/
     /*body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}*/
     .demoHeaders { margin-top: 2em; }
     #dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
@@ -17,25 +13,12 @@
     ul#icons {margin: 0; padding: 0;}
     ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
     ul#icons span.ui-icon {float: left; margin: 0 4px;}
-
-
-    .page_bar_table{
-        border-collapse: collapse;
-        border-right: 1px solid #CCCCCC;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-
-
 </style>
 #{/set}
 
 
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/jquery/jquery-ui-1.8.16.custom.min.js'}"></script>
-<script src="@{'/public/javascripts/jqPagination/jquery.jqpagination.min.js'}"></script>
-<script src="@{'/public/javascripts/jqPagination/scripts.js'}"></script>
 
 <script type="text/javascript">
     $(function(){
@@ -155,20 +138,6 @@
             </tr>
         </table>
 
-
-        *{<table class="page_bar_table" cellpadding="0" cellspacing="0">
-            <tr style="border: none;">
-                <td style="border: none;margin: 0;padding: 0" colspan="7">
-                    <div class="middle jq_pagination">
-                        <a href="#" class="first" data-action="first">&laquo;</a>
-                        <a href="#" class="previous" data-action="previous">&lsaquo;</a>
-                        <input type="text" readonly="readonly" data-max-page="40" />
-                        <a href="#" class="next" data-action="next">&rsaquo;</a>
-                        <a href="#" class="last" data-action="last">&raquo;</a>
-                    </div>
-                </td>
-            </tr>
-        </table>}*
     </div>
 
 

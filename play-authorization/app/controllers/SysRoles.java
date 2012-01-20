@@ -26,7 +26,8 @@ public class SysRoles extends Application{
     public static void show(Integer page){
         Integer pageSequence=page==null || page<0?1:page;
         int from=(pageSequence-1)*pageSize;
-        List<SysRole> entityList= SysRole.all().from(from).fetch(pageSize);
+        List<SysRole> entityList= SysRole.find("select o from SysRole o order by id desc")
+                .from(from).fetch(pageSize);
         Long entityCount=SysRole.count();
         render(entityCount,entityList,pageSequence);
     }
