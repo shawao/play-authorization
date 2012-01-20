@@ -15,7 +15,7 @@ import java.util.List;
  * SysUser: zou bo
  * Date: 12-1-18 上午11:01
  */
-public class SysUsers extends Application implements AppConstants{
+public class SysUsers extends Application{
 
 
     public static void index(){
