@@ -49,7 +49,7 @@ public class SysUser extends AbstractEntity {
     @Column(length = 250)
     public String address;
 
-    @Column(nullable = false,length = 20)
+    @Column(length = 20)
     public String mobile;
     @Column(length = 20)
     public String phone;
@@ -66,7 +66,7 @@ public class SysUser extends AbstractEntity {
     public Date lastLogin;
 
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "rel_user_org",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id"))
@@ -77,14 +77,14 @@ public class SysUser extends AbstractEntity {
     @JoinTable(name = "rel_user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    public List<SysRole> roles=new ArrayList<SysRole>();
+    public List<SysRole> roles;
 
 
-    public SysUser(String loginName, String nickName, String password) {
+    public SysUser(String loginName, String nickName, String password,String mobile) {
         this.loginName = loginName;
         this.nickName = nickName;
         this.password = Codec.hexMD5(password);
-//        create();
+        this.mobile=mobile;
     }
 
 
@@ -121,5 +121,41 @@ public class SysUser extends AbstractEntity {
             }
         }
         entityManager.flush();
+    }
+
+
+    /**
+     * delete related records from rel_user_role and rel_user_org first
+     * then delete itself finally
+     */
+    public void force2delete() {
+        EntityManager entityManager = JPA.em();
+        Query deleteRurQuery = entityManager.createNativeQuery("delete from rel_user_role where user_id=" + id);
+        int rurCount = deleteRurQuery.executeUpdate();
+
+        Query deleteRuoQuery = entityManager.createNativeQuery("delete from rel_user_org where user_id=" + id);
+        int ruoCount = deleteRuoQuery.executeUpdate();
+        
+        play.Logger.info("delete from rel_user_role: "+rurCount);
+        play.Logger.info("delete from rel_user_org: "+ruoCount);
+
+        entityManager.remove(this);
+        entityManager.flush();
+    }
+
+
+    public void changeStatus(int status){
+        this.status=status;
+        this.save();
+    }
+
+    
+    public String statusRemark(){
+        String remark="";
+        if(status==1)
+            remark= "正常";
+        else if(status==2)
+            remark ="禁用";
+        return remark;
     }
 }

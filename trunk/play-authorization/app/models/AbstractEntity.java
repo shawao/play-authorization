@@ -18,4 +18,5 @@ public abstract class AbstractEntity extends Model implements Serializable {
 
     public Date createDate = new Date();
     public Date lastUpdate;
+
 }

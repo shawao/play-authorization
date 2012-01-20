@@ -131,6 +131,7 @@
 
 .light_bar{
     color: #888;
+    margin-top: 10px;
     padding-top: 10px;
     font-size: 12px;
 }

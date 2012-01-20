@@ -1,12 +1,10 @@
 package models.sys;
 
 import models.AbstractEntity;
+import play.db.jpa.JPA;
 import play.db.jpa.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -19,10 +17,10 @@ import java.util.Date;
 @Table(name = "sys_function")
 public class Function extends AbstractEntity {
     // marked like style: 001001001
-    @Column(name="func_key",length = 100,nullable = false,unique = true)
+    @Column(name = "func_key", length = 100, nullable = false, unique = true)
     public String key;
 
-    @Column(nullable = false,length = 50)
+    @Column(nullable = false, length = 50)
     public String name;
 
     @Column(length = 200)
@@ -40,5 +38,18 @@ public class Function extends AbstractEntity {
         this.name = name;
         this.remark = remark;
         this.parent = parent;
+    }
+
+
+    public void force2delete() {
+        EntityManager entityManager = JPA.em();
+
+        Query deleteQuery = entityManager.createNativeQuery("delete from rel_role_func where func_id=" + id);
+        int delCount = deleteQuery.executeUpdate();
+
+        play.Logger.info("delete from rel_role_func: " + delCount);
+
+        entityManager.remove(this);
+        entityManager.flush();
     }
 }

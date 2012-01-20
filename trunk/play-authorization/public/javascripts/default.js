@@ -12,9 +12,9 @@ String.prototype.trim= function(){
 }
 
 
-function deleteByPost(action, entityId,confirmation) {
+function requireActionByPost(action, entityId,confirmation) {
     if (entityId.trim() == '')
-        alert('Invalid ID given');
+        alert('无效的ID');
     if (confirm(confirmation)) {
         //create　a　form　
         var tempForm = document.createElement("form");
