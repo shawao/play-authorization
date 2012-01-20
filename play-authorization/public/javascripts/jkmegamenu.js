@@ -4,7 +4,13 @@
 * Visit http://www.javascriptkit.com/script/script2/jScale/ for full source code
 */
 
-jQuery.noConflict();
+
+// the method below causes conflict to jQuery UI component -- <a href="mailto:ember319@gmail.com">ember</a>
+// -------------!!!!
+//jQuery.noConflict();
+// -------------!!!!
+
+
 
 var jkmegamenu={
 
