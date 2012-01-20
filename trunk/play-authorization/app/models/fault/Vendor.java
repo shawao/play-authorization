@@ -1,9 +1,11 @@
 package models.fault;
 
 import models.AbstractEntity;
+import models.sys.SysUser;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -44,4 +46,6 @@ public class Vendor extends AbstractEntity {
 
     public int status=1;//0：已不存在，1：正常
 
+    @ManyToOne(optional = false)
+    public SysUser submitter;// who submit it
 }

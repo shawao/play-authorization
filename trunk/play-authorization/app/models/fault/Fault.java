@@ -1,6 +1,7 @@
 package models.fault;
 
 import models.AbstractEntity;
+import models.sys.SysUser;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +43,8 @@ public class Fault extends AbstractEntity {
     public String remark;//备注
 
 
-    //public String status;//1：可用，2：标记删除
+    public String status;// standby column
 
+    @ManyToOne(optional = false)
+    public SysUser submitter;// who submit it
 }

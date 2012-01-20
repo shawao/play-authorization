@@ -57,10 +57,18 @@ public class Servicing extends AbstractEntity {
     public String remark;//其他描述
 
     public int fixed;//1:yes, 2:no，是否修好
-    
+
+
+
     public int audited;//0:待审核 1:通过, 2:未通过, 是否通过审核
+
+    @ManyToOne
+    public SysUser auditor;
 
     @Column(length = 500)
     public String auditComment;
 
+
+    @ManyToOne(optional = false)
+    public SysUser submitter;// who submit it
 }
