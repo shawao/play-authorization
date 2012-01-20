@@ -18,12 +18,14 @@
 	color: gold;
 }
 
+
 #header #menu {
-	position: absolute;
-	top: 10px;
-	left: 60px;
-	list-style: none;
+    position: absolute;
+    top: 10px;
+    left: 60px;
+    list-style: none;
 }
+
 
 #header #menu li {
 	float: left;
