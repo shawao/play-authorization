@@ -16,6 +16,6 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class AbstractEntity extends Model implements Serializable {
 
-    public Date createTime = new Date();
+    public Date createDate = new Date();
     public Date lastUpdate;
 }

@@ -1,40 +1,66 @@
-19 一月 2012 15:43:21,296 INFO  ~ Starting D:\my_projects\play_projects\play-authorization\trunk\play-authorization\.
-19 一月 2012 15:43:22,015 WARN  ~ You're running Play! in DEV mode
-19 一月 2012 15:43:22,171 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
-19 一月 2012 15:44:15,937 INFO  ~ Connected to jdbc:mysql://localhost/play_forum?useUnicode=true&characterEncoding=UTF-8
-19 一月 2012 15:44:18,015 INFO  ~ Application 'Common Authorization System' is now started !
-19 一月 2012 15:44:18,171 INFO  ~ Bootstrap started
-19 一月 2012 15:44:20,656 ERROR ~ 
+20 一月 2012 12:44:44,296 INFO  ~ Starting D:\my_projects\play_projects\play-authorization\trunk\play-authorization\.
+20 一月 2012 12:44:45,093 WARN  ~ You're running Play! in DEV mode
+20 一月 2012 12:44:45,218 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+20 一月 2012 12:44:51,046 INFO  ~ Connected to jdbc:mysql://localhost/play_forum?useUnicode=true&characterEncoding=UTF-8
+20 一月 2012 12:44:52,781 INFO  ~ Application 'Common Authorization System' is now started !
+20 一月 2012 12:44:52,859 INFO  ~ Bootstrap started
+20 一月 2012 12:45:00,390 INFO  ~ =========================================================
+20 一月 2012 12:45:00,390 INFO  ~ request.url = /help
+20 一月 2012 12:45:00,390 INFO  ~ request.controllerClass.actionMethod = class controllers.Help.index
+20 一月 2012 12:45:00,390 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 12:45:00,390 INFO  ~ =============================
 
-@695dol9km
-Internal Server Error (500) for request GET /sysroles/create?name=admin&key=K_ADMIN&remark=%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%98%EF%BC%88%E6%9C%80%E9%AB%98%E6%9D%83%E9%99%90%E7%94%A8%E6%88%B7%EF%BC%89
+20 一月 2012 12:45:01,218 INFO  ~ =========================================================
+20 一月 2012 12:45:01,218 INFO  ~ request.url = /contacts
+20 一月 2012 12:45:01,218 INFO  ~ request.controllerClass.actionMethod = class controllers.Contacts.index
+20 一月 2012 12:45:01,218 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 12:45:01,218 INFO  ~ =============================
 
-Oops: ClassCastException
-An unexpected error occured caused by exception ClassCastException: net.sf.oval.context.MethodParameterContext cannot be cast to net.sf.oval.context.FieldContext
+20 一月 2012 12:45:02,031 INFO  ~ =========================================================
+20 一月 2012 12:45:02,031 INFO  ~ request.url = /leavewords
+20 一月 2012 12:45:02,031 INFO  ~ request.controllerClass.actionMethod = class controllers.LeaveWords.index
+20 一月 2012 12:45:02,031 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 12:45:02,031 INFO  ~ =============================
 
-play.exceptions.UnexpectedException: Unexpected Error
-	at play.data.validation.ValidationPlugin.beforeActionInvocation(ValidationPlugin.java:59)
-	at play.plugins.PluginCollection.beforeActionInvocation(PluginCollection.java:594)
-	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:134)
-	at Invocation.HTTP Request(Play!)
-Caused by: java.lang.ClassCastException: net.sf.oval.context.MethodParameterContext cannot be cast to net.sf.oval.context.FieldContext
-	at play.data.validation.UniqueCheck.isSatisfied(UniqueCheck.java:59)
-	at net.sf.oval.Validator._checkConstraint(Validator.java:575)
-	at net.sf.oval.Validator.checkConstraint(Validator.java:887)
-	at net.sf.oval.guard.Guard._validateParameterChecks(Guard.java:190)
-	at net.sf.oval.guard.Guard.validateMethodParameters(Guard.java:1321)
-	at play.data.validation.ValidationPlugin$Validator.validateAction(ValidationPlugin.java:97)
-	at play.data.validation.ValidationPlugin.beforeActionInvocation(ValidationPlugin.java:51)
-	... 3 more
-19 一月 2012 15:45:21,109 INFO  ~ Bootstrap started
-19 一月 2012 15:45:44,906 INFO  ~ << create role: {name:admin, key:K_ADMIN, remark:超级管理员}
-19 一月 2012 15:59:24,515 INFO  ~ >> SysUser(11) deleted okay, and render page to index
-19 一月 2012 16:15:35,718 INFO  ~ Bootstrap started
-19 一月 2012 16:17:32,843 INFO  ~ << create role: {name:branch01, key:K_BRANCH_01, remark:部门01}
-19 一月 2012 16:18:15,359 INFO  ~ << create role: {name:cc, key:cc, remark:test}
-19 一月 2012 16:18:21,156 INFO  ~ >> SysRole(3) deleted okay, and render page to index
-19 一月 2012 16:52:03,562 INFO  ~ Bootstrap started
-19 一月 2012 17:12:50,468 INFO  ~ Bootstrap started
-19 一月 2012 17:17:55,187 INFO  ~ << create role: {name:branch02, key:K_BRANCH_02, remark:部门02}
-19 一月 2012 17:24:44,250 INFO  ~ >> SysUser(10) deleted okay, and render page to index
-19 一月 2012 17:32:50,234 INFO  ~ << create user: {loginName:小米,...}
+20 一月 2012 12:45:12,921 INFO  ~ =========================================================
+20 一月 2012 12:45:12,921 INFO  ~ request.url = /sysusers/show
+20 一月 2012 12:45:12,921 INFO  ~ request.controllerClass.actionMethod = class controllers.SysUsers.show
+20 一月 2012 12:45:12,921 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 12:45:12,921 INFO  ~ =============================
+
+20 一月 2012 12:45:15,625 INFO  ~ =========================================================
+20 一月 2012 12:45:15,625 INFO  ~ request.url = /contacts
+20 一月 2012 12:45:15,625 INFO  ~ request.controllerClass.actionMethod = class controllers.Contacts.index
+20 一月 2012 12:45:15,625 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 12:45:15,625 INFO  ~ =============================
+
+20 一月 2012 13:18:34,937 INFO  ~ =========================================================
+20 一月 2012 13:18:34,937 INFO  ~ request.url = /functions/show
+20 一月 2012 13:18:34,937 INFO  ~ request.controllerClass.actionMethod = class controllers.Functions.show
+20 一月 2012 13:18:34,937 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 13:18:34,937 INFO  ~ =============================
+
+20 一月 2012 13:18:36,546 INFO  ~ =========================================================
+20 一月 2012 13:18:36,546 INFO  ~ request.url = /sysusers
+20 一月 2012 13:18:36,546 INFO  ~ request.controllerClass.actionMethod = class controllers.SysUsers.index
+20 一月 2012 13:18:36,546 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 13:18:36,546 INFO  ~ =============================
+
+20 一月 2012 13:18:36,562 INFO  ~ =========================================================
+20 一月 2012 13:18:36,562 INFO  ~ request.url = /sysusers/show?page=1
+20 一月 2012 13:18:36,562 INFO  ~ request.controllerClass.actionMethod = class controllers.SysUsers.show
+20 一月 2012 13:18:36,562 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 13:18:36,562 INFO  ~ =============================
+
+20 一月 2012 13:18:37,468 INFO  ~ =========================================================
+20 一月 2012 13:18:37,468 INFO  ~ request.url = /sysroles
+20 一月 2012 13:18:37,468 INFO  ~ request.controllerClass.actionMethod = class controllers.SysRoles.index
+20 一月 2012 13:18:37,468 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 13:18:37,468 INFO  ~ =============================
+
+20 一月 2012 13:18:37,484 INFO  ~ =========================================================
+20 一月 2012 13:18:37,500 INFO  ~ request.url = /sysroles/show?page=1
+20 一月 2012 13:18:37,500 INFO  ~ request.controllerClass.actionMethod = class controllers.SysRoles.show
+20 一月 2012 13:18:37,500 INFO  ~ request.remoteAddress = 127.0.0.1
+20 一月 2012 13:18:37,500 INFO  ~ =============================
+

@@ -13,7 +13,7 @@ public class ForumTest extends UnitTest {
         Fixtures.load("test-data.yml");
     }
 
-    @Test
+    /*@Test
     public void countObjects() {
         assertEquals(2, Forum.count());
     }
@@ -45,5 +45,5 @@ public class ForumTest extends UnitTest {
         assertEquals(3, Forum.count());
         assertNotNull(Forum.find("byName", "Test").first());
         assertEquals(test, Forum.find("byName", "Test").first());
-    }
+    }*/
 }

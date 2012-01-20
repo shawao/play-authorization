@@ -13,7 +13,7 @@ public class UserTest extends UnitTest {
         Fixtures.load("test-data.yml");
     }
 
-    @Test
+    /*@Test
     public void countObjects() {
         assertEquals(3, User.count());
     }
@@ -72,5 +72,5 @@ public class UserTest extends UnitTest {
     public void someFinder() {
         assertEquals(0, User.count("byName", "toto"));
         assertEquals(1, User.count("byName", "Guillaume"));
-    }
+    }*/
 }

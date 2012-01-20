@@ -22,21 +22,21 @@ public class Vendor extends AbstractEntity {
     public String address;
 
     @Column(length = 20)
-    public String tel;
+    public String phone;
     @Column(length = 20)
-    public String tel2;
+    public String phone2;
     @Column(length = 20)
     public String fax;//传真
 
     //todo: 是否也需要作为我们系统的用户，并登录？
-    @Column(length = 20,name = "cont_pers")
+    @Column(length = 20,name = "cont_per")
     public String contactPerson;
-    @Column(length = 20,name = "cont_pers_mob")
+    @Column(length = 20,name = "cont_per_mob")
     public String contactPersonMobile;
 
-    @Column(length = 20,name = "cont_pers2")
+    @Column(length = 20,name = "cont_per2")
     public String contactPerson2;
-    @Column(length = 20,name = "cont_pers_mob2")
+    @Column(length = 20,name = "cont_per_mob2")
     public String contactPersonMobile2;
 
     @Column(length = 250)
