@@ -1,4 +1,4 @@
-.pagination {
+.jq_pagination {
 	float: left;
 	border: 1px solid #CDCDCD;
 	border-radius: 3px;
@@ -6,7 +6,7 @@
 	-webkit-border-radius: 3px;
 }
 
-.pagination a {
+.jq_pagination a {
 	display: block;
 	float: left;
 	height: 20px;
@@ -36,7 +36,7 @@
 	
 }
 
-.pagination a:hover, .pagination a:focus, .pagination a:active {
+.jq_pagination a:hover, .jq_pagination a:focus, .jq_pagination a:active {
 	background-image: -webkit-gradient(
 		linear,
 		left bottom,
@@ -51,32 +51,32 @@
 	);
 }
 
-.pagination a:first-child {
+.jq_pagination a:first-child {
 	border-radius: 2px 0 0 2px;
 	-moz-border-radius: 2px 0 0 2px;
 	-webkit-border-radius: 2px 0 0 2px;
 }
 
-.pagination a:last-child {
+.jq_pagination a:last-child {
 	border-radius: 0 2px 2px 0;
 	-moz-border-radius: 0 2px 2px 0;
 	-webkit-border-radius: 0 2px 2px 0;
 }
 
-.pagination a {
+.jq_pagination a {
 	border-right: 1px solid #CDCDCD; 
 	border-left: 1px solid #CDCDCD;   
 }
 
-.pagination a:first-child {
+.jq_pagination a:first-child {
 	border: none;
 }
 
-.pagination a:last-child {
+.jq_pagination a:last-child {
 	border: none;
 }
 
-.pagination input {
+.jq_pagination input {
 	border: none;
 	float: left;
 	text-align: center;
@@ -90,22 +90,44 @@
 
 /* gigantic class for demo purposes */
 
-.gigantic.pagination {
+.gigantic.jq_pagination {
 	margin: 30px 0;
 }
 
-.gigantic.pagination a {
+.gigantic.jq_pagination a {
 	height: 60px;
 	width: 60px;
 	font-size: 50px;
 	line-height: 50px;
 }
 
-.gigantic.pagination input {
+.gigantic.jq_pagination input {
 	width: 300px;
 	height: 60px;
 	font-size: 30px;
 }
+
+
+/* middle class for ember^^ */
+.middle.jq_pagination {
+    margin: 30px 0;
+}
+
+.middle.jq_pagination a {
+    height: 35px;
+    width: 35px;
+    font-size: 25px;
+    line-height: 25px;
+}
+
+.middle.jq_pagination input {
+    width: 200px;
+    height: 35px;
+    font-size: 25px;
+}
+
+
+
 
 /* log element for demo purposes */
 
