@@ -2,6 +2,7 @@ package models.fault;
 
 import models.AbstractEntity;
 import models.sys.District;
+import models.sys.SysUser;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -134,5 +135,9 @@ public class AutoStation extends AbstractEntity {
 
     // status
     public int status=1;//1:works, 2:broken
+
+
+    @ManyToOne(optional = false)
+    public SysUser submitter;// who submit it
 
 }

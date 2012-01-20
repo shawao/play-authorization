@@ -1,9 +1,11 @@
 package models.fault;
 
 import models.AbstractEntity;
+import models.sys.SysUser;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -39,4 +41,8 @@ public class SysConstant extends AbstractEntity {
         this.constRemark = constRemark;
         this.remark = remark;
     }
+
+
+    @ManyToOne(optional = false)
+    public SysUser submitter;// who submit it
 }

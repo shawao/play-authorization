@@ -1,6 +1,7 @@
 package models.fault;
 
 import models.AbstractEntity;
+import models.sys.SysUser;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,5 +36,9 @@ public class StationAlbum extends AbstractEntity {
 
 
     public Long fileSize;//图片文件大小
+
+
+    @ManyToOne(optional = false)
+    public SysUser submitter;// who submit it
 
 }

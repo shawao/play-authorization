@@ -1,6 +1,7 @@
 package models.fault;
 
 import models.AbstractEntity;
+import models.sys.SysUser;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,5 +43,6 @@ public class Module extends AbstractEntity {
     
     public int status;//暂不使用，保留项
 
-
+    @ManyToOne(optional = false)
+    public SysUser submitter;// who submit it
 }
