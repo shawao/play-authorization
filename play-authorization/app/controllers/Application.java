@@ -31,7 +31,7 @@ public class Application extends Controller {
         log.info("request.controllerClass.actionMethod = "+request.controllerClass+"."+request.actionMethod);
 //        log.info("request.actionMethod = "+request.actionMethod);
         log.info("request.remoteAddress = "+request.remoteAddress);
-        log.info("=============================\n\n");
+        log.info("=============================\n");
     }
 
     @Before

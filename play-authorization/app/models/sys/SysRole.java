@@ -27,6 +27,10 @@ public class SysRole extends AbstractEntity {
     @Column(length = 200)
     public String remark;
 
+
+    public int status = 0;//0:未用,1:已应用,2:禁止
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "rel_role_func",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),

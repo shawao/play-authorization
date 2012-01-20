@@ -13,7 +13,7 @@ public class TopicTest extends UnitTest {
         Fixtures.load("test-data.yml");
     }
 
-    @Test
+    /*@Test
     public void countObjects() {
         assertEquals(4, Topic.count());
     }
@@ -50,5 +50,5 @@ public class TopicTest extends UnitTest {
         assertEquals(1, Post.count());
         User guillaume = User.find("byName", "Guillaume").first();
         assertEquals(0L, (long) guillaume.getTopicsCount());
-    }
+    }*/
 }

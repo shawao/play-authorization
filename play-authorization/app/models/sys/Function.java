@@ -30,8 +30,11 @@ public class Function extends AbstractEntity {
 
     @ManyToOne
     public Function parent;
-    
+
+
     public int status;//0：未被使用，1：正常使用，2：禁用
+
+
     public Function(String name, String key, String remark, Function parent) {
         this.key = key;
         this.name = name;

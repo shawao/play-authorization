@@ -19,13 +19,24 @@ public class SysConstant extends AbstractEntity {
 
     public Long constType;//常量类型
 
-    public Long constId;//常量ID
+    @Column(nullable =false)
+    public Long constCode;//常量CODE
     @Column(length = 50)
     public String constValue;//常量值
     @Column(length = 50)
-    public String constRemark;//常量备注
+    public String constRemark;//常量备注，可以保存名称
 
-    @Column(length = 100)
+    @Column(length = 200)
     public String remark;//备注
+    
+    public int status;//0:未用,1:已应用,2:禁止
 
+
+    public SysConstant(Long constType, Long constCode, String constValue, String constRemark, String remark) {
+        this.constType = constType;
+        this.constCode = constCode;
+        this.constValue = constValue;
+        this.constRemark = constRemark;
+        this.remark = remark;
+    }
 }

@@ -1,6 +1,7 @@
 package models.fault;
 
 import models.AbstractEntity;
+import models.sys.District;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,10 +20,10 @@ public class AutoStation extends AbstractEntity {
     public String name;
     // 站号
     @Column(nullable = false,length = 20)
-    public String number;
+    public String stationNo;
     // 卡号
     @Column(length = 20)
-    public String cardNum;
+    public String cardNo;
     // 经度
     @Column(length = 20)
     public String longitude;
@@ -36,7 +37,8 @@ public class AutoStation extends AbstractEntity {
     @Column(length = 100)
     public String address;
     // 所属行政区
-    public Long districtId;
+    @ManyToOne(optional = false)
+    public District district;
     // 具体地址位置
     @Column(length = 100)
     public String location;
@@ -59,9 +61,8 @@ public class AutoStation extends AbstractEntity {
     public String stationType;//冗余名称
     
     // 生产厂家
-    public Long vendorId;
-    @Column(length = 50)
-    public String vendorName;//冗余名称
+    @ManyToOne
+    public Vendor vendor;
     // 建设时间
     public Date buildTime;
     
