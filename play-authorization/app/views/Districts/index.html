@@ -17,12 +17,25 @@
     ul#icons {margin: 0; padding: 0;}
     ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
     ul#icons span.ui-icon {float: left; margin: 0 4px;}
+
+
+    .page_bar_table{
+        border-collapse: collapse;
+        border-right: 1px solid #CCCCCC;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+
+
 </style>
 #{/set}
 
 
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/jquery/jquery-ui-1.8.16.custom.min.js'}"></script>
+<script src="@{'/public/javascripts/jqPagination/jquery.jqpagination.min.js'}"></script>
+<script src="@{'/public/javascripts/jqPagination/scripts.js'}"></script>
 
 <script type="text/javascript">
     $(function(){
@@ -75,10 +88,7 @@
 <div id="tabs">
     <ul>
         <li><a href="#list-tab">列表页面</a></li>
-        <li><a href="#tabs-2">创建页面</a></li>
-        <li><a href="#tabs-2">修改页面</a></li>
-        *{<li><a href="ajax/content1.html">Tab 1</a></li>}*
-        <li><a href="#">Tab 2</a></li>
+        <li><a href="#create-tab">创建页面</a></li>
     </ul>
 
 
@@ -119,19 +129,51 @@
                     <a class="link_as_button" href="#">删除</a>
                 </td>
             </tr>
+            <tr>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">
+                    <a class="link_as_button" href="#" >编辑</a>
+                    <a class="link_as_button" href="#">删除</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">.</td>
+                <td class="main">
+                    <a class="link_as_button" href="#" >编辑</a>
+                    <a class="link_as_button" href="#">删除</a>
+                </td>
+            </tr>
         </table>
+
+
+        *{<table class="page_bar_table" cellpadding="0" cellspacing="0">
+            <tr style="border: none;">
+                <td style="border: none;margin: 0;padding: 0" colspan="7">
+                    <div class="middle jq_pagination">
+                        <a href="#" class="first" data-action="first">&laquo;</a>
+                        <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+                        <input type="text" readonly="readonly" data-max-page="40" />
+                        <a href="#" class="next" data-action="next">&rsaquo;</a>
+                        <a href="#" class="last" data-action="last">&raquo;</a>
+                    </div>
+                </td>
+            </tr>
+        </table>}*
     </div>
 
-    <div class="pagination">
-        <a href="#" class="first" data-action="first">&laquo;</a>
-        <a href="#" class="previous" data-action="previous">&lsaquo;</a>
-        <input type="text" readonly="readonly" data-max-page="40" />
-        <a href="#" class="next" data-action="next">&rsaquo;</a>
-        <a href="#" class="last" data-action="last">&raquo;</a>
-    </div>
 
 
-    <div id="tabs-2">
+    <div id="create-tab">
         <p>据国外媒体报道，可靠消息称，谷歌已经将WebRTC技术集成到Chrome浏览器的一个测试版中，允许用户在Chrome浏览器界面中运行语音和视频聊天应用程序。
 
             目前，Chrome的Dev渠道版本中已经具备WebRTC技术，谷歌是在2010年购买这项技术，并于去年将这项技术开源化。
