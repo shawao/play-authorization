@@ -93,7 +93,7 @@ form .error {
 }
 
 
-/*zoubo appended*/
+/*zoubo appended below ------------------------------------------ */
 .link_as_button {
     /*border: solid 1px #cd5c5c;*/
     background-color: #e6e6e0;
@@ -117,6 +117,18 @@ form .error {
     background-color: #99CC66;
 }
 
-.tr_data_row{
 
-}
+.input_required{color: red;}
+.input_label{font-style:oblique;}
+
+/*Important for dialog button*/
+.dialog_button {padding: .3em 1em .3em 20px;text-decoration: none;position: relative;}
+.dialog_button span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+
+.opt_button {padding: .2em 5px .2em 5px;text-decoration: none;position: relative;}
+.opt_button span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+
+.myTable{border: none;}
+.myTable tr{height: 25px;border-left: none;border-right: none;}
+.myTable tr td{height: 25px;border-left: none;border-right: none;}
+.myTable .no_bottom{border-bottom: none;}

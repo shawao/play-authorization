@@ -1,5 +1,6 @@
 package controllers;
 
+import models.sys.Function;
 import models.sys.SysRole;
 import models.sys.SysUser;
 import play.data.validation.Equals;
@@ -8,6 +9,7 @@ import play.data.validation.Required;
 import play.data.validation.Unique;
 import play.mvc.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,13 +35,21 @@ public class SysRoles extends Application{
     }
 
 
+    // return part of html string
+    public static void ajaxList() {
+        Integer pageSequence = 1;
+        List<SysRole> entityList = SysRole.find("select o from SysRole o order by id desc").fetch();
+        render(SysRole.count(), entityList, pageSequence);
+    }
+
+
     public static void create(@Required(message = "Role name is required") String name,
                               @Required(message = "You MUST specify a unique key") String key,
                               String remark){
         log.info("<< create role: {name:"+name+", key:"+key+", remark:"+remark+"}");
         SysRole role=new SysRole(name,key,remark);
         role.save();
-        flash.success("created role okay");
+//        flash.success("创建角色成功");
         show(1);
     }
 
@@ -54,6 +64,34 @@ public class SysRoles extends Application{
         }else{
             log.info(">> SysRole("+id+") doesn't exist");
         }
+        show(1);
+    }
+
+
+    public static void assignFunctions(Long roleId, Long[] functionIds) {
+        if (roleId == null) {
+            flash.error("没有选定角色");
+        } else if (functionIds == null) {
+            flash.error("没有选定功能");
+        } else {
+            SysRole role = SysRole.findById(roleId);
+
+            List<Function> functions = new ArrayList<Function>();
+
+            for (Long rid : functionIds) {
+                Function function = SysRole.findById(rid);
+                functions.add(function);
+            }
+
+            role.assignFunctions(functions);
+
+            StringBuilder buf = new StringBuilder();
+            for (Long rid : functionIds) {
+                buf.append(rid).append(",");
+            }
+            log.info("Role(" + roleId + ") assigned functions(" + buf.toString() + ") okay");
+        }
+
         show(1);
     }
 }

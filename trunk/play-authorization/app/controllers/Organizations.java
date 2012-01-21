@@ -28,14 +28,20 @@ public class Organizations extends Application {
     }
 
 
+    public static void ajaxList() {
+        Integer pageSequence = 1;
+        List<Organization> entityList = Organization.find("select o from Organization o order by id desc").fetch();
+        render(Organization.count(), entityList, pageSequence);
+    }
+
     public static void create(@Required String name,
                               @Required String key,
                               String remark,
                               @Required Long parentId) {
         play.Logger.info("<< create function: {name:" + name + ",...}");
         Organization parentEntity = null;
-        if(parentId!=null){
-            parentEntity=Organization.findById(parentId);
+        if (parentId != null) {
+            parentEntity = Organization.findById(parentId);
         }
 
         Organization organization = new Organization(name.trim(), key.trim(), remark == null ? null : remark.trim(), parentEntity);

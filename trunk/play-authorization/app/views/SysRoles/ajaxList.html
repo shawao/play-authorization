@@ -1,0 +1,23 @@
+<table id="roles-list">
+    <thead>
+    <tr>
+        <th class="main" width="30px">ID</th>
+        <th class="main">角色名</th>
+        <th class="main">键值</th>
+        <th class="main">备注</th>
+    </tr>
+    </thead>
+#{if entityList.size()>0}
+    #{list items:entityList, as:'role'}
+        <tr>
+            <td class="main">${role.id}</td>
+            <td class="main">
+                <input type="checkbox" name="roleId" id="roleId_${role.id}"
+                                     value="${role.id}"/>
+                <label for="roleId_${role.id}">${role.name}</label></td>
+            <td class="main">${role.key}</td>
+            <td class="main">${role.remark}</td>
+        </tr>
+    #{/list}
+#{/if}
+</table>

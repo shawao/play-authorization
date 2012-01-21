@@ -12,7 +12,7 @@ import notifiers.*;
 
 public class Application extends Controller {
 
-    static org.apache.log4j.Logger log= org.apache.log4j.Logger.getLogger(Application.class);
+    protected static org.apache.log4j.Logger log= org.apache.log4j.Logger.getLogger(Application.class);
 
     static Integer pageSize = Integer.parseInt(Play.configuration.getProperty("auth.pageSize", "10"));
     

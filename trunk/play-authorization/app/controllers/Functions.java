@@ -31,12 +31,17 @@ public class Functions extends Application {
     }
 
     // return part of html string
-    public static void ajaxList(Integer page) {
-        Integer pageSequence = page == null || page < 0 ? 1 : page;
-        int from = (pageSequence - 1) * pageSize;
-        List<Function> entityList = Function.all().from(from).fetch(pageSize);
+    public static void ajaxList() {
+        List<Function> entityList = Function.find("select o from Function o order by id desc").fetch();
         Long entityCount = Function.count();
-        render(entityCount, entityList, pageSequence);
+        render(entityCount, entityList);
+    }
+
+
+    public static void ajaxListByRoleId(Long roleId) {
+        List<Function> entityList = Function.find("select o from Function o order by id desc").fetch();
+        Long entityCount = Function.count();
+        render(entityCount, entityList, roleId);
     }
 
 
@@ -61,9 +66,9 @@ public class Functions extends Application {
 
         if (function != null) {
             function.force2delete();
-            play.Logger.info(">> SysUser(" + id + ") deleted okay, and render page to index");
+            play.Logger.info(">> Function(" + id + ") deleted okay, and render page to index");
         } else {
-            play.Logger.info(">> SysUser(" + id + ") doesn't exist");
+            play.Logger.info(">> Function(" + id + ") doesn't exist");
         }
         show(1);
     }
