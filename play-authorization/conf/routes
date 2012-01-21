@@ -51,9 +51,11 @@ POST	/sysusers/create											    SysUsers.create
 POST	/sysusers/delete											    SysUsers.delete
 POST	/sysusers/forbid											    SysUsers.forbid
 POST	/sysusers/resume											    SysUsers.resume
+GET		/sysusers/ajaxList											SysUsers.ajaxList
 
 
 GET		/sysroles													    SysRoles.index
+GET		/sysroles/ajaxList												    SysRoles.ajaxList
 
 GET		/functions													    Functions.index
 GET		/functions/ajaxList												Functions.ajaxList
@@ -61,6 +63,8 @@ GET		/functions/ajaxList												Functions.ajaxList
 
 
 GET		/organization												    Organizations.index
+GET		/organization/show										    Organizations.show
+GET		/organization/ajaxList										    Organizations.ajaxList
 
 # -------------------------------------------------------
 # Setting for test

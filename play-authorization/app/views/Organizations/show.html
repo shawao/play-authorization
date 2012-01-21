@@ -8,7 +8,7 @@
 #{set 'moreScripts'}
 
 <script type="text/javascript">
-    var listAction = #{jsAction @Functions.ajaxList() /}
+    var listAction = #{jsAction @Organizations.ajaxList() /}
 
     $(function () {
         // Dialog
@@ -90,7 +90,7 @@
         var result=false;
 
         if ($("#name").val().trim() == "") {
-            jqAlert("请输入功能名");
+            jqAlert("请输入角色名");
         }
         else if ($("#key").val().trim() == "") {
             jqAlert("请输入键值");
@@ -105,12 +105,12 @@
 #{/set}
 
 
-<h1 id="title">功能管理</h1>
+<h1 id="title">组织管理</h1>
 <p class="light_bar">
 ${entityList.size()} / ${entityCount} 功能
     &nbsp;
     <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
-        <span class="ui-icon ui-icon-newwin"></span>新增功能</a>
+        <span class="ui-icon ui-icon-newwin"></span>新增组织</a>
 </p>
 
 #{pagination page:pageSequence ?: 1, size:entityCount /}
@@ -119,28 +119,28 @@ ${entityList.size()} / ${entityCount} 功能
     <thead>
     <tr>
         <th class="main" width="40px">ID</th>
-        <th class="main" width="180px">功能名</th>
-        <th class="main" width="120px">键值</th>
+        <th class="main" width="180px">组织名</th>
+        <th class="main" width="120px">代码</th>
         <th class="main">备注</th>
-        <th class="main" width="80px">上级功能</th>
+        <th class="main" width="100px">上级组织</th>
         <th class="main" width="80px">创建时间</th>
         <th class="main" width="80px">最后更新</th>
         <th width="100px">操作</th>
     </tr>
     </thead>
 #{if entityList.size()>0}
-    #{list items:entityList, as:'func'}
+    #{list items:entityList, as:'org'}
         <tr>
-            <td class="main">${func.id}</td>
-            <td class="main">${func.name}</td>
-            <td class="main">${func.key}</td>
-            <td class="main">${func.remark}</td>
-            <td class="main">${func.parent==null?"----":func.parent.name}</td>
-            <td class="main">${func.createDate.format("yyyy-MM-dd")}</td>
-            <td class="main">${func.lastUpdate?func.lastUpdate.format("yyyy-MM-dd"):""}</td>
+            <td class="main">${org.id}</td>
+            <td class="main">${org.name}</td>
+            <td class="main">${org.key}</td>
+            <td class="main">${org.remark}</td>
+            <td class="main">${org.parent==null?"----":org.parent.name}</td>
+            <td class="main">${org.createDate.format("yyyy-MM-dd")}</td>
+            <td class="main">${org.lastUpdate?org.lastUpdate.format("yyyy-MM-dd"):""}</td>
             <td class="main">
                 <a class="ui-state-default ui-corner-all opt_button" href="#" >编辑</a>
-                <a class="ui-state-default ui-corner-all opt_button" href="javascript:requireActionByPost('@{Functions.delete}','${func.id}','确定删除功能(${func.name})？');">删除</a>
+                <a class="ui-state-default ui-corner-all opt_button" href="javascript:requireActionByPost('@{Organizations.delete}','${org.id}','确定删除组织(${org.name})？');">删除</a>
             </td>
         </tr>
     #{/list}
@@ -149,15 +149,15 @@ ${entityList.size()} / ${entityCount} 功能
 
 
 
-<div id="add_div" style="display: none;" title="新增功能">
-    <form id="add_form" action="@{Functions.create}" method="post">
+<div id="add_div" style="display: none;" title="新增组织">
+    <form id="add_form" action="@{Organizations.create}" method="post">
         <table class="myTable">
             <tr>
-                <td align="right" class="input_label"><label for="name" class="input_required">功能名：</label></td>
+                <td align="right" class="input_label"><label for="name" class="input_required">组织名：</label></td>
                 <td><input id="name" name="name" type="text" maxlength="50"/></td>
             </tr>
             <tr>
-                <td align="right" class="input_label"><label for="key" class="input_required">键值：</label></td>
+                <td align="right" class="input_label"><label for="key" class="input_required">代码：</label></td>
                 <td><input id="key" name="key" type="text" maxlength="50"/></td>
             </tr>
             <tr>
@@ -165,7 +165,7 @@ ${entityList.size()} / ${entityCount} 功能
                 <td><input id="remark" name="remark" type="text" maxlength="20"/></td>
             </tr>
             <tr class="no_bottom">
-                <td align="right" class="input_label no_bottom"><label for="remark">上级功能：</label></td>
+                <td align="right" class="input_label no_bottom"><label for="remark">上级组织：</label></td>
                 <td class="no_bottom">
                     <input type="hidden" id="parentId" name="parentId" type="text" maxlength="20"/>
                     <a href="#" id="dialog_link" class="ui-state-default ui-corner-all dialog_button"><span class="ui-icon ui-icon-newwin"></span>选择</a>
@@ -178,5 +178,5 @@ ${entityList.size()} / ${entityCount} 功能
 
 *{#{include 'Functions/ajaxList.html'/}}*
 
-<div id="popup_func_dialog" title="功能选择窗口" style="display: none">
+<div id="popup_func_dialog" title="组织选择窗口" style="display: none">
 </div>

@@ -49,10 +49,20 @@ public class SysRole extends AbstractEntity {
         EntityManager entityManager = JPA.em();
         Query userCountQuery = entityManager.createNativeQuery("select count(1) from rel_user_role where role_id=" + id);
         Object objCount = userCountQuery.getSingleResult();
-        Long count=Long.parseLong(objCount+"");
+        Long count = Long.parseLong(objCount + "");
 
-        play.Logger.info(count+" users use role["+name+"]");
+        play.Logger.info(count + " users use role[" + name + "]");
         return count;
+    }
+
+
+    public void assignFunctions(List<Function> functionList) {
+        EntityManager entityManager = JPA.em();
+        entityManager.createNativeQuery("delete from rel_role_func where role_id=" + id).executeUpdate();
+        entityManager.flush();
+
+        this.functions = functionList;
+        this.save();
     }
 
 

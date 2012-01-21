@@ -1,0 +1,26 @@
+<!-- content of popup organization list dialog -->
+${entityList.size()} / ${entityCount} 组织
+
+<table id="func_list">
+    <thead>
+    <tr>
+        <th class="main">组织名</th>
+        <th class="main">键值</th>
+        <th class="main">备注</th>
+        <th class="main">父组织</th>
+    </tr>
+    </thead>
+#{if entityList.size()>0}
+    #{list items:entityList, as:'org'}
+        <tr>
+            <td class="main">
+                <input type="radio" name="parentFuncChosen" id="parentFuncChosen${org.id}" value="${org.id}|${org.name}"/>
+                <label for="parentFuncChosen${org.id}">${org.name}</label>
+            </td>
+            <td class="main"><a href="#">${org.key}</a></td>
+            <td class="main">${org.remark}</td>
+            <td class="main">${org.parent==null?"----":org.parent.name}</td>
+        </tr>
+    #{/list}
+#{/if}
+</table>

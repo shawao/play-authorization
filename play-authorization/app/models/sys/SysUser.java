@@ -88,33 +88,13 @@ public class SysUser extends AbstractEntity {
     }
 
 
-    //todo: reduplicate roles should be filtered here
-    public void assignRoles(SysRole ...rolesArray ){
-        if(roles==null){
-            roles=new ArrayList<SysRole>();
-        }
-        Collections.addAll(roles, rolesArray);
-
-        this.save();
-
-        // save in batch
-        EntityManager entityManager=JPA.em();
-
-        for(SysRole role:roles){
-            for(Function function:role.functions){
-                entityManager.persist(new UserFunction(id,function.id));
-            }
-        }
-        entityManager.flush();
-    }
-
-
     public void assignRoles(List<SysRole> rolesList ){
         roles=rolesList;
         this.save();
 
         // save in batch
         EntityManager entityManager=JPA.em();
+        entityManager.createNativeQuery("delete from eff_user_func where userId="+id).executeUpdate();
         for(SysRole role:roles){
             for(Function function:role.functions){
                 entityManager.persist(new UserFunction(id,function.id));

@@ -1,0 +1,34 @@
+<table id="users-list">
+    <thead>
+    <tr>
+        <th class="main">登录名</th>
+        <th class="main">姓名</th>
+        <th class="main">手机</th>
+        <th class="main">状态</th>
+        <th class="main" width="80px">创建时间</th>
+        <th class="main" width="80px">最近更新</th>
+        <th class="main" width="250px">角色</th>
+        <th class="main">所属组织</th>
+    </tr>
+    </thead>
+#{if userList.size()>0}
+    #{list items:userList, as:'user'}
+        <tr class="tr_data_row">
+            <td class="main"><a href="#">${user.loginName}</a></td>
+            <td class="main"><a href="#">${user.nickName}</a></td>
+            <td class="main"><a href="#">${user.mobile}</a></td>
+            <td class="main">${user.statusRemark()}</td>
+            <td class="main">${user.createDate.format("yyyy-MM-dd")}</td>
+            <td class="main">${user.lastUpdate?user.lastUpdate.format("yyyy-MM-dd"):""}</td>
+            <td class="main">
+                <a class="ui-state-default ui-corner-all opt_button"
+                   href="javascript:showAssignForm('${user.id}','${user.loginName}');" >分配</a>
+            #{if user.roles.size()>0}#{list items:user.roles, as:'role'}
+                <span class="role_col">${role.name}</span>
+            #{/list}#{/if}
+            </td>
+            <td class="main"></td>
+        </tr>
+    #{/list}
+#{/if}
+</table>

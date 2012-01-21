@@ -2,21 +2,6 @@
 
 #{set "moreStyles"}
 <style type="text/css">
-    /*#add_user_div{
-        padding-top: 30px;
-        width: 60%;
-    }*/
-
-    .hidden_div{
-        padding-top: 30px;
-        width: 60%;
-    }
-
-    .myTable{border: none;}
-    .myTable tr{height: 25px;border-left: none;border-right: none;}
-    .myTable tr td{height: 25px;border-left: none;border-right: none;}
-    .input_label{font-style: oblique;}
-
     .role_col {
         padding-left: 5px;
         padding-right: 5px;
@@ -26,13 +11,63 @@
 
 #{set 'moreScripts'}
 <script type="text/javascript">
-    function showNewForm(){
+    var listAction = #{jsAction @SysRoles.ajaxList() /}
+
+    $(function () {
+        // -------- add user dialog
+        $('#add_div').dialog({
+            autoOpen:false,
+            width:400,
+            modal:true,
+            resizable:false,
+            buttons:{
+                "保存":function () {
+                    if (submitNewEntity())
+                        $(this).dialog("close");
+                },
+                "取消":function () {
+//                    cancelNewEntity();
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        // Dialog Link
+        $('#create_link').click(function () {
+            $('#add_div').css('display', '');
+            cleanForm();
+            $('#add_div').dialog('open');
+            return false;
+        });
+
+        // -------- assign roles dialog
+        $('#assign_div').dialog({
+            autoOpen:false,
+            width:600,
+            height:400,
+            modal:true,
+            resizable:false,
+            buttons:{
+                "保存":function () {
+//                    jqAlert($("#assign_user_id").val());
+                    submitAssignInfo();
+                    $(this).dialog("close");
+                },
+                "取消":function () {
+                    cancelAssignForm();
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+
+
+    function cleanForm(){
         document.getElementById('loginName').value='';
         document.getElementById('nickName').value='';
         document.getElementById('mobile').value='';
         document.getElementById('password').value='';
         document.getElementById('password2').value='';
-        document.getElementById('add_user_div').style.display='';
     }
 
     function cancelNewEntity(){
@@ -46,23 +81,19 @@
         var elePswd = document.getElementById('password');
         var elePswd2 = document.getElementById('password2');
 
+        //todo: 怎样才能focus到具体的输入框？
         if (eleLName.value.trim() == "") {
-            alert("请输入登录名");
-            eleLName.focus();
+            jqAlert("请输入登录名");
         }
         else if (elePswd.value.trim() == "") {
-            alert("请输入密码");
-            elePswd.focus();
+            jqAlert("请输入密码");
         }
-//        else if (elePswd.value.trim() != elePswd2.value.trim()) {
-//            alert("请输入手机号码");
-//            elePswd2.value = '';
-//            elePswd2.focus();
-//        }
+        else if (elePswd2.value.trim() =="") {
+            jqAlert("请输入确认密码");
+        }
         else if (elePswd.value.trim() != elePswd2.value.trim()) {
-            alert("请输入确认密码");
             elePswd2.value = '';
-            elePswd2.focus();
+            jqAlert("请再次输入确认密码");
         } else {
             if (eleNName.value.trim() == '') eleNName.value = eleLName.value;
             document.getElementById('add_user_form').submit();
@@ -70,15 +101,16 @@
     }
 
     function showAssignForm(userId,userLoginName){
-        document.getElementById('assign_user').innerHTML=userLoginName;
-        document.getElementById('assign_user_id').value=userId;
-        document.getElementById('assign_div').style.display='';
+        $('#assgn_table_div').load(listAction(),function(){});
+        $("#assign_user_id").val(userId);
+        $('#assign_div').css('display', '');
+        $('#assign_div').dialog('option',"title","为用户（"+userLoginName+"）分配角色");
+        $('#assign_div').dialog('open');
     }
 
     function cancelAssignForm(){
-        document.getElementById('assign_div').style.display='none';
-        document.getElementById('assign_user').text='';
-        document.getElementById('assign_user_id').text='';
+        $('assign_user').innerText='';
+        $('assign_user_id').val('');
     }
 
     function submitAssignInfo(){
@@ -88,29 +120,26 @@
         for(var i=0;i<ridArray.length;i++){
             if(ridArray[i].checked){
                 empty=false;
+                break;
             }
         }
 
         if(empty){
-            alert("请至少选择一个角色");
-            return;
+            jqAlert("请至少选择一个角色");
+            return false;
         }
-
-        if(!empty && confirm("Confirm assign these roles to ["
-                +document.getElementById('assign_user').innerHTML+"]")){
-//            var assignForm=document.getElementById('assign_form');
-            document.getElementById('assign_form').submit();
-        }
+        document.getElementById('assign_form').submit();
+        return true;
     }
 </script>
 #{/set}
 
 
 <h1 id="title">用户管理</h1>
-*{<p class="light">}*
 <p class="light_bar">
-#{pluralize size:userList.size(), word:'user' /} in #{pluralize size:userCount, word:'user' /}
-    &nbsp;<a class="link_as_button" href="javascript:showNewForm()">创建用户</a>
+${userList.size()} / ${userCount} 用户&nbsp;
+    <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
+            <span class="ui-icon ui-icon-newwin"></span>创建用户</a>
 </p>
 
 #{pagination page:pageSequence ?: 1, size:userCount /}
@@ -119,14 +148,14 @@
     <thead>
     <tr>
         <th class="main">登录名</th>
-        <th class="main">昵称</th>
+        <th class="main">姓名</th>
         <th class="main">手机</th>
         <th class="main">状态</th>
         <th class="main" width="80px">创建时间</th>
         <th class="main" width="80px">最近更新</th>
         <th class="main" width="250px">角色</th>
         <th class="main">所属组织</th>
-        <th width="100px">操作</th>
+        <th width="130px">操作</th>
     </tr>
     </thead>
 #{if userList.size()>0}
@@ -139,7 +168,7 @@
             <td class="main">${user.createDate.format("yyyy-MM-dd")}</td>
             <td class="main">${user.lastUpdate?user.lastUpdate.format("yyyy-MM-dd"):""}</td>
             <td class="main">
-                <a class="link_as_button"
+                <a class="ui-state-default ui-corner-all opt_button"
                    href="javascript:showAssignForm('${user.id}','${user.loginName}');" >分配</a>
             #{if user.roles.size()>0}#{list items:user.roles, as:'role'}
                 <span class="role_col">${role.name}</span>
@@ -148,15 +177,16 @@
             <td class="main"></td>
             <td class="main">
                 #{if user.status==1}
-                <a class="link_as_button"
+                <a class="ui-state-default ui-corner-all opt_button"
                    href="javascript:requireActionByPost('@{SysUsers.forbid}','${user.id}','确定禁用用户(${user.loginName})？');">禁用</a>
                 #{/if}
                 #{if user.status==2}
-                <a class="link_as_button"
+                <a class="ui-state-default ui-corner-all opt_button"
                    href="javascript:requireActionByPost('@{SysUsers.resume}','${user.id}','确定恢复用户(${user.loginName})？');">恢复</a>
                 #{/if}
-                <a class="link_as_button"
-                   href="javascript:requireActionByPost('@{SysUsers.delete}','${user.id}','确认删除用户(${user.loginName})？');">强制删除</a>
+                <a class="ui-state-default ui-corner-all opt_button" href="javascript:jqAlert('测试一下弹出框');">编辑</a>
+                <a class="ui-state-default ui-corner-all opt_button"
+                   href="javascript:requireActionByPost('@{SysUsers.delete}','${user.id}','确认删除用户(${user.loginName})？');">强删</a>
             </td>
         </tr>
     #{/list}
@@ -165,16 +195,15 @@
 
 
 
-<div id="add_user_div" style="display: none;" class="hidden_div">
+<div id="add_div" style="display: none;" class="hidden_div" title="创建用户">
     <form id="add_user_form" action="@{SysUsers.create}" method="post">
     <table class="myTable">
-        <tr><td colspan="2" style="border-bottom: solid 2px;"><b>创建用户：</b></td></tr>
         <tr>
-            <td align="right" class="input_label"><label for="loginName">登录名：</label></td>
+            <td align="right" class="input_label"><label for="loginName" class="input_required">登录名：</label></td>
             <td><input id="loginName" name="loginName" type="text" maxlength="50"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="nickName">昵称：</label></td>
+            <td align="right" class="input_label"><label for="nickName">姓名：</label></td>
             <td><input id="nickName" name="nickName" type="text" maxlength="50"/></td>
         </tr>
         <tr>
@@ -182,61 +211,22 @@
             <td><input id="mobile" name="mobile" type="text" maxlength="50"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="password">密码：</label></td>
+            <td align="right" class="input_label"><label for="password" class="input_required">密码：</label></td>
             <td><input id="password" name="password" type="password" maxlength="20"/></td>
         </tr>
-        <tr>
-            <td align="right" class="input_label"><label for="password2">重新输入密码：</label></td>
-            <td><input id="password2" name="password2" type="password" maxlength="20"/></td>
+        <tr class="no_bottom">
+            <td align="right" class="input_label no_bottom"><label for="password2" class="input_required">重新输入密码：</label></td>
+            <td class="no_bottom"><input id="password2" name="password2" type="password" maxlength="20"/></td>
         </tr>
-        <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
-            以上全部是必输项
-            <input style="padding-top: 5px" type="button" value="取消" onclick="cancelNewEntity();"/>&nbsp;&nbsp;
-            <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="保存"/>
-        </td></tr>
     </table>
     </form>
 </div>
 
 
 
-<div id="assign_div" style="display: none;" class="hidden_div">
+<div id="assign_div" style="display: none;" class="hidden_div" title="分配角色">
     <form id="assign_form" action="@{SysUsers.assignRoles()}" method="post">
-        <table class="myTable">
-            <tr><td colspan="2" style="border-bottom: solid 2px;">
-                <b>为用户 (<span id="assign_user" style="color: #ba120f;"></span>) 分配角色:</b>
-            </td></tr>
-            <input type="hidden" id="assign_user_id" name="userId" value=""/>
-            <tr>
-                <td align="right" class="input_label" valign="top" width="50px"><label></label></td>
-                <td>
-                    <table class="myTable">
-                        <thead style="background-color: #888888;">
-                        <tr>
-                            <th class="main">角色名</th>
-                            <th class="main">键值</th>
-                            <th class="main">备注</th>
-                        </tr>
-                        </thead>
-                    #{if roleList.size()>0}
-                        #{list items:roleList, as:'role'}
-                            <tr style="border-right: none;">
-                                <td height="18px"><input type="checkbox" name="roleId" id="roleId_${role.id}"
-                                                         value="${role.id}"/>
-                                    <label for="roleId_${role.id}">${role.name}</label></td>
-                                <td height="18px">${role.key}</td>
-                                <td height="18px">${role.remark}</td>
-                            </tr>
-                        #{/list}
-                    #{/if}
-                    </table>
-                </td>
-            </tr>
-            <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
-                <input style="padding-top: 5px" type="reset" value="Reset"/>&nbsp;&nbsp;
-                <input style="padding-top: 5px" type="button" value="Cancel" onclick="cancelAssignForm();"/>&nbsp;&nbsp;
-                <input style="padding-top: 5px" type="button" onclick="submitAssignInfo();" value="Submit"/>
-            </td></tr>
-        </table>
+        <input type="hidden" id="assign_user_id" name="userId" value=""/>
+        <div id="assgn_table_div"></div>
     </form>
 </div>

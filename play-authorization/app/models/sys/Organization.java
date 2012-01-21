@@ -33,9 +33,9 @@ public class Organization extends AbstractEntity {
     public Organization parent;
 
 
-    public Organization(String key, String name, String remark, Organization parent) {
-        this.key = key;
+    public Organization(String name, String key, String remark, Organization parent) {
         this.name = name;
+        this.key = key;
         this.remark = remark;
         this.parent = parent;
     }

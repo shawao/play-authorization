@@ -2,53 +2,94 @@
 
 #{set "moreStyles"}
 <style type="text/css">
-    #add_div{
-        padding-top: 30px;
-        width: 50%;
-    }
-    #newTable{border: none;}
-    #newTable tr{height: 25px;border-left: none;border-right: none;}
-    #newTable tr td{height: 25px;border-left: none;border-right: none;}
-    .input_label{font-style:oblique;}
 </style>
 #{/set}
 
 #{set 'moreScripts'}
 <script type="text/javascript">
-    function showNewForm(){
-        document.getElementById('name').value='';
-        document.getElementById('key').value='';
-        document.getElementById('remark').value='';
-        document.getElementById('add_div').style.display='';
+    var listAction = #{jsAction @Functions.ajaxList() /}
+
+            $(function () {
+                // -------- add user dialog
+                $('#add_div').dialog({
+                    autoOpen:false,
+                    width:400,
+                    modal:true,
+                    resizable:false,
+                    buttons:{
+                        "保存":function () {
+                            if (submitNewEntity())
+                                $(this).dialog("close");
+                        },
+                        "取消":function () {
+                            //cancelNewEntity();
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
+                // Dialog Link
+                $('#create_link').click(function () {
+                    $('#add_div').css('display', '');
+                    cleanForm();
+                    $('#add_div').dialog('open');
+                    return false;
+                });
+
+                // -------- assign roles dialog
+                $('#assign_div').dialog({
+                    autoOpen:false,
+                    width:600,
+                    height:400,
+                    modal:true,
+                    resizable:false,
+                    buttons:{
+                        "保存":function () {
+                            //jqAlert($("#assign_user_id").val());
+//                            submitAssignInfo();
+                            $(this).dialog("close");
+                        },
+                        "取消":function () {
+//                            cancelAssignForm();
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+
+    function cleanForm() {
+        document.getElementById('name').value = '';
+        document.getElementById('key').value = '';
+        document.getElementById('remark').value = '';
     }
 
-    function cancelNewEntity(){
-        document.getElementById('add_div').style.display='none';
-    }
-
-    function submitNewEntity(){
-        var eleName=document.getElementById('name');
-        var eleKey=document.getElementById('key');
-
-        if(eleName.value.trim()==""){
-            alert("No role name, please input it");
-            eleName.focus();
+    function submitNewEntity() {
+        if ($("#name").val().trim()== "") {
+            jqAlert("请输入角色名");
         }
-        else if(eleKey.value.trim()==""){
-            alert("No key, please input it");
-            eleKey.focus();
+        else if ($("#key").val().trim() == "") {
+            jqAlert("请输入角色键值");
         }
-        else{
+        else {
             document.getElementById('add_form').submit();
         }
     }
 
-    function deleteRole(userCount,url,id,prompt){
-        if(userCount>0){
-            alert('角色被 '+userCount+' 人使用，不能删除');
-        }else{
-            requireActionByPost(url,id,prompt);
+    function deleteRole(userCount, url, id, prompt) {
+        if (userCount > 0) {
+            jqAlert('角色被 ' + userCount + ' 人使用，不能删除');
+        } else {
+            requireActionByPost(url, id, prompt);
         }
+    }
+
+
+    function showAssignForm(roleId, roleName) {
+        $('#assgn_table_div').load(listAction(), function () {});
+        $("#assign_user_id").val(roleId);
+        $('#assign_div').css('display', '');
+        $('#assign_div').dialog('option', "title", "为角色（" + roleName + "）分配功能");
+        $('#assign_div').dialog('open');
     }
 </script>
 #{/set}
@@ -56,13 +97,16 @@
 
 <h1 id="title">角色管理</h1>
 <p class="light_bar">
-#{pluralize size:entityList.size(), word:'role' /} in #{pluralize size:entityCount, word:'role' /}
-    &nbsp;<a class="link_as_button" href="javascript:showNewForm()">创建角色</a>
+*{#{pluralize size:entityList.size(), word:'role' /} in #{pluralize size:entityCount, word:'role' /}}*
+    *{&nbsp;<a class="link_as_button" href="javascript:showNewForm()">创建角色</a>}*
+${entityList.size()} / ${entityCount} 角色&nbsp;
+    <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
+            <span class="ui-icon ui-icon-newwin"></span>创建角色</a>
 </p>
 
 #{pagination page:pageSequence ?: 1, size:entityCount /}
 
-<table id="users-list">
+<table id="roles-list">
     <thead>
     <tr>
         <th class="main">角色名</th>
@@ -82,10 +126,13 @@
             <td class="main">${role.remark}</td>
             <td class="main">${role.createDate.format("yyyy-MM-dd")}</td>
             <td class="main">${role.lastUpdate?role.lastUpdate.format("yyyy-MM-dd"):""}</td>
-            <td class="main"><a class="link_as_button" href="#" >分配</a></td>
             <td class="main">
-                <a class="link_as_button" href="#" >编辑</a>
-                <a class="link_as_button" href="javascript:deleteRole(${role.userCount()},'@{SysRoles.delete}','${role.id}','确定删除角色(${role.name})？');">删除</a>
+                <a class="ui-state-default ui-corner-all opt_button"
+                   href="javascript:showAssignForm('${role.id}','${role.name}');" >分配</a>
+            </td>
+            <td class="main">
+                <a class="ui-state-default ui-corner-all opt_button" href="javascript:jqAlert('测试一下弹出框');">编辑</a>
+                <a class="ui-state-default ui-corner-all opt_button" href="javascript:deleteRole(${role.userCount()},'@{SysRoles.delete}','${role.id}','确定删除角色(${role.name})？');">删除</a>
             </td>
         </tr>
     #{/list}
@@ -94,26 +141,29 @@
 
 
 
-<div id="add_div" style="display: none;">
+<div id="add_div" style="display: none;" title="创建角色">
     <form id="add_form" action="@{SysRoles.create}" method="post">
-        <table id="newTable">
-            <tr><td colspan="2" style="border-bottom: solid 2px;" id="table_title"><b>创建角色：</b></td></tr>
+        <table class="myTable">
             <tr>
-                <td align="right" class="input_label"><label for="name">角色名：</label></td>
+                <td align="right" class="input_label"><label for="name" class="input_required">角色名：</label></td>
                 <td><input id="name" name="name" type="text" maxlength="50"/></td>
             </tr>
             <tr>
-                <td align="right" class="input_label"><label for="key">键值：</label></td>
+                <td align="right" class="input_label"><label for="key" class="input_required">键值：</label></td>
                 <td><input id="key" name="key" type="text" maxlength="50"/></td>
             </tr>
-            <tr>
-                <td align="right" class="input_label"><label for="remark">备注：</label></td>
-                <td><input id="remark" name="remark" type="text" maxlength="20"/></td>
+            <tr class="no_bottom">
+                <td align="right" class="input_label no_bottom"><label for="remark">备注：</label></td>
+                <td class="no_bottom"><input id="remark" name="remark" type="text" maxlength="20"/></td>
             </tr>
-            <tr style="border-bottom: none;"><td  style="border-bottom: none;" colspan="2" align="right">
-                <input style="padding-top: 5px" type="button" value="取消" onclick="cancelNewEntity();"/>&nbsp;&nbsp;
-                <input style="padding-top: 5px" type="button" onclick="submitNewEntity();" value="保存"/>
-            </td></tr>
         </table>
+    </form>
+</div>
+
+
+<div id="assign_div" style="display: none;" class="hidden_div" title="分配角色">
+    <form id="assign_form" action="@{SysRoles.assignFunctions()}" method="post">
+        <input type="hidden" id="assign_user_id" name="userId" value=""/>
+        <div id="assgn_table_div"></div>
     </form>
 </div>
