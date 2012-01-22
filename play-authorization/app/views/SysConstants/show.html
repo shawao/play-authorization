@@ -1,4 +1,4 @@
-#{extends 'auth_main.html' /}
+#{extends 'assistant_main.html' /}
 
 #{set "moreStyles"}
 <style type="text/css">
@@ -127,9 +127,8 @@
     var detailForEditAction = #{jsAction @Organizations.detailForEdit(':id') /}
 
     function showEditForm(orgId,orgName) {
-//        $('#edit_table_div').html("");
         $('#edit_table_div').load(detailForEditAction({id:orgId}), function () {});
-        $("#edit_entity_id").val(orgId);
+        $("#edit_user_id").val(orgId);
         $('#edit_div').css('display', '');
         $('#edit_div').dialog('option', "title", "修改组织（" + orgName + "）基本信息");
         $('#edit_div').dialog('open');
@@ -138,12 +137,12 @@
 #{/set}
 
 
-<h1 id="title">组织管理</h1>
+<h1 id="title">常量管理</h1>
 <p class="light_bar">
-${entityList.size()} / ${entityCount} 组织
+${entityList.size()} / ${entityCount} 常量
     &nbsp;
     <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
-        <span class="ui-icon ui-icon-newwin"></span>新增组织</a>
+        <span class="ui-icon ui-icon-newwin"></span>新增常量</a>
 </p>
 
 #{pagination page:pageSequence ?: 1, size:entityCount /}
@@ -152,7 +151,7 @@ ${entityList.size()} / ${entityCount} 组织
     <thead>
     <tr>
         <th class="main" width="40px">ID</th>
-        <th class="main" width="180px">组织名</th>
+        <th class="main" width="180px">常量类型</th>
         <th class="main" width="120px">代码</th>
         <th class="main">备注</th>
         <th class="main" width="100px">上级组织</th>
@@ -215,9 +214,9 @@ ${entityList.size()} / ${entityCount} 组织
 </div>
 
 
-<div id="edit_div" style="display: none;" title="编辑组织信息">
+<div id="edit_div" style="display: none;" title="编辑用户信息">
     #{form @edit(), id:'edit_form',method:'POST'}
-        <input type="hidden" id="edit_entity_id" name="userId" value=""/>
+        <input type="hidden" id="edit_user_id" name="userId" value=""/>
         <div id="edit_table_div">
             *{这里由ajax引入后台html代码}*
         </div>

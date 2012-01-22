@@ -42,6 +42,14 @@ public class SysConstant extends AbstractEntity {
         this.remark = remark;
     }
 
+    public void editSysConstant(Long constType, Long constCode, String constValue, String constRemark, String remark, int status) {
+        this.constType = constType;
+        this.constCode = constCode;
+        this.constValue = constValue;
+        this.constRemark = constRemark;
+        this.remark = remark;
+        this.status = status;
+    }
 
     @ManyToOne(optional = false)
     public SysUser submitter;// who submit it

@@ -7,10 +7,10 @@
 	*{ Previous }*
 
 	#{if _page == 1}
-		<strong>« Previous</strong>
+		<strong>« 前页</strong>
 	#{/if}
 	#{else}
-		<a class="page_num" href="${request.path}?page=${_page-1}">« Previous</a>
+		<a class="ui-state-default ui-corner-all opt_button" href="${request.path}?page=${_page-1}">« 前页</a>
 	#{/else}
 
 	*{ Pages }*
@@ -20,17 +20,17 @@
 			<strong class="current_page_num">${i}</strong>
 		#{/if}
 		#{else}
-			<a class="page_num" href="${request.path}?page=${i}">${i}</a>
+			<a class="ui-state-default ui-corner-all opt_button" href="${request.path}?page=${i}">${i}</a>
 		#{/else}
 	%{ } }%
 
 	*{ Next }*
 
 	#{if _page == nbPages}
-		<strong>Next »</strong>
+		<strong>后页 »</strong>
 	#{/if}
 	#{else}
-		<a class="page_num" href="${request.path}?page=${_page+1}">Next »</a>
+		<a class="ui-state-default ui-corner-all opt_button" href="${request.path}?page=${_page+1}">后页 »</a>
 	#{/else}
 
 	</div>

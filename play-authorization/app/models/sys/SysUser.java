@@ -4,11 +4,11 @@ import models.AbstractEntity;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.db.jpa.JPA;
-import play.db.jpa.Model;
 import play.libs.Codec;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Desc:
@@ -20,7 +20,7 @@ import java.util.*;
 @Table(name = "sys_user")
 public class SysUser extends AbstractEntity {
     @Required
-    @Column(nullable = false,length = 50,unique = true)
+    @Column(nullable = false, length = 50, unique = true)
     public String loginName;
 
     // if empty input, using loginName instead (set nickName by loginName)
@@ -28,19 +28,20 @@ public class SysUser extends AbstractEntity {
     public String nickName;
 
     @Required
-    @Column(nullable = false,length = 50)
+    @Column(nullable = false, length = 50)
     public String password;
 
     @Email
     @Column(length = 80)
     public String email;
 
-
+    @Basic
     public int sex;//性别，0：未设定，1：男，2：女
+
     @ManyToOne
     public District district;
 
-
+    @Basic
     public int userType;//0：未设定，1：系统管理员，2：气象局普通用户，3：厂商用户
 
     @Column(length = 100)
@@ -57,7 +58,7 @@ public class SysUser extends AbstractEntity {
     public String phone2;
 
 
-    public int status=1;//1：正常使用，2：禁用（禁止登录）
+    public int status = 1;//1：正常使用，2：禁用（禁止登录）
 
     @Column(length = 250)
     public String remark;
@@ -79,25 +80,58 @@ public class SysUser extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     public List<SysRole> roles;
 
+    /*----------------------------------------------------*/
 
-    public SysUser(String loginName, String nickName, String password,String mobile) {
+    public SysUser(String loginName, String password) {
+        this.loginName = loginName;
+        this.password = password;
+    }
+
+    public SysUser(String loginName, String nickName, String password, String mobile) {
         this.loginName = loginName;
         this.nickName = nickName;
         this.password = Codec.hexMD5(password);
-        this.mobile=mobile;
+        this.mobile = mobile;
     }
 
+    public void editSysUser(
+            String loginName, String nickName, String password, String email,
+            int sex, District district, int userType, String signature, String address,
+            String mobile, String phone, String phone2, int status, String remark,
+            int loginTimes, Date lastLogin, List<Organization> organizations, List<SysRole> roles) {
+//        this.loginName = loginName;
+        this.nickName = nickName;
+//        this.password = password;
+        this.email = email;
+        this.sex = sex;
+        this.district = district;
+        this.userType = userType;
+        this.signature = signature;
+        this.address = address;
+        this.mobile = mobile;
+        this.phone = phone;
+        this.phone2 = phone2;
+        this.status = status;
+        this.remark = remark;
+//        this.loginTimes = loginTimes;
+//        this.lastLogin = lastLogin;
+        this.organizations = organizations;
+//        this.roles = roles;
+    }
 
-    public void assignRoles(List<SysRole> rolesList ){
-        roles=rolesList;
+    public void assignRoles(List<SysRole> rolesList) {
+        roles = rolesList;
+        this.lastUpdate=new Date();
         this.save();
 
         // save in batch
-        EntityManager entityManager=JPA.em();
-        entityManager.createNativeQuery("delete from eff_user_func where userId="+id).executeUpdate();
-        for(SysRole role:roles){
-            for(Function function:role.functions){
-                entityManager.persist(new UserFunction(id,function.id));
+        EntityManager entityManager = JPA.em();
+        entityManager.createNativeQuery("delete from eff_user_func where userId=" + id).executeUpdate();
+        if (roles != null && !roles.isEmpty()){
+            for (SysRole role : roles) {
+                for (Function function : role.functions) {
+                    entityManager.persist(new UserFunction(id, function.id));
+                }
             }
         }
         entityManager.flush();
@@ -115,27 +149,28 @@ public class SysUser extends AbstractEntity {
 
         Query deleteRuoQuery = entityManager.createNativeQuery("delete from rel_user_org where user_id=" + id);
         int ruoCount = deleteRuoQuery.executeUpdate();
-        
-        play.Logger.info("delete from rel_user_role: "+rurCount);
-        play.Logger.info("delete from rel_user_org: "+ruoCount);
+
+        play.Logger.info("delete from rel_user_role: " + rurCount);
+        play.Logger.info("delete from rel_user_org: " + ruoCount);
 
         entityManager.remove(this);
         entityManager.flush();
     }
 
 
-    public void changeStatus(int status){
-        this.status=status;
+    public void changeStatus(int status) {
+        this.lastUpdate=new Date();
+        this.status = status;
         this.save();
     }
 
-    
-    public String statusRemark(){
-        String remark="";
-        if(status==1)
-            remark= "正常";
-        else if(status==2)
-            remark ="禁用";
+
+    public String statusRemark() {
+        String remark = "";
+        if (status == 1)
+            remark = "正常";
+        else if (status == 2)
+            remark = "禁用";
         return remark;
     }
 }

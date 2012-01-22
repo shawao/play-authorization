@@ -12,26 +12,33 @@ import notifiers.*;
 
 public class Application extends Controller {
 
-    protected static org.apache.log4j.Logger log= org.apache.log4j.Logger.getLogger(Application.class);
+    protected static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Application.class);
 
     static Integer pageSize = Integer.parseInt(Play.configuration.getProperty("auth.pageSize", "10"));
-    
+
     // ~~~~~~~~~~~~ @Before interceptors
-    
+
     @Before
     static void globals() {
 //        renderArgs.put("connected", connectedUser());
         renderArgs.put("pageSize", pageSize);
     }
 
-    @Before
-    static void authenticate(){
+
+    @Before()
+    static void logAccess() {
         log.info("=========================================================");
-        log.info("request.url = "+request.url);
-        log.info("request.controllerClass.actionMethod = "+request.controllerClass+"."+request.actionMethod);
-//        log.info("request.actionMethod = "+request.actionMethod);
-        log.info("request.remoteAddress = "+request.remoteAddress);
-        log.info("=============================\n");
+        log.info("request.url = " + request.url);
+        log.info("request.controllerClass.actionMethod = " + request.controllerClass + "." + request.actionMethod);
+        //        log.info("request.actionMethod = "+request.actionMethod);
+        log.info("request.remoteAddress = " + request.remoteAddress);
+        log.info("===============================\n");
+    }
+
+
+    @Before(unless = "login")
+    static void authenticate() {
+        //todo
     }
 
     @Before
@@ -44,7 +51,7 @@ public class Application extends Controller {
 //        }
     }
     // ~~~~~~~~~~~~ Actions
-    
+
     public static void signup() {
         render();
     }
@@ -122,9 +129,9 @@ public class Application extends Controller {
 //        flash.put("email", user.email);
 //        login();
     }
-    
+
     // ~~~~~~~~~~~~ Some utils
-    
+
     static void connect(SysUser user) {
         session.put("logged", user.id);
     }

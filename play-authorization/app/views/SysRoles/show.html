@@ -121,8 +121,8 @@ ${entityList.size()} / ${entityCount} 角色&nbsp;
 #{if entityList.size()>0}
     #{list items:entityList, as:'role'}
         <tr>
-            <td class="main"><a href="#">${role.name}</a></td>
-            <td class="main"><a href="#">${role.key}</a></td>
+            <td class="main">${role.name}</td>
+            <td class="main">${role.key}</td>
             <td class="main">${role.remark}</td>
             <td class="main">${role.createDate.format("yyyy-MM-dd")}</td>
             <td class="main">${role.lastUpdate?role.lastUpdate.format("yyyy-MM-dd"):""}</td>

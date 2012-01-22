@@ -3,6 +3,7 @@ package controllers;
 import models.sys.Organization;
 import play.data.validation.Required;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class Organizations extends Application {
                               @Required String key,
                               String remark,
                               @Required Long parentId) {
-        play.Logger.info("<< create function: {name:" + name + ",...}");
+        play.Logger.info("<< create organization: {name:" + name + ",...}");
         Organization parentEntity = null;
         if (parentId != null) {
             parentEntity = Organization.findById(parentId);
@@ -59,6 +60,39 @@ public class Organizations extends Application {
         } else {
             log.info(">> Organization(" + id + ") doesn't exist");
         }
+        show(1);
+    }
+
+
+    //ajax invoking
+    public static void detailForEdit(@Required Long id) {
+        Organization entity=null;
+        String message=null;
+        if (id == null) {
+            message="没有选定组织";
+        } else {
+            entity = Organization.findById(id);
+            log.info("==== Organizations.detailForEdit() > entity = "+entity);
+            if (entity == null) {
+                message="组织不存在";
+            }
+        }
+        render(entity, message);
+    }
+    
+    public static void edit(){
+        Long id=params.get("id",Long.class);
+        Long parentId=params.get("parentId",Long.class);
+        
+        Organization org=Organization.findById(id);
+
+        Organization parent=null;
+        if(parentId!=null)
+            parent=Organization.findById(parentId);
+        org.editOrganization(params.get("key"),params.get("name"),params.get("remark"),
+                parent, 0, 0);
+        org.lastUpdate=new Date();
+        org.save();
         show(1);
     }
 }
