@@ -1,6 +1,8 @@
 <!-- content of popup function list dialog -->
 ${entityList.size()} / ${entityCount} 功能
 
+#{if role!=null}<input type="hidden" id="roleId" name="roleId" value="${role.id}"/>#{/if}
+
 <table id="func_list">
     <thead>
     <tr>
@@ -12,10 +14,13 @@ ${entityList.size()} / ${entityCount} 功能
     </thead>
 #{if entityList.size()>0}
     #{list items:entityList, as:'func'}
-        <tr>
+        <tr #{if role!=null && role.ownsFunction(func)}style="background-color: #8fbc8f;" #{/if}>
             <td class="main">
-                <input type="radio" name="parentFuncChosen" id="parentFuncChosen${func.id}" value="${func.id}|${func.name}"/>
-                <label for="parentFuncChosen${func.id}">${func.name}</label>
+                <input type="checkbox"
+                       #{if role!=null && role.ownsFunction(func)}checked="checked" #{/if}
+                       name="functionId" id="functionId_${func.id}"
+                       value="${func.id}"/>
+                <label for="functionId_${func.id}">${func.name}</label>
             </td>
             <td class="main"><a href="#">${func.key}</a></td>
             <td class="main">${func.remark}</td>

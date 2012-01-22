@@ -7,7 +7,6 @@
 
 #{set 'moreScripts'}
 <script type="text/javascript">
-    var listAction = #{jsAction @Functions.ajaxList() /}
 
             $(function () {
                 // -------- add user dialog
@@ -22,7 +21,6 @@
                                 $(this).dialog("close");
                         },
                         "取消":function () {
-                            //cancelNewEntity();
                             $(this).dialog("close");
                         }
                     }
@@ -39,18 +37,16 @@
                 // -------- assign roles dialog
                 $('#assign_div').dialog({
                     autoOpen:false,
-                    width:600,
-                    height:400,
+                    width:500,
+                    height:600,
                     modal:true,
                     resizable:false,
                     buttons:{
                         "保存":function () {
-                            //jqAlert($("#assign_user_id").val());
-//                            submitAssignInfo();
+                            submitAssignInfo();
                             $(this).dialog("close");
                         },
                         "取消":function () {
-//                            cancelAssignForm();
                             $(this).dialog("close");
                         }
                     }
@@ -83,13 +79,36 @@
         }
     }
 
+    var listAction = #{jsAction @Functions.ajaxListByRoleId(':roleId') /}
 
-    function showAssignForm(roleId, roleName) {
-        $('#assgn_table_div').load(listAction(), function () {});
-        $("#assign_user_id").val(roleId);
+    function showAssignForm(rid, roleName) {
+        $('#assign_table_div').load(listAction({roleId:rid}), function () {});
+        $("#assign_role_id").val(rid);
         $('#assign_div').css('display', '');
         $('#assign_div').dialog('option', "title", "为角色（" + roleName + "）分配功能");
         $('#assign_div').dialog('open');
+    };
+
+    function submitAssignInfo() {
+        var functionIdChecked=$("input[name='functionId']:checked='checked'");
+
+
+        var ridArray = document.getElementsByName("functionId");
+        var empty = true;
+
+        for (var i = 0; i < ridArray.length; i++) {
+            if (ridArray[i].checked) {
+                empty = false;
+                break;
+            }
+        }
+
+        if (empty) {
+            jqAlert("请至少选择一个角色");
+            return false;
+        }
+        document.getElementById('assign_form').submit();
+        return true;
     }
 </script>
 #{/set}
@@ -163,7 +182,7 @@ ${entityList.size()} / ${entityCount} 角色&nbsp;
 
 <div id="assign_div" style="display: none;" class="hidden_div" title="分配角色">
     <form id="assign_form" action="@{SysRoles.assignFunctions()}" method="post">
-        <input type="hidden" id="assign_user_id" name="userId" value=""/>
-        <div id="assgn_table_div"></div>
+        <input type="hidden" id="assign_role_id" name="roleId" value=""/>
+        <div id="assign_table_div"></div>
     </form>
 </div>
