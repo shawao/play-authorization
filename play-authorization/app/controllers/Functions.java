@@ -1,6 +1,7 @@
 package controllers;
 
 import models.sys.Function;
+import models.sys.SysRole;
 import play.data.validation.Required;
 
 import java.util.List;
@@ -30,18 +31,24 @@ public class Functions extends Application {
         render(entityCount, entityList, pageSequence);
     }
 
-    // return part of html string
+    // return part of html string，单选列表
     public static void ajaxList() {
-        List<Function> entityList = Function.find("select o from Function o order by id desc").fetch();
+        List<Function> entityList = Function.find("select o from Function o order by key asc").fetch();
         Long entityCount = Function.count();
         render(entityCount, entityList);
     }
 
-
+    // return part of html string，复选列表
     public static void ajaxListByRoleId(Long roleId) {
-        List<Function> entityList = Function.find("select o from Function o order by id desc").fetch();
+        List<Function> entityList = Function.find("select o from Function o order by key asc").fetch();
         Long entityCount = Function.count();
-        render(entityCount, entityList, roleId);
+
+        SysRole role = null;
+        if (roleId != null) {
+            role = SysRole.findById(roleId);
+            log.info("got role(" + roleId + ")");
+        }
+        render(entityCount, entityList, role);
     }
 
 

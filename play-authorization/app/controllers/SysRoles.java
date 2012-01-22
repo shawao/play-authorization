@@ -68,25 +68,27 @@ public class SysRoles extends Application{
     }
 
 
-    public static void assignFunctions(Long roleId, Long[] functionIds) {
+    public static void assignFunctions(Long roleId, Long[] functionId) {
         if (roleId == null) {
             flash.error("没有选定角色");
-        } else if (functionIds == null) {
+        } else if (functionId == null) {
             flash.error("没有选定功能");
         } else {
             SysRole role = SysRole.findById(roleId);
 
             List<Function> functions = new ArrayList<Function>();
 
-            for (Long rid : functionIds) {
-                Function function = SysRole.findById(rid);
+            for (Long rid : functionId) {
+                Function function = Function.findById(rid);
                 functions.add(function);
             }
 
+            // todo: 这里还需要考虑，已经关联此角色的用户，这些用户已经创建了各自的高效参照表：eff_user_func
+            // 对此做批量更新吗？对管理员明确进行提示，表明后台在执行相关批处理，请暂停执行此类功能，直到结束？
             role.assignFunctions(functions);
 
             StringBuilder buf = new StringBuilder();
-            for (Long rid : functionIds) {
+            for (Long rid : functionId) {
                 buf.append(rid).append(",");
             }
             log.info("Role(" + roleId + ") assigned functions(" + buf.toString() + ") okay");

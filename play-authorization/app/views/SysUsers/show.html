@@ -18,7 +18,7 @@
         $('#add_div').dialog({
             autoOpen:false,
             width:680,
-            height:490,
+//            height:490,
             modal:true,
             resizable:false,
             buttons:{
@@ -63,7 +63,7 @@
         $('#edit_div').dialog({
             autoOpen:false,
             width:680,
-            height:530,
+//            height:530,
             modal:true,
             resizable:false,
             buttons:{
@@ -125,7 +125,7 @@
 
     var listAction = #{jsAction @SysRoles.ajaxList()/}
     function showAssignForm(userId,userLoginName){
-        $('#assgn_table_div').load(listAction(),function(){});
+        $('#assign_table_div').load(listAction(),function(){});
         $("#assign_user_id").val(userId);
         $('#assign_div').css('display', '');
         $('#assign_div').dialog('option',"title","为用户（"+userLoginName+"）分配角色");
@@ -137,9 +137,6 @@
         $('assign_user_id').val('');
     }
 
-    /*function cancelRoles(){
-        $("#assign_form").attr("action","@{SysUsers.cleanRoles}");
-    }*/
 
     function submitAssignInfo(){
         var ridArray=document.getElementsByName("roleId");
@@ -359,7 +356,7 @@ ${userList.size()} / ${userCount} 用户&nbsp;
 <div id="assign_div" style="display: none;" title="分配角色">
     <form id="assign_form" action="@{SysUsers.assignRoles()}" method="post">
         <input type="hidden" id="assign_user_id" name="userId" value=""/>
-        <div id="assgn_table_div"></div>
+        <div id="assign_table_div"></div>
     </form>
 </div>
 

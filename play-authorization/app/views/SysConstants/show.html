@@ -8,9 +8,22 @@
 #{set 'moreScripts'}
 
 <script type="text/javascript">
-    var listAction = #{jsAction @Organizations.ajaxList() /}
+    var listAction = #{jsAction @SysConstants.ajaxList() /}
 
     $(function () {
+        // Tabs
+        $(function () {
+            $("#*_tabs").tabs({
+                ajaxOptions:{
+                    error:function (xhr, status, index, anchor) {
+                        $(anchor.hash).html(
+                                "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                                        "If this wouldn't be a demo.");
+                    }
+                }
+            });
+        });
+
         // Dialog
         $('#popup_func_dialog').dialog({
             autoOpen:false,
@@ -124,7 +137,7 @@
     }
 
 
-    var detailForEditAction = #{jsAction @Organizations.detailForEdit(':id') /}
+    var detailForEditAction = #{jsAction @SysConstants.detailForEdit(':id') /}
 
     function showEditForm(orgId,orgName) {
         $('#edit_table_div').load(detailForEditAction({id:orgId}), function () {});
@@ -142,47 +155,151 @@
 ${entityList.size()} / ${entityCount} 常量
     &nbsp;
     <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
-        <span class="ui-icon ui-icon-newwin"></span>新增常量</a>
+        <span class="ui-icon ui-icon-newwin"></span>新增常量类型</a>
 </p>
 
 #{pagination page:pageSequence ?: 1, size:entityCount /}
 
-<table id="func_list">
-    <thead>
-    <tr>
-        <th class="main" width="40px">ID</th>
-        <th class="main" width="180px">常量类型</th>
-        <th class="main" width="120px">代码</th>
-        <th class="main">备注</th>
-        <th class="main" width="100px">上级组织</th>
-        <th class="main" width="80px">创建时间</th>
-        <th class="main" width="80px">最后更新</th>
-        <th width="100px">操作</th>
-    </tr>
-    </thead>
-#{if entityList.size()>0}
-    #{list items:entityList, as:'org'}
-        <tr>
-            <td class="main">${org.id}</td>
-            <td class="main">${org.name}</td>
-            <td class="main">${org.key}</td>
-            <td class="main">${org.remark}</td>
-            <td class="main">${org.parent==null?"----":org.parent.name}</td>
-            <td class="main">${org.createDate.format("yyyy-MM-dd")}</td>
-            <td class="main">${org.lastUpdate?org.lastUpdate.format("yyyy-MM-dd"):""}</td>
-            <td class="main">
-                <a class="ui-state-default ui-corner-all opt_button" href="javascript:showEditForm('${org.id}','${org.name}');">编辑</a>
-                <a class="ui-state-default ui-corner-all opt_button" href="javascript:requireActionByPost('@{Organizations.delete}','${org.id}','确定删除组织(${org.name})？');">删除</a>
-            </td>
-        </tr>
-    #{/list}
-#{/if}
-</table>
+<div id="const_type_tabs">
+    <ul>
+        <li><a href="#const_type_tab">常量分类列表</a></li>
+        *{<li><a href="#const_tab">常量列表</a></li>}*
+    </ul>
+
+    <div id="const_type_tab">
+        <table id="const_type_list">
+            <thead>
+            <tr>
+                <th class="main" width="40px">ID</th>
+                <th class="main" width="180px">常量类型</th>
+                <th class="main" width="120px">常量代码</th>
+                <th class="main">常量值</th>
+                <th class="main" width="100px">常量备注</th>
+                <th class="main" width="80px">备注</th>
+                <th class="main" width="80px">状态</th>
+                <th width="100px">操作</th>
+            </tr>
+            </thead>
+        #{if entityList.size()>0}
+            #{list items:entityList, as:'en'}
+                <tr>
+                    <td class="main">${en.id}</td>
+                    <td class="main">${en.constType}</td>
+                    <td class="main">${en.constCode}</td>
+                    <td class="main">${en.constValue}</td>
+                    <td class="main">${en.constRemark}</td>
+                    <td class="main">${en.remark}</td>
+                    <td class="main">${en.status}</td>
+                    <td class="main">
+                        <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
+                        <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
+                    </td>
+                </tr>
+            #{/list}
+        #{/if}
+            <tr>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main">
+                    <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
+                    <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main">
+                    <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
+                    <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div id="const_tabs">
+    <ul>
+        <li><a href="#const_type_tab">类型（***）常量列表</a></li>
+        *{<li><a href="#const_tab">常量列表</a></li>}*
+    </ul>
+
+    <div id="const_tab">
+        <table id="const_list">
+            <thead>
+            <tr>
+                <th class="main" width="40px">ID</th>
+                <th class="main" width="180px">常量类型</th>
+                <th class="main" width="120px">常量代码</th>
+                <th class="main">常量值</th>
+                <th class="main" width="100px">常量备注</th>
+                <th class="main" width="80px">备注</th>
+                <th class="main" width="80px">状态</th>
+                <th width="100px">操作</th>
+            </tr>
+            </thead>
+        #{if entityList.size()>0}
+            #{list items:entityList, as:'en'}
+                <tr>
+                    <td class="main">${en.id}</td>
+                    <td class="main">${en.constType}</td>
+                    <td class="main">${en.constCode}</td>
+                    <td class="main">${en.constValue}</td>
+                    <td class="main">${en.constRemark}</td>
+                    <td class="main">${en.remark}</td>
+                    <td class="main">${en.status}</td>
+                    <td class="main">
+                        <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
+                        <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
+                    </td>
+                </tr>
+            #{/list}
+        #{/if}
+            <tr>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main">
+                    <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
+                    <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main"></td>
+                <td class="main">
+                    <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
+                    <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 
 
 
-<div id="add_div" style="display: none;" title="新增组织">
-    <form id="add_form" action="@{Organizations.create}" method="post">
+
+<div id="add_div" style="display: none;" title="新增常量">
+    <form id="add_form" action="@{SysConstants.create}" method="post">
         <table class="myTable">
             <tr>
                 <td align="right" class="input_label"><label for="name" class="input_required">组织名：</label></td>

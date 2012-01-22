@@ -45,6 +45,26 @@ public class SysRole extends AbstractEntity {
     }
 
 
+    public boolean ownsFunction(Function function) {
+        boolean result = false;
+        if (function == null || function.id==null) {
+            result = false;
+        } else if (functions == null || functions.size() == 0) {
+            result = false;
+        } else {
+            for (Function f : functions) {
+                if(f.id.equals(function.id)){
+                    result=true;
+                    break;
+                }
+            }
+        }
+        if(result)
+            play.Logger.info("Role("+id+") owns function("+function.id+")");
+        return result;
+    }
+
+
     public Long userCount() {
         EntityManager entityManager = JPA.em();
         Query userCountQuery = entityManager.createNativeQuery("select count(1) from rel_user_role where role_id=" + id);

@@ -34,6 +34,15 @@ public class SysConstant extends AbstractEntity {
     public int status;//0:未用,1:已应用,2:禁止
 
 
+     /*
+      * 这张常量表，首先第一部分（头部）定义自身都有哪些常量类型种类，其后的部分是按照头部
+      * 定义的常量种类，为每一种常量类定义该类目下的各个常量
+      *
+      */
+
+
+
+
     public SysConstant(Long constType, Long constCode, String constValue, String constRemark, String remark) {
         this.constType = constType;
         this.constCode = constCode;
