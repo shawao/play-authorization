@@ -1,0 +1,96 @@
+#{if message!=null}
+${message}
+#{/if}
+#{if entity!=null}
+<table class="myTable">
+    <input type="hidden" id="id" name="id" value="${entity.id}"/>
+
+    <tr>
+        <td align="right" class="input_label" width="20%"><label for="loginName" class="input_required">登录名：</label></td>
+        <td width="30%">${entity.loginName}<input id="loginName" name="loginName" type="hidden" value="${entity.loginName}" maxlength="50" readonly="readonly"/></td>
+        <td align="right" class="input_label" width="20%"><label for="nickName">姓名：</label></td>
+        <td width="30%"><input id="nickName" name="nickName" type="text" value="${entity.nickName}" maxlength="50"/></td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label for="mobile">手机：</label></td>
+        <td><input id="mobile" name="mobile" type="text" value="${entity.mobile}" maxlength="50"/></td>
+        <td align="right" class="input_label"><label for="email">信箱：</label></td>
+        <td><input id="email" name="email" type="text" value="${entity.email}" maxlength="50"/></td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label for="phone">电话：</label></td>
+        <td><input id="phone" name="phone" type="text" value="${entity.phone}" maxlength="50"/></td>
+        <td align="right" class="input_label"><label for="phone2">电话2：</label></td>
+        <td><input id="phone2" name="phone2" type="text" value="${entity.phone2}" maxlength="50"/></td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label for="sex">性别：</label></td>
+        <td>
+            <select id="sex" name="sex">
+                <option value="0" #{if entity.sex==0}selected="selected"#{/if}>未设定</option>
+                <option value="1" #{if entity.sex==1}selected="selected"#{/if}>男</option>
+                <option value="2" #{if entity.sex==2}selected="selected"#{/if}>女</option>
+            </select>
+        </td>
+        <td align="right" class="input_label"><label for="district">所属地区：</label></td>
+        <td><input id="district" name="district" type="text" maxlength="50" readonly="readonly"/></td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label for="userType">用户类型：</label></td>
+        <td>
+            <select id="userType" name="userType">
+                <option value="1" #{if entity.userType==1}selected="selected"#{/if}>气象局普通用户</option>
+                <option value="2" #{if entity.userType==2}selected="selected"#{/if}>厂商用户</option>
+            </select>
+        </td>
+        <td align="right" class="input_label"><label for="status">状态：</label></td>
+        <td>
+            <select id="status" name="status">
+                <option value="1" #{if entity.status==1}selected="selected"#{/if}>正常</option>
+                <option value="2" #{if entity.status==2}selected="selected"#{/if}>禁用</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label for="organizationId">所属组织：</label></td>
+        <td colspan="3">
+            <select id="organizationId" name="organizationId">
+                #{if organizations!=null && organizations.size()>0}
+                #{list items:organizations, as:'org'}
+                    #{if orgSel!=null && orgSel.id==org.id}
+                        <option value="${org.id}" selected="selected">${org.name}</option>
+                    #{/if}#{else}
+                        <option value="${org.id}">${org.name}</option>
+                    #{/else}
+                #{/list}
+                #{/if}
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label for="address">家庭地址：</label></td>
+        <td><input id="address" name="address" type="text" value="${entity.address}" maxlength="50"/></td>
+        <td align="right" class="input_label"><label for="remark">备注：</label></td>
+        <td><input id="remark" name="remark" type="text" value="${entity.remark}" maxlength="50"/></td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label>创建时间：</label></td>
+        <td>${entity.createDate}</td>
+        <td align="right" class="input_label"><label>上次修改时间：</label></td>
+        <td>${entity.lastUpdate}</td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label>登录次数：</label></td>
+        <td>${entity.loginTimes}</td>
+        <td align="right" class="input_label"><label>上次登录时间：</label></td>
+        <td>${entity.lastLogin}</td>
+    </tr>
+
+    <tr class="no_bottom">
+        <td align="right" class="input_label no_bottom"><label for="password">新密码：</label></td>
+        <td class="no_bottom"><input id="password" name="password" type="password" maxlength="20"/></td>
+        <td align="right" class="input_label no_bottom"><label for="password2">重新输入密码：</label></td>
+        <td class="no_bottom"><input id="password2" name="password2" type="password" maxlength="20"/></td>
+    </tr>
+</table>
+#{/if}

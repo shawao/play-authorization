@@ -45,26 +45,34 @@ GET		/public/														staticDir:public
 # -------------------------------------------------------
 # Setting for authorization app
 # -------------------------------------------------------
+
+# user operations
 GET		/sysusers													    SysUsers.index
 #GET	/sysusers/{<[0-9]+>page}								    SysUsers.show
 POST	/sysusers/create											    SysUsers.create
 POST	/sysusers/delete											    SysUsers.delete
+POST	/sysusers/cleanRoles										    SysUsers.cleanRoles
+POST	/sysusers/edit												SysUsers.edit
+POST	/sysusers/detailForEdit										SysUsers.detailForEdit
 POST	/sysusers/forbid											    SysUsers.forbid
 POST	/sysusers/resume											    SysUsers.resume
 GET		/sysusers/ajaxList											SysUsers.ajaxList
+GET		/sysusers/newPassword										SysUsers.newPassword
 
-
+# role operations
 GET		/sysroles													    SysRoles.index
 GET		/sysroles/ajaxList												    SysRoles.ajaxList
 
+# function operations
 GET		/functions													    Functions.index
 GET		/functions/ajaxList												Functions.ajaxList
 
-
-
+# organization operations
 GET		/organization												    Organizations.index
 GET		/organization/show										    Organizations.show
 GET		/organization/ajaxList										    Organizations.ajaxList
+GET		/organization/detailForEdit									    Organizations.detailForEdit
+GET		/organization/edit										    Organizations.edit
 
 # -------------------------------------------------------
 # Setting for test

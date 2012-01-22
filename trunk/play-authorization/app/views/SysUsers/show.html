@@ -11,13 +11,14 @@
 
 #{set 'moreScripts'}
 <script type="text/javascript">
-    var listAction = #{jsAction @SysRoles.ajaxList() /}
+
 
     $(function () {
         // -------- add user dialog
         $('#add_div').dialog({
             autoOpen:false,
-            width:400,
+            width:680,
+            height:490,
             modal:true,
             resizable:false,
             buttons:{
@@ -26,7 +27,6 @@
                         $(this).dialog("close");
                 },
                 "取消":function () {
-//                    cancelNewEntity();
                     $(this).dialog("close");
                 }
             }
@@ -49,12 +49,35 @@
             resizable:false,
             buttons:{
                 "保存":function () {
-//                    jqAlert($("#assign_user_id").val());
                     submitAssignInfo();
                     $(this).dialog("close");
                 },
                 "取消":function () {
                     cancelAssignForm();
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        // -------- edit user dialog
+        $('#edit_div').dialog({
+            autoOpen:false,
+            width:680,
+            height:530,
+            modal:true,
+            resizable:false,
+            buttons:{
+                "保存":function () {
+                    $("#edit_form").submit();
+                    $(this).dialog("close");
+                },
+                "修改密码":function () {
+                    $("#edit_form").attr("action","@{SysUsers.newPassword()}");
+                    $("#edit_form").submit();
+                    $(this).dialog("close");
+                },
+                "取消":function () {
+//                    $("#edit_form").html("");
                     $(this).dialog("close");
                 }
             }
@@ -100,6 +123,7 @@
         }
     }
 
+    var listAction = #{jsAction @SysRoles.ajaxList()/}
     function showAssignForm(userId,userLoginName){
         $('#assgn_table_div').load(listAction(),function(){});
         $("#assign_user_id").val(userId);
@@ -112,6 +136,10 @@
         $('assign_user').innerText='';
         $('assign_user_id').val('');
     }
+
+    /*function cancelRoles(){
+        $("#assign_form").attr("action","@{SysUsers.cleanRoles}");
+    }*/
 
     function submitAssignInfo(){
         var ridArray=document.getElementsByName("roleId");
@@ -131,15 +159,49 @@
         document.getElementById('assign_form').submit();
         return true;
     }
+
+    function force2deleteSelected(){
+        var idInfoArray=$("input[name='id']:checked='checked'");
+
+        var users="";
+        var idArray=new Array();
+        for(var i=0;i<idInfoArray.length;i++){
+            users+=idInfoArray[i].value.split("|")[1];
+            if(i!=idInfoArray.length-1){
+                users+=",";
+            }
+            idArray[i]=idInfoArray[i].value.split("|")[0];
+        }
+        if(users.trim()==""){
+            jqAlert("没有选中用户");
+        }else{
+            requireActionByPost("@{SysUsers.delete}",idArray,"确认删除选中用户（"+users+"）？");
+        }
+    }
+
+
+    var detailForEditAction = #{jsAction @SysUsers.detailForEdit(':id') /}
+
+    function showEditForm(userId,loginName) {
+        $('#edit_table_div').load(detailForEditAction({id:userId}), function () {});
+        $("#edit_user_id").val(userId);
+        $('#edit_div').css('display', '');
+        $('#edit_div').dialog('option', "title", "修改用户（" + loginName + "）基本信息");
+        $('#edit_div').dialog('open');
+    }
 </script>
 #{/set}
-
 
 <h1 id="title">用户管理</h1>
 <p class="light_bar">
 ${userList.size()} / ${userCount} 用户&nbsp;
     <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
-            <span class="ui-icon ui-icon-newwin"></span>创建用户</a>
+        <span class="ui-icon ui-icon-newwin"></span>创建用户</a>
+    *{<!-- 暂时不支持批量分配角色 -->
+    <a href="#" id="create_link2" class="ui-state-default ui-corner-all dialog_button">
+        <span class="ui-icon ui-icon-newwin"></span>批量分配角色</a>}*
+    <a href="javascript:force2deleteSelected();" id="create_link3" class="ui-state-default ui-corner-all dialog_button">
+        <span class="ui-icon ui-icon-newwin"></span>强制删除</a>
 </p>
 
 #{pagination page:pageSequence ?: 1, size:userCount /}
@@ -161,20 +223,31 @@ ${userList.size()} / ${userCount} 用户&nbsp;
 #{if userList.size()>0}
     #{list items:userList, as:'user'}
         <tr class="tr_data_row">
-            <td class="main"><a href="#">${user.loginName}</a></td>
-            <td class="main"><a href="#">${user.nickName}</a></td>
-            <td class="main"><a href="#">${user.mobile}</a></td>
+            <td class="main">
+                <input type="checkbox" id="id_${user.id}" name="id" value="${user.id}|${user.nickName}"/>
+                <label for="id_${user.id}">${user.loginName}</label>
+            </td>
+            <td class="main">${user.nickName}</td>
+            <td class="main">${user.mobile}</td>
             <td class="main">${user.statusRemark()}</td>
             <td class="main">${user.createDate.format("yyyy-MM-dd")}</td>
             <td class="main">${user.lastUpdate?user.lastUpdate.format("yyyy-MM-dd"):""}</td>
             <td class="main">
                 <a class="ui-state-default ui-corner-all opt_button"
                    href="javascript:showAssignForm('${user.id}','${user.loginName}');" >分配</a>
+                #{if user.roles!=null && user.roles.size()>0}
+                <a class="ui-state-default ui-corner-all opt_button"
+                   href="javascript:requireActionByPost('@{SysUsers.cleanRoles}','${user.id}','确认清除用户(${user.loginName})的所有角色？');" >清除</a>
+                #{/if}
             #{if user.roles.size()>0}#{list items:user.roles, as:'role'}
                 <span class="role_col">${role.name}</span>
             #{/list}#{/if}
             </td>
-            <td class="main"></td>
+            <td class="main">
+                #{if user.organizations.size()>0}#{list items:user.organizations, as:'org'}
+                    <span class="role_col">${org.name}</span>
+                #{/list}#{/if}
+            </td>
             <td class="main">
                 #{if user.status==1}
                 <a class="ui-state-default ui-corner-all opt_button"
@@ -184,7 +257,7 @@ ${userList.size()} / ${userCount} 用户&nbsp;
                 <a class="ui-state-default ui-corner-all opt_button"
                    href="javascript:requireActionByPost('@{SysUsers.resume}','${user.id}','确定恢复用户(${user.loginName})？');">恢复</a>
                 #{/if}
-                <a class="ui-state-default ui-corner-all opt_button" href="javascript:jqAlert('测试一下弹出框');">编辑</a>
+                <a class="ui-state-default ui-corner-all opt_button" href="javascript:showEditForm('${user.id}','${user.loginName}');">编辑</a>
                 <a class="ui-state-default ui-corner-all opt_button"
                    href="javascript:requireActionByPost('@{SysUsers.delete}','${user.id}','确认删除用户(${user.loginName})？');">强删</a>
             </td>
@@ -195,38 +268,107 @@ ${userList.size()} / ${userCount} 用户&nbsp;
 
 
 
-<div id="add_div" style="display: none;" class="hidden_div" title="创建用户">
+<div id="add_div" style="display: none;" title="创建用户">
     <form id="add_user_form" action="@{SysUsers.create}" method="post">
-    <table class="myTable">
-        <tr>
-            <td align="right" class="input_label"><label for="loginName" class="input_required">登录名：</label></td>
-            <td><input id="loginName" name="loginName" type="text" maxlength="50"/></td>
-        </tr>
-        <tr>
-            <td align="right" class="input_label"><label for="nickName">姓名：</label></td>
-            <td><input id="nickName" name="nickName" type="text" maxlength="50"/></td>
-        </tr>
-        <tr>
-            <td align="right" class="input_label"><label for="mobile">手机：</label></td>
-            <td><input id="mobile" name="mobile" type="text" maxlength="50"/></td>
-        </tr>
-        <tr>
-            <td align="right" class="input_label"><label for="password" class="input_required">密码：</label></td>
-            <td><input id="password" name="password" type="password" maxlength="20"/></td>
-        </tr>
-        <tr class="no_bottom">
-            <td align="right" class="input_label no_bottom"><label for="password2" class="input_required">重新输入密码：</label></td>
-            <td class="no_bottom"><input id="password2" name="password2" type="password" maxlength="20"/></td>
-        </tr>
-    </table>
+        <table class="myTable">
+            <tr>
+                <td align="right" class="input_label" width="15%"><label for="loginName"
+                                                                         class="input_required">登录名：</label></td>
+                <td width="30%"><input id="loginName" name="loginName" type="text" maxlength="50"/></td>
+                <td align="right" class="input_label" width="20%"><label for="nickName">姓名：</label></td>
+                <td width="35%"><input id="nickName" name="nickName" type="text" maxlength="50"/></td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="mobile">手机：</label></td>
+                <td><input id="mobile" name="mobile" type="text" maxlength="50"/></td>
+                <td align="right" class="input_label"><label for="email">信箱：</label></td>
+                <td><input id="email" name="email" type="text" maxlength="50"/></td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="phone">电话：</label></td>
+                <td><input id="phone" name="phone" type="text" maxlength="50"/></td>
+                <td align="right" class="input_label"><label for="phone2">电话2：</label></td>
+                <td><input id="phone2" name="phone2" type="text" maxlength="50"/></td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="sex">性别：</label></td>
+                <td>
+                    <select id="sex" name="sex">
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </td>
+                <td align="right" class="input_label"><label for="district">所属地区：</label></td>
+                <td><input id="district" name="district" type="text" maxlength="50"/></td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="userType">用户类型：</label></td>
+                <td>
+                    <select id="userType" name="userType">
+                        <option value="1">气象局普通用户</option>
+                        <option value="2">厂商用户</option>
+                    </select>
+                </td>
+                <td align="right" class="input_label"><label for="status">状态：</label></td>
+                <td>
+                    <select id="status" name="status">
+                        <option value="1">正常</option>
+                        <option value="2">禁用</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                *{<td align="right" class="input_label"><label for="userType">角色：</label></td>
+                <td>
+                    <select id="userType" name="userType">
+                        <option value="1">气象局普通用户</option>
+                        <option value="2">厂商用户</option>
+                    </select>
+                </td>}*
+                <td align="right" class="input_label"><label for="organizationId">所属组织：</label></td>
+                <td colspan="3">
+                    <select id="organizationId" name="organizationId">
+                        #{if organizations!=null && organizations.size()>0}
+                        #{list items:organizations, as:'org'}
+                            <option value="${org.id}">${org.name}</option>
+                        #{/list}
+                        #{/if}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="address">家庭地址：</label></td>
+                <td><input id="address" name="address" type="text" maxlength="50"/></td>
+                <td align="right" class="input_label"><label for="remark">备注：</label></td>
+                <td><input id="remark" name="remark" type="text" maxlength="50"/></td>
+            </tr>
+            <tr class="no_bottom">
+                <td align="right" class="input_label no_bottom"><label for="password" class="input_required">密码：</label>
+                </td>
+                <td class="no_bottom"><input id="password" name="password" type="password" maxlength="20"/></td>
+                <td align="right" class="input_label no_bottom">
+                    <label for="password2" class="input_required">重新输入密码：</label></td>
+                <td class="no_bottom"><input id="password2" name="password2" type="password" maxlength="20"/></td>
+            </tr>
+        </table>
     </form>
 </div>
 
 
 
-<div id="assign_div" style="display: none;" class="hidden_div" title="分配角色">
+<div id="assign_div" style="display: none;" title="分配角色">
     <form id="assign_form" action="@{SysUsers.assignRoles()}" method="post">
         <input type="hidden" id="assign_user_id" name="userId" value=""/>
         <div id="assgn_table_div"></div>
     </form>
+</div>
+
+
+<div id="edit_div" style="display: none;" title="编辑用户信息">
+    #{form @edit(), id:'edit_form',method:'POST'}
+        <input type="hidden" id="edit_user_id" name="userId" value=""/>
+        <div id="edit_table_div">
+            *{这里由ajax引入后台html代码}*
+        </div>
+    #{/form}
 </div>

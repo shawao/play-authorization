@@ -6,6 +6,7 @@ import play.db.jpa.Model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Desc:
@@ -32,12 +33,28 @@ public class Function extends AbstractEntity {
 
     public int status;//0：未被使用，1：正常使用，2：禁用
 
+    //所在级别，依据是否有父亲，及选中的父亲来自动计算级别
+    //1：第一级，2：第二级，3依次类推
+    public int grade=1;
+
+    //所在级中序号，依据数据库中已有数据自动计算
+    //1：第一，2：第二，3依次类
+    public int seqInGrade=1;
+
 
     public Function(String name, String key, String remark, Function parent) {
         this.key = key;
         this.name = name;
         this.remark = remark;
         this.parent = parent;
+
+        //todo: calculate "grade" and "seqInGrade"
+    }
+
+
+    public static List<Function> readInTreeOrder(){
+        //todo: ordered by grade and seqInGrade
+        return null;
     }
 
 
