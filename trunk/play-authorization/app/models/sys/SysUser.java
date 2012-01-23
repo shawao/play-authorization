@@ -125,16 +125,16 @@ public class SysUser extends AbstractEntity {
         this.save();
 
         // save in batch
-        EntityManager entityManager = JPA.em();
-        entityManager.createNativeQuery("delete from eff_user_func where userId=" + id).executeUpdate();
-        if (roles != null && !roles.isEmpty()){
-            for (SysRole role : roles) {
-                for (Function function : role.functions) {
-                    entityManager.persist(new UserFunction(id, function.id));
-                }
-            }
-        }
-        entityManager.flush();
+//        EntityManager entityManager = JPA.em();
+//        entityManager.createNativeQuery("delete from eff_user_func where userId=" + id).executeUpdate();
+//        if (roles != null && !roles.isEmpty()){
+//            for (SysRole role : roles) {
+//                for (Function function : role.functions) {
+//                    entityManager.persist(new UserFunction(id, function.id));
+//                }
+//            }
+//        }
+//        entityManager.flush();
     }
 
 
@@ -165,7 +165,7 @@ public class SysUser extends AbstractEntity {
     }
 
 
-    public String statusRemark() {
+    public String showStatus() {
         String remark = "";
         if (status == 1)
             remark = "正常";

@@ -49,9 +49,7 @@ public class Servicing extends AbstractEntity {
     @Column(name = "result",length = 1000)
     public String result;//文字描述维修结果
 
-    @ManyToOne
-    public SysConstant reason;//关联常量表中的故障根源类型的某ID
-
+    public Long reason;//关联常量表中的故障根源类型的某ID
 
     @Column(length = 1000)
     public String remark;//其他描述

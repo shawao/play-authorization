@@ -24,7 +24,7 @@ public class Functions extends Application {
 
         log.info("##"+Function.class.getSimpleName());
         
-        List<Function> entityList = Function.find("select o from Function o order by id desc")
+        List<Function> entityList = Function.find("select o from Function o order by key asc")
                 .from(from).fetch(pageSize);
         Long entityCount = Function.count();
 

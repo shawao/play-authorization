@@ -1,7 +1,6 @@
 package controllers;
 
 import models.fault.SysConstant;
-import models.sys.Organization;
 import play.data.validation.Required;
 
 import java.util.Date;
@@ -21,11 +20,9 @@ public class SysConstants extends Application {
 
     public static void show(Integer page) {
         Integer pageSequence = page == null || page < 0 ? 1 : page;
-        int from = (pageSequence - 1) * pageSize;
-        List<SysConstant> entityList = Organization.find("select o from SysConstant o order by id desc")
-                .from(from).fetch(pageSize);
+        List<SysConstant> constTypeList = SysConstant.allConstType();
         Long entityCount = SysConstant.count();
-        render(entityCount, entityList, pageSequence);
+        render(entityCount, constTypeList, pageSequence);
     }
 
 
@@ -35,15 +32,68 @@ public class SysConstants extends Application {
         render(SysConstant.count(), entityList, pageSequence);
     }
 
-    public static void create(Long constType, Long constCode, String constValue, String constRemark, String remark) {
-        play.Logger.info("<< create SysConstant: {remark:" + remark + ",...}");
-//        SysConstant parentEntity = null;
-//        if (parentId != null) {
-//            parentEntity = SysConstant.findById(parentId);
-//        }
 
-//        SysConstant organization = new SysConstant(name.trim(), key.trim(), remark == null ? null : remark.trim(), parentEntity);
-//        SysConstant.save();
+    public static void constList(Long typeConstCode,String typeName) {
+        String message=null;
+        if (typeConstCode == null) {
+            message="常量类型ID为空";
+        } else if (typeConstCode < 1) {
+            message="常量类型ID必须大于0";
+        } else {
+            Integer pageSequence = 1;
+            List<SysConstant> entityList = SysConstant.find(
+                    "select o from SysConstant o where o.constType=? order by o.constCode asc",
+                    typeConstCode).fetch();
+//            Long entityCount=SysConstant.count("select count(o) from SysConstant o where o.constType=?", typeConstCode);
+
+            render(entityList, pageSequence,typeName);
+        }
+        render(message);
+    }
+
+
+    public static void createType(Long typeConstCode, String typeConstRemark){
+        if (typeConstCode == null) {
+            flash.error("常量类型ID为空");
+        } else if (typeConstCode == 0) {
+            flash.error("常量类型ID必须大于0");
+        } else if (!SysConstant.validateTypeConstCode(typeConstCode)) {
+            flash.error("常量类型ID被占用");
+        }else if(typeConstRemark==null || typeConstRemark.trim().equals("")){
+            flash.error("常量类型名称为空");
+        }else{
+            SysConstant typeConstant=SysConstant.createConstType(typeConstCode, typeConstRemark, connectedUser());
+            typeConstant.save();
+//            flash.success("常量类型（" + typeConstRemark + "，" + typeConstCode + "）创建成功");
+            log.info("常量类型（" + typeConstRemark + "，" + typeConstCode + "）创建成功");
+        }
+        show(1);
+    }
+
+
+    /**
+     * 获取某常量类别中，下一个常量CODE值（当前最大值+1）
+     * @param constType 常量类别（不能等于0）
+     */
+    public static void nextConstCode(Long constType){
+        Object nextCodeObj=SysConstant.em().createNativeQuery(
+                "select max(o.constCode)+1 from t_constant o where o.constType="+constType)
+                .getSingleResult();
+        int nextCode=Integer.parseInt(nextCodeObj+"");
+        log.info("{\"constType\":"+constType+",\"nextCode\':"+nextCode+"}");
+        renderJSON(""+nextCode);
+    }
+
+
+    public static void create(Long constType, Long constCode, String constValue, String constRemark) {
+        log.info("<< create SysConstant: {constRemark:" + constRemark + ",...}");
+        if (!SysConstant.validateConstCode(constType, constCode)) {
+            flash.error("常量ID被占用");
+        }else {
+            SysConstant constant=new SysConstant(constType,constCode,constValue,constRemark,null,connectedUser());
+            constant.save();
+            flash.success("常量（"+constCode+":"+constValue+"）保存成功");
+        }
         show(1);
     }
 
@@ -53,9 +103,11 @@ public class SysConstants extends Application {
 
         if (entity != null) {
             entity.delete();
-            log.info(">> SysConstant(" + id + ") deleted okay, and render page to index");
+            String name=entity.constType==0?entity.constRemark:entity.constValue;
+            String pre=entity.constType==0?"类型":"常量";
+            flash.success(pre+"（"+name+"）删除成功");
         } else {
-            log.info(">> SysConstant(" + id + ") doesn't exist");
+            flash.success("常量/类型（"+id+"）不存在");
         }
         show(1);
     }

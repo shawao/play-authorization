@@ -8,80 +8,81 @@
 #{set 'moreScripts'}
 
 <script type="text/javascript">
-    var listAction = #{jsAction @SysConstants.ajaxList() /}
+    *{var listAction = #{jsAction @SysConstants.ajaxList() /}}*
 
     $(function () {
         // Tabs
         $(function () {
-            $("#*_tabs").tabs({
+            $("#const_type_tabs").tabs({
                 ajaxOptions:{
                     error:function (xhr, status, index, anchor) {
-                        $(anchor.hash).html(
-                                "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-                                        "If this wouldn't be a demo.");
+                        $(anchor.hash).html("载入失败");
                     }
                 }
             });
+            $( "#const_type_tabs" ).tabs( "option", "spinner", '获取数据中...' );
         });
 
-        // Dialog
-        $('#popup_func_dialog').dialog({
-            autoOpen:false,
-            width:600,
-            height:400,
-            modal:true,
-            resizable: false,
-//            type:'iframe',
-            buttons:{
-                "确定":function () {
-                    var parentFuncInfo=$("input[name='parentFuncChosen']:checked").val();
-                    var pfi=parentFuncInfo.split("|");
-                    $("#parentId").val(pfi[0]);
-                    $("#parentName").html(pfi[1]);
-                    $(this).dialog("close");
-                },
-                "取消":function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        // Dialog Link
-        $('#dialog_link').click(function () {
-            $('#popup_func_dialog').load(
-                    listAction(),
-                    function () {
-                        //$('#popup_func_dialog').css('visibility', 'visible')
-                    }
-            );
-            $('#popup_func_dialog').css('display', '');
-            $('#popup_func_dialog').dialog('open');
-            return false;
-        });
-
-        // -------- add function dialog
-        $('#add_div').dialog({
+        // -------- add const type dialog
+        $('#add_const_type_div').dialog({
             autoOpen:false,
             width:400,
             modal:true,
             resizable: false,
             buttons:{
                 "保存":function () {
-                    if(submitNewEntity())
+                    if ($("#typeConstCode").val().trim() == "") {
+                        jqAlert("请填写常量类型ID");
+                    } else if(isNaN($("#typeConstCode").val())){
+                        jqAlert("常量类型ID必须是整数");
+                    }else if ($("#typeConstRemark").val().trim() == "") {
+                        jqAlert("请填写常量类型名称");
+                    }else{
+                        $("#add_const_type_form").submit();
                         $(this).dialog("close");
+                    }
                 },
                 "取消":function () {
-                    cancelNewEntity();
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        // -------- add const dialog
+        $('#add_const_div').dialog({
+            autoOpen:false,
+            width:400,
+            modal:true,
+            resizable: false,
+            buttons:{
+                "保存":function () {
+                    if ($("#constCode").val().trim() == "") {
+                        jqAlert("请填写常量ID");
+                    } else if (isNaN($("#constCode").val())) {
+                        jqAlert("常量ID必须是整数");
+                    } else if ($("#constValue").val().trim() == "") {
+                        jqAlert("请填写常量值");
+                    } else {
+                        $("#add_const_form").submit();
+                        $(this).dialog("close");
+                    }
+                },
+                "取消":function () {
                     $(this).dialog("close");
                 }
             }
         });
 
         // Dialog Link
-        $('#create_link').click(function () {
-            $('#add_div').css('display', '');
-            cleanAddForm();
-            $('#add_div').dialog('open');
+        $('#create_const_type_link').click(function () {
+            $('#add_const_type_div').css('display', '');
+            $('#add_const_type_div').dialog('open');
+            return false;
+        });
+
+        $('#create_const_link').click(function () {
+            $('#add_const_div').css('display', '');
+            $('#add_const_div').dialog('open');
             return false;
         });
 
@@ -89,7 +90,6 @@
         $('#edit_div').dialog({
             autoOpen:false,
             width:400,
-//            height:530,
             modal:true,
             resizable:false,
             buttons:{
@@ -102,240 +102,145 @@
                 }
             }
         });
-
-
-
     });
-
-    function cleanAddForm() {
-        document.getElementById('name').value = '';
-        document.getElementById('key').value = '';
-        document.getElementById('remark').value = '';
-        document.getElementById('add_div').style.display = '';
-        document.getElementById('parentName').innerHTML = '';
-        document.getElementById('parentId').value = '';
-    }
-
-    function cancelNewEntity() {
-        document.getElementById('add_div').style.display = 'none';
-    }
-
-    function submitNewEntity() {
-        var result=false;
-
-        if ($("#name").val().trim() == "") {
-            jqAlert("请输入角色名");
-        }
-        else if ($("#key").val().trim() == "") {
-            jqAlert("请输入键值");
-        }
-        else {
-            document.getElementById('add_form').submit();
-            result=true;
-        }
-        return result;
-    }
 
 
     var detailForEditAction = #{jsAction @SysConstants.detailForEdit(':id') /}
 
-    function showEditForm(orgId,orgName) {
-        $('#edit_table_div').load(detailForEditAction({id:orgId}), function () {});
-        $("#edit_user_id").val(orgId);
+    function showEditForm(constId,constRemark) {
+        $('#edit_table_div').load(detailForEditAction({id:constId}), function () {});
+        $("#edit_const_id").val(constId);
         $('#edit_div').css('display', '');
-        $('#edit_div').dialog('option', "title", "修改组织（" + orgName + "）基本信息");
+        $('#edit_div').dialog('option', "title", "修改常量（" + constRemark + "）基本信息");
         $('#edit_div').dialog('open');
-    }
+    };
+
+
+    var constListAction = #{jsAction @SysConstants.constList(':id',':name') /}
+
+    function showConstantsInTab(typeConstCode,typeConstRemark){
+        $('#const_tab').load(constListAction({id:typeConstCode,name:typeConstRemark}), function () {});
+        $("#const_tab_link").html(typeConstRemark);
+        $('#const_type_tabs').tabs('select', 1);
+    };
+
+    var nextConstCodeAction = #{jsAction @SysConstants.nextConstCode(':constType') /}
 </script>
 #{/set}
 
 
 <h1 id="title">常量管理</h1>
 <p class="light_bar">
-${entityList.size()} / ${entityCount} 常量
+${constTypeList.size()} 常量类型
     &nbsp;
-    <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
+    <a href="#" id="create_const_type_link" class="ui-state-default ui-corner-all dialog_button">
         <span class="ui-icon ui-icon-newwin"></span>新增常量类型</a>
+    <a href="#" id="create_const_link" class="ui-state-default ui-corner-all dialog_button">
+        <span class="ui-icon ui-icon-newwin"></span>新增常量</a>
 </p>
 
-#{pagination page:pageSequence ?: 1, size:entityCount /}
+*{#{pagination page:pageSequence ?: 1, size:entityCount /}}*
 
 <div id="const_type_tabs">
     <ul>
-        <li><a href="#const_type_tab">常量分类列表</a></li>
-        *{<li><a href="#const_tab">常量列表</a></li>}*
+        <li><a href="#const_type_tab">常量类型</a></li>
+        <li><a id="const_tab_link" href="#const_tab">常量</a></li>
     </ul>
 
     <div id="const_type_tab">
         <table id="const_type_list">
             <thead>
             <tr>
-                <th class="main" width="40px">ID</th>
-                <th class="main" width="180px">常量类型</th>
-                <th class="main" width="120px">常量代码</th>
-                <th class="main">常量值</th>
-                <th class="main" width="100px">常量备注</th>
-                <th class="main" width="80px">备注</th>
-                <th class="main" width="80px">状态</th>
-                <th width="100px">操作</th>
+                <th class="main" width="60px">类型ID</th>
+                <th class="main">类型名称</th>
+                <th class="main" width="80px">创建时间</th>
+                <th width="200px">操作</th>
             </tr>
             </thead>
-        #{if entityList.size()>0}
-            #{list items:entityList, as:'en'}
+        #{if constTypeList.size()>0}
+            #{list items:constTypeList, as:'en'}
                 <tr>
-                    <td class="main">${en.id}</td>
-                    <td class="main">${en.constType}</td>
                     <td class="main">${en.constCode}</td>
-                    <td class="main">${en.constValue}</td>
                     <td class="main">${en.constRemark}</td>
-                    <td class="main">${en.remark}</td>
-                    <td class="main">${en.status}</td>
+                    <td class="main">${en.createDate.format("yyyy-MM-dd")}</td>
                     <td class="main">
-                        <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
-                        <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
+                        <a class="ui-state-default ui-corner-all opt_button"
+                           href="javascript:showConstantsInTab('${en.constCode}','${en.constRemark}');">查看常量</a>
+                        <a class="ui-state-default ui-corner-all opt_button"
+                           href="javascript:requireActionByPost('@{SysConstants.delete}','${en.id}','确认删除常量类型(${en.constRemark})？');">删除</a>
                     </td>
                 </tr>
             #{/list}
         #{/if}
-            <tr>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main">
-                    <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
-                    <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main">
-                    <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
-                    <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
-                </td>
-            </tr>
+
         </table>
     </div>
-</div>
 
-
-<div id="const_tabs">
-    <ul>
-        <li><a href="#const_type_tab">类型（***）常量列表</a></li>
-        *{<li><a href="#const_tab">常量列表</a></li>}*
-    </ul>
 
     <div id="const_tab">
-        <table id="const_list">
-            <thead>
-            <tr>
-                <th class="main" width="40px">ID</th>
-                <th class="main" width="180px">常量类型</th>
-                <th class="main" width="120px">常量代码</th>
-                <th class="main">常量值</th>
-                <th class="main" width="100px">常量备注</th>
-                <th class="main" width="80px">备注</th>
-                <th class="main" width="80px">状态</th>
-                <th width="100px">操作</th>
-            </tr>
-            </thead>
-        #{if entityList.size()>0}
-            #{list items:entityList, as:'en'}
-                <tr>
-                    <td class="main">${en.id}</td>
-                    <td class="main">${en.constType}</td>
-                    <td class="main">${en.constCode}</td>
-                    <td class="main">${en.constValue}</td>
-                    <td class="main">${en.constRemark}</td>
-                    <td class="main">${en.remark}</td>
-                    <td class="main">${en.status}</td>
-                    <td class="main">
-                        <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
-                        <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
-                    </td>
-                </tr>
-            #{/list}
-        #{/if}
-            <tr>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main">
-                    <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
-                    <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
-                </td>
-            </tr>
-            <tr>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main"></td>
-                <td class="main">
-                    <a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>
-                    <a class="ui-state-default ui-corner-all opt_button" href="#">删除</a>
-                </td>
-            </tr>
-        </table>
+*{load data by ajajxAction}*
     </div>
 </div>
 
 
 
-
-<div id="add_div" style="display: none;" title="新增常量">
-    <form id="add_form" action="@{SysConstants.create}" method="post">
+<div id="add_const_type_div" style="display: none;" title="新增常量类型">
+    <form id="add_const_type_form" action="@{SysConstants.createType()}" method="post">
         <table class="myTable">
             <tr>
-                <td align="right" class="input_label"><label for="name" class="input_required">组织名：</label></td>
-                <td><input id="name" name="name" type="text" maxlength="50"/></td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label for="key" class="input_required">代码：</label></td>
-                <td><input id="key" name="key" type="text" maxlength="50"/></td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label for="remark">备注：</label></td>
-                <td><input id="remark" name="remark" type="text" maxlength="20"/></td>
+                <td align="right" class="input_label"><label for="typeConstCode" class="input_required">类型ID：</label></td>
+                <td><input id="typeConstCode" name="typeConstCode" type="text" maxlength="50"/>
+                    <script type="text/javascript">
+                        $.get(nextConstCodeAction({constType:0}), function (next) {
+                            $("#typeConstCode").val(next);
+                        });
+                    </script>
+                </td>
             </tr>
             <tr class="no_bottom">
-                <td align="right" class="input_label no_bottom"><label for="remark">上级组织：</label></td>
-                <td class="no_bottom">
-                    <input type="hidden" id="parentId" name="parentId" type="text" maxlength="20"/>
-                    <a href="#" id="dialog_link" class="ui-state-default ui-corner-all dialog_button"><span class="ui-icon ui-icon-newwin"></span>选择</a>
-                    <span id="parentName"></span>
-                </td>
+                <td align="right" class="input_label no_bottom"><label for="typeConstRemark" class="input_required">类型名称：</label></td>
+                <td class="no_bottom"><input id="typeConstRemark" name="typeConstRemark" type="text" maxlength="50"/></td>
             </tr>
         </table>
     </form>
 </div>
 
-*{#{include 'Functions/ajaxList.html'/}}*
 
-<div id="popup_func_dialog" title="组织选择窗口" style="display: none">
-</div>
-
-
-<div id="edit_div" style="display: none;" title="编辑用户信息">
-    #{form @edit(), id:'edit_form',method:'POST'}
-        <input type="hidden" id="edit_user_id" name="userId" value=""/>
-        <div id="edit_table_div">
-            *{这里由ajax引入后台html代码}*
-        </div>
-    #{/form}
+<div id="add_const_div" style="display: none;" title="新增常量">
+    <form id="add_const_form" action="@{SysConstants.create}" method="post">
+        <table class="myTable">
+            <tr>
+                <td align="right" class="input_label"><label for="typeConstCodeSel" class="input_required">常量类型：</label></td>
+                <td>
+                    <select id="typeConstCodeSel" name="constType" onchange="javascript:
+                    $.get(nextConstCodeAction({constType:$('#typeConstCodeSel').val()}), function (next) {$('#constCode').val(next);});;">
+                    #{if constTypeList!=null && constTypeList.size()>0}
+                        #{list items:constTypeList, as:'ct'}
+                            <option value="${ct.constCode}">${ct.constRemark}</option>
+                        #{/list}
+                    #{/if}
+                    </select>
+                    <script type="text/javascript">
+                        $.get(nextConstCodeAction({constType:$("#typeConstCodeSel").val()}), function (next) {
+                            $("#constCode").val(next);
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="constCode" class="input_required">常量ID：</label></td>
+                <td><input id="constCode" name="constCode" type="text" maxlength="50"/></td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="constValue" class="input_required">常量值：</label></td>
+                <td><input id="constValue" name="constValue" type="text" maxlength="20"/></td>
+            </tr>
+            <tr class="no_bottom">
+                <td align="right" class="input_label no_bottom"><label for="constRemark" >常量备注：</label></td>
+                <td class="no_bottom">
+                    <input id="constRemark" name="constRemark" type="text" maxlength="20"/>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>

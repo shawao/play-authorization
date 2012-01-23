@@ -72,9 +72,17 @@
                     $(this).dialog("close");
                 },
                 "修改密码":function () {
-                    $("#edit_form").attr("action","@{SysUsers.newPassword()}");
-                    $("#edit_form").submit();
-                    $(this).dialog("close");
+                    if ($("#edit_password").val().trim() == "") {
+                        jqAlert("请输入密码");
+                    } else if ($("#edit_password2").val().trim() == "") {
+                        jqAlert("请输入确认密码");
+                    } else if ($("#edit_password").val().trim() != $("#edit_password2").val().trim()) {
+                        jqAlert("确认密码错误，请重新输入确认密码");
+                    } else {
+                        $("#edit_form").attr("action", "@{SysUsers.newPassword()}");
+                        $("#edit_form").submit();
+                        $(this).dialog("close");
+                    }
                 },
                 "取消":function () {
 //                    $("#edit_form").html("");
@@ -209,7 +217,7 @@ ${userList.size()} / ${userCount} 用户&nbsp;
         <th class="main">登录名</th>
         <th class="main">姓名</th>
         <th class="main">手机</th>
-        <th class="main">状态</th>
+        <th class="main" width="60px">状态</th>
         <th class="main" width="80px">创建时间</th>
         <th class="main" width="80px">最近更新</th>
         <th class="main" width="250px">角色</th>
@@ -226,7 +234,7 @@ ${userList.size()} / ${userCount} 用户&nbsp;
             </td>
             <td class="main">${user.nickName}</td>
             <td class="main">${user.mobile}</td>
-            <td class="main">${user.statusRemark()}</td>
+            <td class="main">${user.showStatus()}</td>
             <td class="main">${user.createDate.format("yyyy-MM-dd")}</td>
             <td class="main">${user.lastUpdate?user.lastUpdate.format("yyyy-MM-dd"):""}</td>
             <td class="main">
@@ -247,12 +255,12 @@ ${userList.size()} / ${userCount} 用户&nbsp;
             </td>
             <td class="main">
                 #{if user.status==1}
-                <a class="ui-state-default ui-corner-all opt_button"
-                   href="javascript:requireActionByPost('@{SysUsers.forbid}','${user.id}','确定禁用用户(${user.loginName})？');">禁用</a>
+                    <a class="ui-state-default ui-corner-all opt_button"
+                       href="javascript:requireActionByPost('@{SysUsers.forbid}','${user.id}','确定禁用用户(${user.loginName})？');">禁用</a>
                 #{/if}
                 #{if user.status==2}
-                <a class="ui-state-default ui-corner-all opt_button"
-                   href="javascript:requireActionByPost('@{SysUsers.resume}','${user.id}','确定恢复用户(${user.loginName})？');">恢复</a>
+                    <a class="ui-state-default ui-corner-all opt_button"
+                       href="javascript:requireActionByPost('@{SysUsers.resume}','${user.id}','确定恢复用户(${user.loginName})？');">恢复</a>
                 #{/if}
                 <a class="ui-state-default ui-corner-all opt_button" href="javascript:showEditForm('${user.id}','${user.loginName}');">编辑</a>
                 <a class="ui-state-default ui-corner-all opt_button"
