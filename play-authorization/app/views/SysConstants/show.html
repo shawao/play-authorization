@@ -125,19 +125,21 @@
     };
 
     var nextConstCodeAction = #{jsAction @SysConstants.nextConstCode(':constType') /}
+
+
 </script>
 #{/set}
 
 
 <h1 id="title">常量管理</h1>
-<p class="light_bar">
+<div class="light_bar">
 ${constTypeList.size()} 常量类型
     &nbsp;
     <a href="#" id="create_const_type_link" class="ui-state-default ui-corner-all dialog_button">
         <span class="ui-icon ui-icon-newwin"></span>新增常量类型</a>
     <a href="#" id="create_const_link" class="ui-state-default ui-corner-all dialog_button">
         <span class="ui-icon ui-icon-newwin"></span>新增常量</a>
-</p>
+</div>
 
 *{#{pagination page:pageSequence ?: 1, size:entityCount /}}*
 

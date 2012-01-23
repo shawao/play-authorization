@@ -198,18 +198,27 @@
 #{/set}
 
 <h1 id="title">用户管理</h1>
-<p class="light_bar">
+*{<p class="light_bar">}*
+<div class="light_bar">
+
 ${userList.size()} / ${userCount} 用户&nbsp;
     <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
         <span class="ui-icon ui-icon-newwin"></span>创建用户</a>
     *{<!-- 暂时不支持批量分配角色 -->
     <a href="#" id="create_link2" class="ui-state-default ui-corner-all dialog_button">
         <span class="ui-icon ui-icon-newwin"></span>批量分配角色</a>}*
+
     <a href="javascript:force2deleteSelected();" id="create_link3" class="ui-state-default ui-corner-all dialog_button">
         <span class="ui-icon ui-icon-newwin"></span>强制删除</a>
-</p>
+
+    <label for="keyword" style="margin-left: 30px">名称：</label><input type="text" name="keyword" id="keyword" maxlength="30"/>
+        <a href="#" id="search_link" class="ui-state-default ui-corner-all big_opt_button">搜索</a>
 
 #{pagination page:pageSequence ?: 1, size:userCount /}
+</div>
+*{</p>}*
+
+
 
 <table id="users-list">
     <thead>
@@ -323,13 +332,6 @@ ${userList.size()} / ${userCount} 用户&nbsp;
                 </td>
             </tr>
             <tr>
-                *{<td align="right" class="input_label"><label for="userType">角色：</label></td>
-                <td>
-                    <select id="userType" name="userType">
-                        <option value="1">气象局普通用户</option>
-                        <option value="2">厂商用户</option>
-                    </select>
-                </td>}*
                 <td align="right" class="input_label"><label for="organizationId">所属组织：</label></td>
                 <td colspan="3">
                     <select id="organizationId" name="organizationId">

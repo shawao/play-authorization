@@ -1,3 +1,5 @@
+*{<span style="margin-right: 0; float: right;">}*
+
 %{ nbPages = _size.page(_caller.pageSize) }%
 
 #{if nbPages > 1}
@@ -7,10 +9,10 @@
 	*{ Previous }*
 
 	#{if _page == 1}
-		<strong>« 前页</strong>
+		<strong style="font-size: 120%">« 前页</strong>
 	#{/if}
 	#{else}
-		<a class="ui-state-default ui-corner-all opt_button" href="${request.path}?page=${_page-1}">« 前页</a>
+		<a class="ui-state-default ui-corner-all big_opt_button" href="${request.path}?page=${_page-1}">« 前页</a>
 	#{/else}
 
 	*{ Pages }*
@@ -20,19 +22,22 @@
 			<strong class="current_page_num">${i}</strong>
 		#{/if}
 		#{else}
-			<a class="ui-state-default ui-corner-all opt_button" href="${request.path}?page=${i}">${i}</a>
+			<a class="ui-state-default ui-corner-all big_opt_button" href="${request.path}?page=${i}">${i}</a>
 		#{/else}
 	%{ } }%
 
 	*{ Next }*
 
+
 	#{if _page == nbPages}
-		<strong>后页 »</strong>
+		<strong style="font-size: 120%">后页 »</strong>
 	#{/if}
 	#{else}
-		<a class="ui-state-default ui-corner-all opt_button" href="${request.path}?page=${_page+1}">后页 »</a>
+		<a class="ui-state-default ui-corner-all big_opt_button" href="${request.path}?page=${_page+1}">后页 »</a>
 	#{/else}
 
 	</div>
 
 #{/if}
+
+*{</span>}*

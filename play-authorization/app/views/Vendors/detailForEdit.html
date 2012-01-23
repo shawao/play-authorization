@@ -1,0 +1,40 @@
+#{if message!=null}
+${message}
+#{/if}
+#{if entity!=null}
+<table class="myTable">
+    <input type="hidden" id="id" name="id" value="${entity.id}"/>
+    <tr>
+        <td align="right" class="input_label" width="15%"><label for="name"
+                                                                 class="input_required">名称：</label></td>
+        <td width="30%"><input value="${entity.name}" id="name" name="name" type="text" maxlength="50"/></td>
+        <td align="right" class="input_label" width="20%"><label for="address">地址：</label></td>
+        <td width="35%"><input value="${entity.address}" id="address" name="address" type="text" maxlength="50"/></td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label for="phone">电话：</label></td>
+        <td><input value="${entity.phone}" id="phone" name="phone" type="text" maxlength="50"/></td>
+        <td align="right" class="input_label"><label for="phone2">电话2：</label></td>
+        <td><input value="${entity.phone2}" id="phone2" name="phone2" type="text" maxlength="50"/></td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label for="fax">传真：</label></td>
+        <td><input value="${entity.fax}" id="fax" name="fax" type="text" maxlength="50"/></td>
+        <td align="right" class="input_label"><label for="remark">备注：</label></td>
+        <td><input value="${entity.remark}" id="remark" name="remark" type="text" maxlength="50"/></td>
+    </tr>
+    <tr>
+        <td align="right" class="input_label"><label for="contactPerson">联系人：</label></td>
+        <td><input value="${entity.contactPerson}" id="contactPerson" name="contactPerson" type="text" maxlength="50"/></td>
+        <td align="right" class="input_label"><label for="contactPersonMobile">联系人电话：</label></td>
+        <td><input value="${entity.contactPersonMobile}" id="contactPersonMobile" name="contactPersonMobile" type="text" maxlength="50"/></td>
+    </tr>
+    <tr class="no_bottom">
+        <td align="right" class="input_label no_bottom"><label for="contactPerson2">联系人2：</label></td>
+        <td class="no_bottom"><input value="${entity.contactPerson2}" id="contactPerson2" name="contactPerson2" type="text" maxlength="50"/></td>
+        <td align="right" class="input_label no_bottom"><label for="contactPersonMobile2">联系人电话2：</label></td>
+        <td class="no_bottom"><input value="${entity.contactPersonMobile2}" id="contactPersonMobile2" name="contactPersonMobile2" type="text" maxlength="50"/>
+        </td>
+    </tr>
+</table>
+#{/if}
