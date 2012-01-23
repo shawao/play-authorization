@@ -53,7 +53,7 @@ POST	/sysusers/create											    SysUsers.create
 POST	/sysusers/delete											    SysUsers.delete
 POST	/sysusers/cleanRoles										    SysUsers.cleanRoles
 POST	/sysusers/edit												SysUsers.edit
-POST	/sysusers/detailForEdit										SysUsers.detailForEdit
+GET 	/sysusers/detailForEdit										SysUsers.detailForEdit
 POST	/sysusers/forbid											    SysUsers.forbid
 POST	/sysusers/resume											    SysUsers.resume
 GET		/sysusers/ajaxList											SysUsers.ajaxList
@@ -70,11 +70,32 @@ GET		/functions/ajaxList											Functions.ajaxList
 GET		/functions/ajaxListByRoleId									Functions.ajaxListByRoleId
 
 # organization operations
-GET		/organization													Organizations.index
-GET		/organization/show											Organizations.show
-GET		/organization/ajaxList											Organizations.ajaxList
-GET		/organization/detailForEdit										Organizations.detailForEdit
-GET		/organization/edit											Organizations.edit
+GET		/organizations												Organizations.index
+GET		/organizations/show											Organizations.show
+GET		/organizations/ajaxList										Organizations.ajaxList
+GET		/organizations/detailForEdit									Organizations.detailForEdit
+POST	/organizations/edit											Organizations.edit
+
+
+# SysConstants operations
+GET		/sysconstants/index											SysConstants.ajaxList
+GET		/sysconstants/show											SysConstants.show
+GET		/sysconstants/ajaxList											SysConstants.ajaxList
+GET		/sysconstants/constList										SysConstants.constList
+GET		/sysconstants/nextConstCode									SysConstants.nextConstCode
+POST	/sysconstants/createType										SysConstants.createType
+POST	/sysconstants/create											SysConstants.create
+
+
+# Vendors operations
+GET		/vendors													Vendors.index
+GET		/vendors/show												Vendors.show
+POST	/vendors/create												Vendors.create
+POST	/vendors/delete												Vendors.delete
+GET		/vendors/detailForEdit											Vendors.detailForEdit
+POST	/vendors/edit												Vendors.edit
+
+
 
 # -------------------------------------------------------
 # Setting for test

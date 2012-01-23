@@ -7,7 +7,8 @@
     border: 1px solid #f06b24;
     border-width: 5px 1px;
     padding: 10px;
-    font: normal 12px Verdana;
+    /*font: normal 12px Verdana;*/
+    font: normal 14px Verdana;
     z-index: 100;
 
 }
@@ -30,7 +31,7 @@
 
 .megamenu .column h3 {
     background: #e0e0e0;
-    font: bold 13px Arial;
+    font: bold 14px Arial;
     margin: 0 0 5px 0;
 }
 
@@ -40,7 +41,7 @@
     background-color: #e6e6e0;
     padding-left: 5px;
     padding-right: 5px;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .megamenu .column ul li a:hover {

@@ -118,7 +118,7 @@ ${entityList.size()} / ${entityCount} 功能
 <table id="func_list">
     <thead>
     <tr>
-        <th class="main" width="40px">ID</th>
+        *{<th class="main" width="40px">ID</th>}*
         <th class="main" width="180px">功能名</th>
         <th class="main" width="120px">键值</th>
         <th class="main">备注</th>
@@ -131,7 +131,7 @@ ${entityList.size()} / ${entityCount} 功能
 #{if entityList.size()>0}
     #{list items:entityList, as:'func'}
         <tr>
-            <td class="main">${func.id}</td>
+            *{<td class="main">${func.id}</td>}*
             <td class="main">${func.name}</td>
             <td class="main">${func.key}</td>
             <td class="main">${func.remark}</td>
@@ -139,7 +139,7 @@ ${entityList.size()} / ${entityCount} 功能
             <td class="main">${func.createDate.format("yyyy-MM-dd")}</td>
             <td class="main">${func.lastUpdate?func.lastUpdate.format("yyyy-MM-dd"):""}</td>
             <td class="main">
-                <a class="ui-state-default ui-corner-all opt_button" href="#" >编辑</a>
+                *{<a class="ui-state-default ui-corner-all opt_button" href="#" >编辑</a>}*
                 <a class="ui-state-default ui-corner-all opt_button" href="javascript:requireActionByPost('@{Functions.delete}','${func.id}','确定删除功能(${func.name})？');">删除</a>
             </td>
         </tr>

@@ -55,10 +55,14 @@ public class Organizations extends Application {
         Organization entity = Organization.findById(id);
 
         if (entity != null) {
-            entity.delete();
-            log.info(">> Organization(" + id + ") deleted okay, and render page to index");
+            try{
+                entity.delete();
+                flash.success("（" + entity.name + "）成功删除");
+            }catch (Throwable cve){
+                flash.error("（" + entity.name + "）删除失败，该组织已经被引用");
+            }
         } else {
-            log.info(">> Organization(" + id + ") doesn't exist");
+            flash.error("ID（" + id+ "）组织不存在");
         }
         show(1);
     }
