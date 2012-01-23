@@ -125,6 +125,9 @@ form .error {
 .dialog_button {padding: .3em 1em .3em 20px;text-decoration: none;position: relative;}
 .dialog_button span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
 
+.big_opt_button {padding: .3em 1em .3em 1em;text-decoration: none;position: relative;}
+.big_opt_button span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+
 .opt_button {padding: .2em 5px .2em 5px;text-decoration: none;position: relative;}
 .opt_button span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
 

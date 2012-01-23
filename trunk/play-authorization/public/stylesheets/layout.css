@@ -77,10 +77,11 @@
 }
 
 .pagination {
-	padding-bottom: 5px;
-	margin-bottom: 10px;
+	/*padding-bottom: 5px;*/
+	/*margin-bottom: 10px;*/
 	font-weight: bold;
-	border-bottom: 1px dotted #ccc;
+	/*border-bottom: 1px dotted #ccc;*/
+    margin-right: 0; float: right;
 }
 
 
@@ -133,5 +134,9 @@
     color: #888;
     margin-top: 10px;
     padding-top: 10px;
-    font-size: 12px;
+    font-size: 13px;
+
+    border-bottom: dotted 1px #ccc;
+    height: 30px;
+    margin-bottom: 10px;
 }

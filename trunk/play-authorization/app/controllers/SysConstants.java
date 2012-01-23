@@ -79,7 +79,9 @@ public class SysConstants extends Application {
         Object nextCodeObj=SysConstant.em().createNativeQuery(
                 "select max(o.constCode)+1 from t_constant o where o.constType="+constType)
                 .getSingleResult();
-        int nextCode=Integer.parseInt(nextCodeObj+"");
+        int nextCode=1;
+        if(nextCodeObj!=null)
+            nextCode=Integer.parseInt(nextCodeObj+"");
         log.info("{\"constType\":"+constType+",\"nextCode\':"+nextCode+"}");
         renderJSON(""+nextCode);
     }

@@ -61,10 +61,6 @@ public class SysUsers extends Application {
         play.Logger.info("<< create user: {loginName:" + loginName + ",...}");
 
         SysUser user = new SysUser(loginName.trim(),password);
-        /*SysUser user = new SysUser(loginName.trim(),
-                nickName == null ? loginName.trim() : nickName.trim(),
-                password,
-                mobile == null ? null : mobile.trim());*/
 
         District district = null;
         List<Organization> organizations = null;
