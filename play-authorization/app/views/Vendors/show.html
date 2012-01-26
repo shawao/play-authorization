@@ -85,12 +85,12 @@ ${entityList.size()} / ${entityCount} 厂商
 <table id="func_list">
     <thead>
     <tr>
-        <th class="main" width="160px">名称</th>
-        <th class="main">地址</th>
+        <th class="main" width="12%">名称</th>
+        <th class="main" width="15%">地址</th>
         <th class="main" width="100px">电话</th>*{电话1和电话2，分行}*
-        <th class="main" width="80px">传真</th>
-        <th class="main" width="130px">联系人</th>*{两组人名：电话，分行}*
-        <th class="main" width="120px">备注</th>
+        <th class="main" width="100px">传真</th>
+        <th class="main" width="140px">联系人</th>*{两组人名：电话，分行}*
+        <th class="main" width="110px">备注</th>
         <th class="main" width="70px">创建时间</th>
         <th width="100px">操作</th>
     </tr>
@@ -101,12 +101,12 @@ ${entityList.size()} / ${entityCount} 厂商
             <td class="main">${ven.name}</td>
             <td class="main">${ven.address}</td>
             <td class="main">
-            ${ven.phone}#{if ven.phone2!=null},<br/>${ven.phone2}#{/if}
+            ${ven.phone}#{if ven.phone2!=null && ven.phone2!=''},<br/>${ven.phone2}#{/if}
             </td>
             <td class="main">${ven.fax}</td>
             <td class="main">
                 ${ven.contactPerson}/${ven.contactPersonMobile}
-                #{if ven.contactPerson2!=null},<br/>
+                #{if ven.contactPerson2!=null && ven.contactPerson2!=''},<br/>
                 ${ven.contactPerson2}/${ven.contactPersonMobile2}#{/if}
             </td>
             <td class="main">${ven.remark}</td>

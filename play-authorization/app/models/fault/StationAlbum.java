@@ -38,7 +38,7 @@ public class StationAlbum extends AbstractEntity {
     public Long fileSize;//图片文件大小
 
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     public SysUser submitter;// who submit it
 
 }

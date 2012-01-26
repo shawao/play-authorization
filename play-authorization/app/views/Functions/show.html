@@ -106,14 +106,16 @@
 
 
 <h1 id="title">功能管理</h1>
-<p class="light_bar">
+<div class="light_bar">
 ${entityList.size()} / ${entityCount} 功能
     &nbsp;
     <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
         <span class="ui-icon ui-icon-newwin"></span>新增功能</a>
-</p>
 
 #{pagination page:pageSequence ?: 1, size:entityCount /}
+
+</div>
+
 
 <table id="func_list">
     <thead>

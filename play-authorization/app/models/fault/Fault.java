@@ -45,6 +45,6 @@ public class Fault extends AbstractEntity {
 
     public String status;// standby column
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     public SysUser submitter;// who submit it
 }

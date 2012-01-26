@@ -2,13 +2,10 @@
         <div id="megamenu1" class="megamenu">
 
             <div class="column">
-                <h3>站点</h3>
+                <h3>故障单查询</h3>
                 <ul>
-                    <li><a href="＃">基本信息</a></li>
-                    <li><a href="＃">相册</a></li>
-                    <li><a href="＃">历史</a></li>
-                    <li><a href="＃">模块</a></li>
-                    <li><a href="＃">联系人</a></li>
+                    <li><a href="＃">复合查询</a></li>
+                    <li><a href="＃">统计报表</a></li>
                 </ul>
             </div>
 
@@ -23,22 +20,25 @@
             </div>
 
             <div class="column">
-                <h3>辅助信息</h3>
+                <h3>站点</h3>
                 <ul>
-                    <li><a href="@@{Districts.index}">省市区</a></li>
-                    <li><a href="@@{Modules.index}">模块</a></li>
-                    <li><a href="@@{Vendors.show}">厂家</a></li>
-                    <li><a href="@@{SysConstants.show}">常量</a></li>
+                    <li><a href="＃">基本信息</a></li>
+                    <li><a href="＃">相册</a></li>
+                    <li><a href="＃">历史</a></li>
+                    <li><a href="＃">模块</a></li>
+                    *{<li><a href="＃">联系人</a></li>}*
                 </ul>
             </div>
 
             <br style="clear: left" /> <!--Break after 3rd column. Move this if desired-->
 
             <div class="column">
-                <h3>故障单查询</h3>
+                <h3>辅助信息</h3>
                 <ul>
-                    <li><a href="＃">复合查询</a></li>
-                    <li><a href="＃">统计报表</a></li>
+                    <li><a href="@@{Districts.show}">省市区</a></li>
+                    <li><a href="@@{Modules.show}">模块</a></li>
+                    <li><a href="@@{Vendors.show}">厂家</a></li>
+                    <li><a href="@@{SysConstants.show}">常量</a></li>
                 </ul>
             </div>
 

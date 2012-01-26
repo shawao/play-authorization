@@ -1,0 +1,221 @@
+#{extends 'assistant_main.html' /}
+
+#{set "moreStyles"}
+<style type="text/css">
+</style>
+#{/set}
+
+#{set 'moreScripts'}
+
+<script type="text/javascript">
+
+    $(function () {
+        // Tabs
+        $(function () {
+            $("#module_tabs").tabs({
+                ajaxOptions:{
+                    error:function (xhr, status, index, anchor) {
+                        $(anchor.hash).html("载入失败");
+                    }
+                }
+            });
+            $( "#module_tabs" ).tabs( "option", "spinner", '获取数据中...' );
+        });
+
+        // -------- add const type dialog
+        $('#add_module_div').dialog({
+            autoOpen:false,
+            width:400,
+            modal:true,
+            resizable: false,
+            buttons:{
+                "保存":function () {
+                    if ($("#moduleName").val().trim() == "") {
+                        jqAlert("请填写模块名称");
+                    }else{
+                        $("#add_module_form").submit();
+                        $(this).dialog("close");
+                    }
+                },
+                "取消":function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        // -------- add const dialog
+        $('#add_type_div').dialog({
+            autoOpen:false,
+            width:400,
+            modal:true,
+            resizable: false,
+            buttons:{
+                "保存":function () {
+                    if ($("#typeName").val().trim() == "") {
+                        jqAlert("请填写型号名称");
+                    } else {
+                        $("#add_type_form").submit();
+                        $(this).dialog("close");
+                    }
+                },
+                "取消":function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        // Dialog Link
+        $('#create_module_link').click(function () {
+            $('#add_module_div').css('display', '');
+            $('#add_module_div').dialog('open');
+            return false;
+        });
+
+        $('#create_module_type_link').click(function () {
+            $('#add_type_div').css('display', '');
+            $('#add_type_div').dialog('open');
+            return false;
+        });
+
+        // -------- edit user dialog
+        $('#edit_div').dialog({
+            autoOpen:false,
+            width:400,
+            modal:true,
+            resizable:false,
+            buttons:{
+                "保存":function () {
+                    $("#edit_form").submit();
+                    $(this).dialog("close");
+                },
+                "取消":function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+
+
+    var detailForEditAction = #{jsAction @SysConstants.detailForEdit(':id') /}
+
+    function showEditForm(constId,constRemark) {
+        $('#edit_table_div').load(detailForEditAction({id:constId}), function () {});
+        $("#edit_const_id").val(constId);
+        $('#edit_div').css('display', '');
+        $('#edit_div').dialog('option', "title", "修改常量（" + constRemark + "）基本信息");
+        $('#edit_div').dialog('open');
+    };
+
+
+    var constListAction = #{jsAction @Modules.typeList(':id') /}
+
+    function showTypesInTab(moduleId,moduleName){
+        $('#type_tab').load(constListAction({id:moduleId}), function () {});
+        $("#type_tab_link").html(moduleName);
+        $('#module_tabs').tabs('select', 1);
+    };
+
+</script>
+#{/set}
+
+
+<h1 id="title">模块管理</h1>
+<div class="light_bar">
+${modules.size()} / ${entityCount} 模块
+    &nbsp;
+    <a href="#" id="create_module_link" class="ui-state-default ui-corner-all dialog_button">
+        <span class="ui-icon ui-icon-newwin"></span>新增模块</a>
+    <a href="#" id="create_module_type_link" class="ui-state-default ui-corner-all dialog_button">
+        <span class="ui-icon ui-icon-newwin"></span>新增模块型号</a>
+
+    #{pagination page:pageSequence ?: 1, size:entityCount /}
+</div>
+
+
+<div id="module_tabs">
+    <ul>
+        <li><a href="#module_tab">模块</a></li>
+        <li><a id="type_tab_link" href="#type_tab">模块型号</a></li>
+    </ul>
+
+    <div id="module_tab">
+        <table id="const_type_list">
+            <thead>
+            <tr>
+                <th class="main" width="160px">模块名称</th>
+                <th class="main">备注</th>
+                <th class="main" width="100px">创建时间</th>
+                <th width="200px">操作</th>
+            </tr>
+            </thead>
+        #{if modules.size()>0}
+            #{list items:modules, as:'mod'}
+                <tr>
+                    <td class="main">${mod.name}</td>
+                    <td class="main">${mod.remark}</td>
+                    <td class="main">${mod.createDate.format("yyyy-MM-dd")}</td>
+                    <td class="main">
+                        <a class="ui-state-default ui-corner-all opt_button"
+                           href="javascript:showTypesInTab('${mod.id}');">查看型号</a>
+                        <a class="ui-state-default ui-corner-all opt_button"
+                           href="javascript:requireActionByPost('@{Modules.delete}','${mod.id}','确认删除模块(${mod.name})？');">删除</a>
+                    </td>
+                </tr>
+            #{/list}
+        #{/if}
+
+        </table>
+    </div>
+
+
+    <div id="type_tab">
+*{load data by ajajxAction}*
+    </div>
+</div>
+
+
+
+<div id="add_module_div" style="display: none;" title="新增模块">
+    <form id="add_module_form" action="@{Modules.create()}" method="post">
+        <table class="myTable">
+            <tr>
+                <td align="right" class="input_label"><label for="moduleName" class="input_required">模块名称：</label></td>
+                <td><input id="moduleName" name="name" type="text" maxlength="50"/></td>
+            </tr>
+            <tr class="no_bottom">
+                <td align="right" class="input_label no_bottom"><label for="moduleRemark">备注：</label></td>
+                <td class="no_bottom"><input id="moduleRemark" name="remark" type="text" maxlength="200"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+<div id="add_type_div" style="display: none;" title="新增模块型号">
+    <form id="add_type_form" action="@{Modules.createType}" method="post">
+        <table class="myTable">
+            <tr>
+                <td align="right" class="input_label"><label for="moduleIdSel" class="input_required">模块：</label></td>
+                <td>
+                    <select id="moduleIdSel" name="moduleId">
+                    #{if allModules!=null && allModules.size()>0}
+                        #{list items:allModules, as:'m'}
+                            <option value="${m.id}">${m.name}</option>
+                        #{/list}
+                    #{/if}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="input_label"><label for="typeName" class="input_required">型号名称：</label></td>
+                <td><input id="typeName" name="name" type="text" maxlength="50"/></td>
+            </tr>
+            <tr class="no_bottom">
+                <td align="right" class="input_label no_bottom"><label for="typeRemark" >型号备注：</label></td>
+                <td class="no_bottom">
+                    <input id="typeRemark" name="remark" type="text" maxlength="20"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

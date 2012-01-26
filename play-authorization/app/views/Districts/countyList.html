@@ -1,0 +1,31 @@
+<p>${districts.size()} 区/县&nbsp;</p>
+
+<table width="30%">
+    <thead>
+    <tr>
+        <th class="main" width="15%">区县名称</th>
+        <th class="main" width="10%">编码</th>
+        <th class="main" width="15%">邮政编码</th>
+        <th class="main" width="10%">电话区号</th>
+        <th class="main" width="15%">状态</th>
+        <th class="main" width="35%">操作</th>
+    </tr>
+    </thead>
+#{if districts.size()>0}
+    #{list items:districts, as:'dis'}
+        <tr class="${dis.cssByStatus()}">
+            <td>${dis.disName}</td>
+            <td>${dis.disId}</td>
+            <td>${dis.phoneCode}</td>
+            <td>${dis.zipCode}</td>
+            <td>${dis.showStatus()}</td>
+            <td>
+                <a onclick="forbid(3,'${dis.disId}','${dis.disName}');" id="forbid_prov_${dis.disName}" #{if dis.status==2}style="display: none"#{/if} href="#"
+                   class="ui-state-default ui-corner-all opt_button">禁用</a>
+                <a onclick="resume(3,'${dis.disId}','${dis.disName}');" id="resume_prov_${dis.disName}" #{if dis.status==1}style="display: none"#{/if} href="#"
+                   class="ui-state-default ui-corner-all opt_button">恢复</a>
+            </td>
+        </tr>
+    #{/list}
+#{/if}
+</table>

@@ -12,13 +12,12 @@
 
     $(function () {
         // Dialog
-        $('#popup_func_dialog').dialog({
+        $('#popup_org_dialog').dialog({
             autoOpen:false,
             width:600,
             height:400,
             modal:true,
             resizable: false,
-//            type:'iframe',
             buttons:{
                 "确定":function () {
                     var parentFuncInfo=$("input[name='parentFuncChosen']:checked").val();
@@ -35,18 +34,18 @@
 
         // Dialog Link
         $('#dialog_link').click(function () {
-            $('#popup_func_dialog').load(
+            $('#popup_org_dialog').load(
                     listAction(),
                     function () {
-                        //$('#popup_func_dialog').css('visibility', 'visible')
+                        //$('#popup_org_dialog').css('visibility', 'visible')
                     }
             );
-            $('#popup_func_dialog').css('display', '');
-            $('#popup_func_dialog').dialog('open');
+            $('#popup_org_dialog').css('display', '');
+            $('#popup_org_dialog').dialog('open');
             return false;
         });
 
-        // -------- add function dialog
+        // -------- add organization dialog
         $('#add_div').dialog({
             autoOpen:false,
             width:400,
@@ -139,14 +138,17 @@
 
 
 <h1 id="title">组织管理</h1>
-<p class="light_bar">
+<div class="light_bar">
 ${entityList.size()} / ${entityCount} 功能
     &nbsp;
     <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
         <span class="ui-icon ui-icon-newwin"></span>新增组织</a>
-</p>
 
 #{pagination page:pageSequence ?: 1, size:entityCount /}
+
+</div>
+
+
 
 <table id="func_list">
     <thead>
@@ -211,7 +213,7 @@ ${entityList.size()} / ${entityCount} 功能
 
 *{#{include 'Functions/ajaxList.html'/}}*
 
-<div id="popup_func_dialog" title="组织选择窗口" style="display: none">
+<div id="popup_org_dialog" title="组织选择窗口" style="display: none">
 </div>
 
 

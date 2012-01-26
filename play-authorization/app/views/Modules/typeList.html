@@ -1,0 +1,51 @@
+#{if message!=null}
+<p style="background-color: #d10000;color: white;height: 20px;">${message}</p>#{/if}
+
+#{if module!=null && module.types.size()>0}
+
+<p style="">
+${module.types.size()} 型号&nbsp;
+
+    <span style="float: right;margin-right: 100px;">
+    <a class="ui-state-default ui-corner-all opt_button" href="#"
+            onclick="$('#module_tabs').tabs('select', 0);">返回类型列表</a>
+</span>
+</p>
+
+<table id="type_list">
+    <thead>
+    <tr>
+    *{<th class="main" width="40px">ID</th>}*
+        <th class="main" width="160px">型号名称</th>
+        <th class="main">备注</th>
+        <th class="main" width="100px">创建时间</th>
+        <th width="200px">操作</th>
+    </tr>
+    </thead>
+#{if module.types.size()>0}
+    #{list items:module.types, as:'type'}
+        <tr>
+            *{<td class="main">${en.id}</td>}*
+            <td class="main">${type.name}</td>
+            <td class="main">${type.remark}</td>
+            <td class="main">${type.createDate.format("yyyy-MM-dd")}</td>
+            <td class="main">
+                *{<a class="ui-state-default ui-corner-all opt_button" href="#">编辑</a>}*
+                <a class="ui-state-default ui-corner-all opt_button"
+                   href="javascript:requireActionByPost('@{Modules.deleteType}','${type.id}','确认删除模块型号(${type.name})？');">删除</a>
+            </td>
+        </tr>
+    #{/list}
+#{/if}
+</table>
+#{/if}
+
+#{else}
+<p style="">
+模块：<span style="color: #2244BB;">${module.name}</span>&nbsp;没有型号数据
+
+    <span style="float: right;margin-right: 100px;">
+    <a class="ui-state-default ui-corner-all opt_button" href="#"
+            onclick="$('#module_tabs').tabs('select', 0);">返回类型列表</a>
+</p>
+#{/else}
