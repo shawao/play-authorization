@@ -115,15 +115,15 @@
 
 
 <h1 id="title">角色管理</h1>
-<p class="light_bar">
+<div class="light_bar">
 *{#{pluralize size:entityList.size(), word:'role' /} in #{pluralize size:entityCount, word:'role' /}}*
     *{&nbsp;<a class="link_as_button" href="javascript:showNewForm()">创建角色</a>}*
 ${entityList.size()} / ${entityCount} 角色&nbsp;
     <a href="#" id="create_link" class="ui-state-default ui-corner-all dialog_button">
             <span class="ui-icon ui-icon-newwin"></span>创建角色</a>
-</p>
 
 #{pagination page:pageSequence ?: 1, size:entityCount /}
+</div>
 
 <table id="roles-list">
     <thead>

@@ -67,6 +67,6 @@ public class Servicing extends AbstractEntity {
     public String auditComment;
 
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     public SysUser submitter;// who submit it
 }

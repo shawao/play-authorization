@@ -26,6 +26,9 @@ public class Function extends AbstractEntity {
 
     @Column(length = 200)
     public String remark;
+    
+    @Column(length = 200)
+    public String servletUrl;//通过路径禁止直接访问后台功能
 
     @ManyToOne
     public Function parent;

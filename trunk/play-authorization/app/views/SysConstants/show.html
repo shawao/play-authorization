@@ -215,7 +215,7 @@ ${constTypeList.size()} 常量类型
                 <td align="right" class="input_label"><label for="typeConstCodeSel" class="input_required">常量类型：</label></td>
                 <td>
                     <select id="typeConstCodeSel" name="constType" onchange="javascript:
-                    $.get(nextConstCodeAction({constType:$('#typeConstCodeSel').val()}), function (next) {$('#constCode').val(next);});;">
+                    $.get(nextConstCodeAction({constType:$('#typeConstCodeSel').val()}), function (next) {$('#constCode').val(next);});">
                     #{if constTypeList!=null && constTypeList.size()>0}
                         #{list items:constTypeList, as:'ct'}
                             <option value="${ct.constCode}">${ct.constRemark}</option>

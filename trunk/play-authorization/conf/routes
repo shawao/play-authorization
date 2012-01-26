@@ -96,6 +96,28 @@ GET		/vendors/detailForEdit											Vendors.detailForEdit
 POST	/vendors/edit												Vendors.edit
 
 
+# district operations
+GET		/districts														Districts.index
+GET		/districts/													Districts.show
+GET		/districts/index												Districts.show
+GET		/districts/show												Districts.show
+GET		/districts/allProvinces											Districts.allProvinces
+GET		/districts/allCities												Districts.allCities
+GET		/districts/allCounties											Districts.allCounties
+GET		/districts/cityList												Districts.cityList
+GET		/districts/countyList											Districts.countyList
+GET		/districts/forbid												Districts.forbid
+GET		/districts/resume												Districts.resume
+
+# init district data from resource
+#GET		/districts/init													Districts.init
+
+
+GET		/modules													Modules.index
+GET		/modules/													Modules.show
+GET		/modules/show												Modules.show
+
+
 
 # -------------------------------------------------------
 # Setting for test

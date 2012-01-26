@@ -34,7 +34,7 @@ public class SysConstant extends AbstractEntity {
 
     public int status=1;//1：正常，2：禁用
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     public SysUser submitter;// who submit it
 
 

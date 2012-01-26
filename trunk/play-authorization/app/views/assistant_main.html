@@ -42,8 +42,8 @@
         <ul id="menu">
             <li><a id="megaanchor" style="background-color: #6495ed;" href="#">系统地图</a></li>
             <li><a class="${request?.controller == 'Welcome'? 'selected' : ''}" href="@{Welcome.index}">首页</a></li>
-            <li><a class="${request?.controller == 'Districts'? 'selected' : ''}" href="@{Districts.index}">省市区</a></li>
-            <li><a class="${request?.controller == 'Modules'? 'selected' : ''}" href="@{Modules.index}">模块</a></li>
+            <li><a class="${request?.controller == 'Districts'? 'selected' : ''}" href="@{Districts.show}">省市区</a></li>
+            <li><a class="${request?.controller == 'Modules'? 'selected' : ''}" href="@{Modules.show}">模块</a></li>
             <li><a class="${request?.controller == 'Vendors'? 'selected' : ''}" href="@{Vendors.show}">厂家</a></li>
             <li><a class="${request?.controller == 'SysConstants'? 'selected' : ''}" href="@{SysConstants.show}">常量</a></li>
         </ul>
