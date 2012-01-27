@@ -67,6 +67,8 @@ public class SysConstants extends Application {
 //            flash.success("常量类型（" + typeConstRemark + "，" + typeConstCode + "）创建成功");
             log.info("常量类型（" + typeConstRemark + "，" + typeConstCode + "）创建成功");
         }
+
+//        memConstList= SysConstant.findAll();
         show(1);
     }
 
@@ -96,6 +98,8 @@ public class SysConstants extends Application {
             constant.save();
             flash.success("常量（"+constCode+":"+constValue+"）保存成功");
         }
+
+//        memConstList= SysConstant.findAll();
         show(1);
     }
 
@@ -104,13 +108,15 @@ public class SysConstants extends Application {
         SysConstant entity = SysConstant.findById(id);
 
         if (entity != null) {
-            entity.delete();
+            entity.deleteSelfAndRelated();
             String name=entity.constType==0?entity.constRemark:entity.constValue;
             String pre=entity.constType==0?"类型":"常量";
             flash.success(pre+"（"+name+"）删除成功");
         } else {
             flash.success("常量/类型（"+id+"）不存在");
         }
+
+//        memConstList= SysConstant.findAll();
         show(1);
     }
 
@@ -138,6 +144,8 @@ public class SysConstants extends Application {
                 params.get("constValue"), params.get("constRemark"), params.get("remark") ,params.get("status",Integer.class));
         cont.lastUpdate = new Date();
         cont.save();
+
+//        memConstList= SysConstant.findAll();
         show(1);
     }
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.fault.SysConstant;
 import models.sys.SysUser;
 import org.apache.log4j.*;
 import play.*;
@@ -10,11 +11,22 @@ import play.data.validation.*;
 import models.*;
 import notifiers.*;
 
+import java.util.List;
+
 public class Application extends Controller {
 
     protected static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Application.class);
 
     static Integer pageSize = Integer.parseInt(Play.configuration.getProperty("auth.pageSize", "10"));
+
+    // 系统启动时载入常量列表
+    // todo:常量更新时重新载入（失败了，不知道为什么bug?）
+    static List<SysConstant> memConstList = null;
+
+    static {
+        memConstList= SysConstant.findAll();
+        play.Logger.info("...memConstList("+memConstList.size()+") loaded in memory");
+    }
 
     // ~~~~~~~~~~~~ @Before interceptors
 
@@ -22,6 +34,7 @@ public class Application extends Controller {
     static void globals() {
 //        renderArgs.put("connected", connectedUser());
         renderArgs.put("pageSize", pageSize);
+        renderArgs.put("memConstList", memConstList);
     }
 
 

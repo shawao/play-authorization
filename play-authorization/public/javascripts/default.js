@@ -140,3 +140,19 @@ function requireActionByPostWithSpecifiedInputName(action, inputName ,inputValue
         tempForm.submit();
     });
 }
+
+
+function constSelectInputChange(inputName) {
+    var selValue = $("#" + inputName + "Sel").val().trim();
+
+    $("#" + inputName + "Input").val(selValue.split("|")[1].trim());
+    $("#" + inputName).val(selValue.split("|")[0]);
+}
+
+function constSelectInputBlur(inputName) {
+    var selValue = $("#" + inputName + "Sel").val();
+
+    if ($("#" + inputName + "Input").val() != null && selValue.split("|")[1] != $("#" + inputName + "Input").val().trim()) {
+        $("#" + inputName).val("");
+    }
+}

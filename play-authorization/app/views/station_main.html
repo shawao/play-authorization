@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Fault AI System - #{get 'title' /}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=${_response_encoding}"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/jkmegamenu.css'}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/jquery-ui/pepper-grinder/jquery.ui.all.css'}" />
+#{get 'moreStyles' /}
+    <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}" />
+
+    <script src="@{'/public/javascripts/default.js'}"></script>
+    <script src="@{'/public/javascripts/jquery/jquery-1.6.2.min.js'}"></script>
+
+    <script src="@{'/public/javascripts/jkmegamenu.js'}"></script>
+    <script type="text/javascript">
+        jkmegamenu.definemenu("megaanchor", "megamenu1", "mouseover")
+    </script>
+    <script src="@{'/public/javascripts/jquery/jquery-ui-1.8.16.custom.min.js'}"></script>
+#{get 'moreScripts' /}
+</head>
+
+<body>
+
+<div id="main">
+
+    <div id="header">
+    #{if connected}
+        <p>
+            欢迎 <a class="connectedUser" href="@{Users.show(connected.id)}">${connected.name}</a>
+            (<a href="@{Application.logout}">退出</a>)
+        </p>
+    #{/if}
+    #{else}
+        <p>
+            <a href="@{Application.signup}">注册</a>&nbsp;&nbsp;<a href="@{Application.login}">登录</a>
+        </p>
+    #{/else}
+
+        <ul id="menu">
+            <li><a id="megaanchor" style="background-color: #6495ed;" href="#">系统地图</a></li>
+            <li><a class="${request?.controller == 'Welcome'? 'selected' : ''}" href="@{Welcome.index}">首页</a></li>
+            <li><a class="${request?.controller == 'Stations'? 'selected' : ''}" href="@{Stations.show}">自动站</a></li>
+            <li><a class="${request?.controller == 'StationAlbums'? 'selected' : ''}" href="@{StationAlbums.show}">相册</a></li>
+            *{<li><a class="${request?.controller == 'Vendors'? 'selected' : ''}" href="@{Vendors.show}">历史</a></li>}*
+            <li><a class="${request?.controller == 'SysConstants'? 'selected' : ''}" href="@{SysConstants.show}">模块</a></li>
+        </ul>
+    </div>
+
+    <div id="content">
+    #{if flash?.error}
+        <div class="error">${flash.error}</div>
+    #{/if}
+
+    #{if flash?.success}
+        <div class="success">${flash.success}</div>
+    #{/if}
+
+    #{doLayout /}
+    </div>
+
+    <div id="footer">#{include 'common/footer.html'/}</div>
+</div>
+
+#{include 'common/menuMap.html'/}
+</body>
+</html>
