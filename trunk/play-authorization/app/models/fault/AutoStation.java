@@ -39,8 +39,7 @@ public class AutoStation extends AbstractEntity {
     @Column(length = 100)
     public String address;
     // 所属行政区
-    @ManyToOne(optional = false)
-    public District district;
+    public String districtId;//province_city_county(disId)
     // 具体地址位置
     @Column(length = 100)
     public String location;
@@ -130,4 +129,92 @@ public class AutoStation extends AbstractEntity {
     @ManyToOne
     public SysUser submitter;// who submit it
 
+
+    public AutoStation(
+            String name, String stationNo, String cardNo,
+            String longitude, String latitude, double elevation,
+            String address, String districtId, String location,
+            String transModeId, String powerSupplyType, String stationTypeId,
+            Vendor vendor, Date buildTime, Long contactUserId, Long contactUserId2,
+            int elementNum, String observationElement, String terrainId,
+            String groundId, String neighboringEnv, String observationFieldSize,
+            String satLevelId, int assessOrNot, String weatherBureau, String accessPoints,
+            String port, String ip, String history, String remark, SysUser submitter) {
+        this.name = name;
+        this.stationNo = stationNo;
+        this.cardNo = cardNo;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.elevation = elevation;
+        this.address = address;
+        this.districtId = districtId;
+        this.location = location;
+        this.transModeId = transModeId;
+        this.powerSupplyType = powerSupplyType;
+        this.stationTypeId = stationTypeId;
+        this.vendor = vendor;
+        this.buildTime = buildTime;
+        this.contactUserId = contactUserId;
+        this.contactUserId2 = contactUserId2;
+        this.elementNum = elementNum;
+        this.observationElement = observationElement;
+        this.terrainId = terrainId;
+        this.groundId = groundId;
+        this.neighboringEnv = neighboringEnv;
+        this.observationFieldSize = observationFieldSize;
+        this.satLevelId = satLevelId;
+        this.assessOrNot = assessOrNot;
+        this.weatherBureau = weatherBureau;
+        this.accessPoints = accessPoints;
+        this.port = port;
+        this.ip = ip;
+        this.history = history;
+        this.remark = remark;
+        this.submitter = submitter;
+    }
+
+
+
+    public void editAutoStation(
+            String name, String stationNo, String cardNo,
+            String longitude, String latitude, double elevation,
+            String address, String districtId, String location,
+            String transModeId, String powerSupplyType, String stationTypeId,
+            Vendor vendor, Date buildTime, Long contactUserId, Long contactUserId2,
+            int elementNum, String observationElement, String terrainId,
+            String groundId, String neighboringEnv, String observationFieldSize,
+            String satLevelId, int assessOrNot, String weatherBureau, String accessPoints,
+            String port, String ip, String history, String remark, SysUser submitter) {
+        this.name = name;
+        this.stationNo = stationNo;
+        this.cardNo = cardNo;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.elevation = elevation;
+        this.address = address;
+        this.districtId = districtId;
+        this.location = location;
+        this.transModeId = transModeId;
+        this.powerSupplyType = powerSupplyType;
+        this.stationTypeId = stationTypeId;
+        this.vendor = vendor;
+        this.buildTime = buildTime;
+        this.contactUserId = contactUserId;
+        this.contactUserId2 = contactUserId2;
+        this.elementNum = elementNum;
+        this.observationElement = observationElement;
+        this.terrainId = terrainId;
+        this.groundId = groundId;
+        this.neighboringEnv = neighboringEnv;
+        this.observationFieldSize = observationFieldSize;
+        this.satLevelId = satLevelId;
+        this.assessOrNot = assessOrNot;
+        this.weatherBureau = weatherBureau;
+        this.accessPoints = accessPoints;
+        this.port = port;
+        this.ip = ip;
+        this.history = history;
+        this.remark = remark;
+        this.submitter = submitter;
+    }
 }

@@ -3,10 +3,7 @@ package models.fault;
 import models.AbstractEntity;
 import models.sys.SysUser;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -102,6 +99,14 @@ public class SysConstant extends AbstractEntity {
         return count == 0;
     }
 
+    public void deleteSelfAndRelated(){
+        if (constType == 0) {
+            EntityManager entityManager = SysConstant.em();
+            entityManager.createNativeQuery("delete from t_constant where constType=" + this.constCode).executeUpdate();
+            entityManager.flush();
+        }
+        delete();
+    }
 
     public String showStatus() {
         String remark = "";
@@ -110,5 +115,18 @@ public class SysConstant extends AbstractEntity {
         else if (status == 2)
             remark = "禁用";
         return remark;
+    }
+
+    @Override
+    public String toString() {
+        return "SysConstant{" +
+                "constType=" + constType +
+                ", constCode=" + constCode +
+                ", constValue='" + constValue + '\'' +
+                ", constRemark='" + constRemark + '\'' +
+                ", remark='" + remark + '\'' +
+                ", status=" + status +
+                ", submitter=" + submitter +
+                '}';
     }
 }

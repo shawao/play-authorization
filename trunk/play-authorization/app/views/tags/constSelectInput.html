@@ -1,0 +1,25 @@
+*{
+_name: 相当于select元素的name
+_constType: 常量类型ID（实际上是constType=0时，constCode的值 @ENTITY: SysConstant @TABLE: t_contant）
+
+与此常量对应的，服务器端读取此信息时，也需要提供name和constType
+}*
+
+<div style="position:relative;">
+<span style="margin-left:100px;width:18px;overflow:hidden;">
+<select id="${_name}Sel" name="${_name}Sel"
+        style="width:118px;margin-left:-100px"
+        onchange="constSelectInputChange('${_name}');">
+        <option value="|">--选择或填写--</option>
+        #{if _caller.memConstList!=null && _caller.memConstList.size()>0}
+            #{list items:_caller.memConstList, as:'ct'}
+                #{if ct.constType==_constType}
+                    <option value="${ct.constCode}|${ct.constValue}">${ct.constValue}</option>
+                #{/if}
+            #{/list}
+        #{/if}
+</select></span>
+    <input id="${_name}Input" name="${_name}Input" onblur="constSelectInputBlur('${_name}');"
+           style="width:100px;position:absolute;left:0;"/>
+    <input type="hidden" id="${_name}" name="${_name}"/>
+</div>
