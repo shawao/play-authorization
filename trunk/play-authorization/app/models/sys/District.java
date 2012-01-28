@@ -174,6 +174,11 @@ public class District extends AbstractEntity {
         return District.find("select o from District o where o.level=1 order by o.disId asc").fetch();
     }
 
+
+    public static List<District> availableProvinces() {
+        return District.find("select o from District o where o.level=1 and o.status in (1,3) order by o.disId asc").fetch();
+    }
+
     public static Map<String, String> allProvincesMap() {
         List<District> districts = allProvinces();
         Map<String, String> resultMap = new TreeMap<String, String>();
@@ -187,6 +192,10 @@ public class District extends AbstractEntity {
 
     public static List<District> allCities(String provinceId) {
         return District.find("select o from District o where o.level=2 and o.parentDisId=? order by o.disId asc", provinceId).fetch();
+    }
+
+    public static List<District> availableCities(String provinceId) {
+        return District.find("select o from District o where o.level=2 and o.parentDisId=? and o.status in (1,3) order by o.disId asc",provinceId).fetch();
     }
 
 
@@ -204,6 +213,10 @@ public class District extends AbstractEntity {
 
     public static List<District> allCounties(String cityId) {
         return District.find("select o from District o where o.level=3 and o.parentDisId=? order by o.disId asc", cityId).fetch();
+    }
+
+    public static List<District> availableCounties(String cityId) {
+        return District.find("select o from District o where o.level=3 and o.parentDisId=? and o.status=1 order by o.disId asc",cityId).fetch();
     }
 
     public static Map<String, String> allCountiesMap(String cityId) {

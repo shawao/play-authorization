@@ -40,10 +40,22 @@ public class Districts extends Application {
         render(districts);
     }
 
+    public static void citySelectList(String provinceId) {
+        log.info("provinceId = "+provinceId);
+        List<District> districts=District.availableCities(provinceId);
+        render(districts);
+    }
+
 
     public static void countyList(String cityId) {
         log.info("cityId = " + cityId);
         List<District> districts = District.allCounties(cityId);
+        render(districts);
+    }
+
+    public static void countySelectList(String cityId) {
+        log.info("cityId = " + cityId);
+        List<District> districts = District.availableCounties(cityId);
         render(districts);
     }
 

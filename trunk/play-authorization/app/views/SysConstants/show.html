@@ -73,6 +73,7 @@
             }
         });
 
+
         // Dialog Link
         $('#create_const_type_link').click(function () {
             $('#add_const_type_div').css('display', '');
@@ -126,7 +127,12 @@
 
     var nextConstCodeAction = #{jsAction @SysConstants.nextConstCode(':constType') /}
 
-
+    function freshMemory(){
+        $.get('@{Application.reload()}', function (data) {
+            $('#fresh_div').html(data);
+            jqAlert("刷新完成：<br/>"+data);
+        });
+    }
 </script>
 #{/set}
 
@@ -139,6 +145,9 @@ ${constTypeList.size()} 常量类型
         <span class="ui-icon ui-icon-newwin"></span>新增常量类型</a>
     <a href="#" id="create_const_link" class="ui-state-default ui-corner-all dialog_button">
         <span class="ui-icon ui-icon-newwin"></span>新增常量</a>
+
+    <a href="#" class="ui-state-default ui-corner-all big_opt_button" onclick="freshMemory();" style="float: right">
+        刷新系统常量</a>
 </div>
 
 *{#{pagination page:pageSequence ?: 1, size:entityCount /}}*
@@ -184,6 +193,7 @@ ${constTypeList.size()} 常量类型
     </div>
 </div>
 
+<div id="fresh_div" title="刷新结果" style="display: none"></div>
 
 
 <div id="add_const_type_div" style="display: none;" title="新增常量类型">
@@ -235,7 +245,7 @@ ${constTypeList.size()} 常量类型
             </tr>
             <tr>
                 <td align="right" class="input_label"><label for="constValue" class="input_required">常量值：</label></td>
-                <td><input id="constValue" name="constValue" type="text" maxlength="20"/></td>
+                <td><input id="constValue" name="constValue" type="text" maxlength="50"/></td>
             </tr>
             <tr class="no_bottom">
                 <td align="right" class="input_label no_bottom"><label for="constRemark" >常量备注：</label></td>

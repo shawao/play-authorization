@@ -1,5 +1,4 @@
 import controllers.Application;
-import models.fault.SysConstant;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
@@ -14,5 +13,7 @@ public class Bootstrap extends Job{
     @Override
     public void doJob() throws Exception {
         play.Logger.info("...Bootstrap started");
+
+        Application.initialize();
     }
 }

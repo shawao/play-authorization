@@ -1,0 +1,25 @@
+*{
+_name: 作为前缀，方便同一个form中或同一个页面中使用多个省市区标签
+
+显示省市区三级联动下拉菜单
+}*
+
+<input id="${_name}_districtId" name="${_name}_districtId" type="hidden" maxlength="50"/>
+
+<label for="${_name}_provinceId">省</label>
+<select id="${_name}_provinceId" name="${_name}_provinceId"
+        onchange="provinceChange('${_name}','@{Districts.citySelectList}');">
+#{if _caller.memProvinces!=null && _caller.memProvinces.size()>0}
+    #{list items:_caller.memProvinces, as:'prov'}
+        <option value="${prov.disId}">${prov.disName}</option>
+    #{/list}
+#{/if}
+</select>
+
+<label for="${_name}_cityId">市</label>
+<select id="${_name}_cityId" name="${_name}_cityId"
+        onchange="cityChange('${_name}','@{Districts.countySelectList}');"></select>
+*{<input type="hidden" id="${_name}_citySelectedDefault" value=""/>}*
+
+<label for="${_name}_countyId">区</label>
+<select id="${_name}_countyId" name="${_name}_countyId"></select>
