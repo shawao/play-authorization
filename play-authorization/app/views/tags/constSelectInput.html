@@ -8,9 +8,9 @@ _constType: 常量类型ID（实际上是constType=0时，constCode的值 @ENTIT
 <div style="position:relative;">
 <span style="margin-left:100px;width:18px;overflow:hidden;">
 <select id="${_name}Sel" name="${_name}Sel"
-        style="width:118px;margin-left:-100px"
+        style="width:123px;margin-left:-100px"
         onchange="constSelectInputChange('${_name}');">
-        <option value="|">--选择或填写--</option>
+        <option value="|">--请选择--</option>
         #{if _caller.memConstList!=null && _caller.memConstList.size()>0}
             #{list items:_caller.memConstList, as:'ct'}
                 #{if ct.constType==_constType}
@@ -19,7 +19,8 @@ _constType: 常量类型ID（实际上是constType=0时，constCode的值 @ENTIT
             #{/list}
         #{/if}
 </select></span>
-    <input id="${_name}Input" name="${_name}Input" onblur="constSelectInputBlur('${_name}');"
+    <input id="${_name}Input" name="${_name}Input" maxlength="50" onblur="constSelectInputBlur('${_name}');"
            style="width:100px;position:absolute;left:0;"/>
     <input type="hidden" id="${_name}" name="${_name}"/>
+    <input type="hidden" id="${_name}ConstType" name="${_name}ConstType" value="${_constType}"/>
 </div>

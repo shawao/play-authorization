@@ -1,15 +1,11 @@
 package controllers;
 
 import models.fault.SysConstant;
+import models.sys.District;
 import models.sys.SysUser;
-import org.apache.log4j.*;
 import play.*;
-import play.Logger;
 import play.mvc.*;
 import play.data.validation.*;
-
-import models.*;
-import notifiers.*;
 
 import java.util.List;
 
@@ -19,14 +15,28 @@ public class Application extends Controller {
 
     static Integer pageSize = Integer.parseInt(Play.configuration.getProperty("auth.pageSize", "10"));
 
+    /**
+     * Application初始化时，载入下面全局域
+     */
     // 系统启动时载入常量列表
     // todo:常量更新时重新载入（失败了，不知道为什么bug?）
-    static List<SysConstant> memConstList = null;
+    public static List<SysConstant> memConstList = null;
+    public static List<District> memProvinces = null;
 
-    static {
+    public static String initialize(){
+        StringBuilder buf=new StringBuilder();
         memConstList= SysConstant.findAll();
-        play.Logger.info("...memConstList("+memConstList.size()+") loaded in memory");
+        String info="...memConstList("+memConstList.size()+") loaded in memory";
+        play.Logger.info(info);
+        buf.append(info).append("<br/>");
+
+        memProvinces=District.availableProvinces();
+        info="...available memProvinces("+memProvinces.size()+") loaded in memory";
+        play.Logger.info(info);
+        buf.append(info);
+        return buf.toString();
     }
+
 
     // ~~~~~~~~~~~~ @Before interceptors
 
@@ -35,17 +45,19 @@ public class Application extends Controller {
 //        renderArgs.put("connected", connectedUser());
         renderArgs.put("pageSize", pageSize);
         renderArgs.put("memConstList", memConstList);
+        renderArgs.put("memProvinces", memProvinces);
     }
 
 
     @Before()
     static void logAccess() {
+        log.info("");
         log.info("=========================================================");
         log.info("request.url = " + request.url);
         log.info("request.controllerClass.actionMethod = " + request.controllerClass + "." + request.actionMethod);
         //        log.info("request.actionMethod = "+request.actionMethod);
         log.info("request.remoteAddress = " + request.remoteAddress);
-        log.info("===============================\n");
+        log.info("===============================");
     }
 
 
@@ -63,6 +75,9 @@ public class Application extends Controller {
 //            }
 //        }
     }
+
+
+
     // ~~~~~~~~~~~~ Actions
 
     public static void signup() {
@@ -142,6 +157,14 @@ public class Application extends Controller {
 //        flash.put("email", user.email);
 //        login();
     }
+
+
+
+    
+    public static void reload(){
+        renderHtml(initialize());
+    }
+
 
     // ~~~~~~~~~~~~ Some utils
 

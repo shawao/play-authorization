@@ -1,0 +1,5 @@
+#{if districts!=null && districts.size()>0}
+    #{list items:districts, as:'dis'}
+        <option value="${dis.disId}">${dis.disName}</option>
+    #{/list}
+#{/if}

@@ -141,7 +141,9 @@ function requireActionByPostWithSpecifiedInputName(action, inputName ,inputValue
     });
 }
 
-
+/*
+下面方法提供常量下拉输入菜单动作支持
+ */
 function constSelectInputChange(inputName) {
     var selValue = $("#" + inputName + "Sel").val().trim();
 
@@ -155,4 +157,41 @@ function constSelectInputBlur(inputName) {
     if ($("#" + inputName + "Input").val() != null && selValue.split("|")[1] != $("#" + inputName + "Input").val().trim()) {
         $("#" + inputName).val("");
     }
+}
+
+
+/*
+下面方法提供省市区下拉菜单联动支持
+ */
+
+function provinceChange(inputName, citySelectUrl) {
+    var provSelValue = $("#" + inputName + "_provinceId").val().trim();
+
+    if (provSelValue != '') {
+        $.get(citySelectUrl + '?provinceId=' + provSelValue, function (data) {
+            $("#" + inputName + "_cityId").append(data);
+            $("#" + inputName + "_cityId").get(0).selectedIndex = 0;
+        });
+    }
+}
+
+function cityChange(inputName,countySelectUrl) {
+    var citySelValue = $("#" + inputName + "_cityId").val();
+    $.get(countySelectUrl+'?cityId='+citySelValue, function (data) {
+        $("#" + inputName + "_countyId").append(data);
+        $("#" + inputName + "_countyId").get(0).selectedIndex = 0;
+    });
+}
+
+function initDistrictSelect(inputName, citySelectUrl, countySelectUrl) {
+    var provSelValue = $("#" + inputName + "_provinceId").val().trim();
+
+    $.get(citySelectUrl + '?provinceId=' + provSelValue, function (data) {
+        $("#" + inputName + "_cityId").append(data);
+        $("#" + inputName + "_cityId").get(0).selectedIndex = 0;
+
+        $.get(countySelectUrl + '?cityId=' + $("#" + inputName + "_cityId").val(), function (data) {
+            $("#" + inputName + "_countyId").html(data);
+        });
+    });
 }

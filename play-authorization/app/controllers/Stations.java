@@ -4,6 +4,7 @@ import models.fault.AutoStation;
 import models.fault.Module;
 import models.fault.SysConstant;
 import models.fault.Vendor;
+import models.sys.District;
 import models.sys.SysUser;
 import tools.ConstSelectInputReader;
 
@@ -49,13 +50,14 @@ public class Stations extends Application{
         
         List<SysConstant> constants=SysConstant.findAll();
 
+
         ConstSelectInputReader.ConstSelectValue powerSupplyTypeValue
-                =ConstSelectInputReader.parse("powerSupplyType", 1L, params,constants);
+                =ConstSelectInputReader.parse("powerSupplyType", params,constants);
         log.info("powerSupplyTypeValue = "+powerSupplyTypeValue);
 
         //transModeId
         ConstSelectInputReader.ConstSelectValue transModeIdValue
-                =ConstSelectInputReader.parse("transModeId", 2L, params,constants);
+                =ConstSelectInputReader.parse("transModeId", params,constants);
         log.info("transModeId = "+transModeIdValue);
         show(1);
     }

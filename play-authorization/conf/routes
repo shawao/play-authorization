@@ -9,10 +9,14 @@ GET		/																Welcome.index
 GET		/signup															Application.signup
 POST	/signup															Application.register
 GET		/login															Application.login
+GET		/init/reload														Application.reload
 POST	/login															Application.authenticate
 GET		/logout															Application.logout
 GET		/signup/{uuid}													Application.confirmRegistration
 GET		/confirmation/{uuid}											Application.resendConfirmation
+
+
+
 
 # Forums
 POST	/forums															Forums.create
@@ -78,7 +82,7 @@ POST	/organizations/edit											Organizations.edit
 
 
 # SysConstants operations
-GET		/sysconstants/index											SysConstants.ajaxList
+GET		/sysconstants												SysConstants.index
 GET		/sysconstants/show											SysConstants.show
 GET		/sysconstants/ajaxList											SysConstants.ajaxList
 GET		/sysconstants/constList										SysConstants.constList

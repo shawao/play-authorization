@@ -104,6 +104,8 @@
         $('#module_tabs').tabs('select', 1);
     };
 
+
+    /*initDistrictSelect("districtId",'@{Districts.citySelectList}','@{Districts.countySelectList}');*/
 </script>
 #{/set}
 
@@ -181,16 +183,14 @@ ${stations.size()} / ${entityCount} 自动站
             <tr>
                 <td align="right" class="input_label"><label class="input_required">传输方式：</label></td>
                 <td>#{constSelectInput name:'transModeId', constType:2/}</td>
-                <td align="right" class="input_label"><label for="districtId" class="input_required">行政区：</label></td>
-                <td colspan="3"><input id="districtId" name="districtId" type="hidden" maxlength="50"/>
-                    省<select id="provId" name="provId"></select>
-                    市<select id="cityId" name="cityId"></select>
-                    区<select id="countyId" name="countyId"></select>
+                <td align="right" class="input_label"><label class="input_required">行政区：</label></td>
+                <td colspan="3">
+                    #{districtSelect name:'districtId' /}
                 </td>
             </tr>
             <tr>
-                <td align="right" class="input_label"><label for="stationTypeId" class="input_required">型号：</label></td>
-                <td><select id="stationTypeId" name="stationTypeId"></select></td>
+                <td align="right" class="input_label"><label class="input_required">型号：</label></td>
+                <td>#{constSelectInput name:'stationTypeId', constType:3/}</td>
                 <td align="right" class="input_label"><label for="vendorId" class="input_required">生产厂家：</label></td>
                 <td><input id="vendorId" name="vendorId" type="text" maxlength="50"/></td>
                 <td align="right" class="input_label"><label for="buildTime" class="input_required">建设时间：</label></td>
@@ -201,26 +201,18 @@ ${stations.size()} / ${entityCount} 自动站
                 <td><input id="contactUserId" name="contactUserId" type="text" maxlength="50"/></td>
                 <td align="right" class="input_label"><label for="contactUserId2" class="input_required">维护人2：</label></td>
                 <td><input id="contactUserId2" name="contactUserId2" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="elementNum" class="input_required">要素：</label></td>
+                <td align="right" class="input_label"><label class="input_required">要素：</label></td>
                 <td>
-                *{<input id="elementNum" name="elementNum" type="text" maxlength="50"/>}*
-                    <div style="position:relative;">
-<span style="margin-left:100px;width:18px;overflow:hidden;">
-<select id="elementNum" name="elementNum" style="width:118px;margin-left:-100px" onchange="this.parentNode.nextSibling.value=this.value">
-    <option value="www.souzz.net"> souzz</option>
-    <option value="www.eWebSoft.com"> eWebSoft</option>
-    <option value="WEB开发者"> WEB开发者</option>
-</select></span><input name="box" style="width:100px;position:absolute;left:0;">
-                    </div>
+                    #{constSelectInput name:'elementNum', constType:4/}
                 </td>
             </tr>
             <tr>
-                <td align="right" class="input_label"><label for="observationElement" class="input_required">观测要素：</label></td>
-                <td><input id="observationElement" name="observationElement" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="terrainId" class="input_required">地形特征：</label></td>
-                <td><input id="terrainId" name="terrainId" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="groundId" class="input_required">地面：</label></td>
-                <td><input id="groundId" name="groundId" type="text" maxlength="50"/></td>
+                <td align="right" class="input_label"><label class="input_required">观测要素：</label></td>
+                <td>#{constSelectInput name:'observationElement', constType:5/}</td>
+                <td align="right" class="input_label"><label class="input_required">地形特征：</label></td>
+                <td>#{constSelectInput name:'terrainId', constType:6/}</td>
+                <td align="right" class="input_label"><label class="input_required">地面：</label></td>
+                <td>#{constSelectInput name:'groundId', constType:7/}</td>
             </tr>
             <tr>
                 <td align="right" class="input_label"><label for="neighboringEnv" class="input_required">周边环境：</label></td>
@@ -284,3 +276,7 @@ ${stations.size()} / ${entityCount} 自动站
         </table>
     </form>
 </div>
+
+<script type="text/javascript">
+    initDistrictSelect("districtId",'@{Districts.citySelectList}','@{Districts.countySelectList}');
+</script>
