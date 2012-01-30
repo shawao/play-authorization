@@ -44,7 +44,6 @@ public class SysConstants extends Application {
             List<SysConstant> entityList = SysConstant.find(
                     "select o from SysConstant o where o.constType=? order by o.constCode asc",
                     typeConstCode).fetch();
-//            Long entityCount=SysConstant.count("select count(o) from SysConstant o where o.constType=?", typeConstCode);
 
             render(entityList, pageSequence,typeName);
         }
@@ -64,11 +63,10 @@ public class SysConstants extends Application {
         }else{
             SysConstant typeConstant=SysConstant.createConstType(typeConstCode, typeConstRemark, connectedUser());
             typeConstant.save();
-//            flash.success("常量类型（" + typeConstRemark + "，" + typeConstCode + "）创建成功");
             log.info("常量类型（" + typeConstRemark + "，" + typeConstCode + "）创建成功");
         }
 
-//        memConstList= SysConstant.findAll();
+        reInitialize();
         show(1);
     }
 
@@ -99,7 +97,7 @@ public class SysConstants extends Application {
             flash.success("常量（"+constCode+":"+constValue+"）保存成功");
         }
 
-//        memConstList= SysConstant.findAll();
+        reInitialize();
         show(1);
     }
 
@@ -116,7 +114,7 @@ public class SysConstants extends Application {
             flash.success("常量/类型（"+id+"）不存在");
         }
 
-//        memConstList= SysConstant.findAll();
+        reInitialize();
         show(1);
     }
 
@@ -145,7 +143,7 @@ public class SysConstants extends Application {
         cont.lastUpdate = new Date();
         cont.save();
 
-//        memConstList= SysConstant.findAll();
+        reInitialize();
         show(1);
     }
 }

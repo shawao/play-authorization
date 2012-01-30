@@ -12,7 +12,7 @@ import java.util.List;
  * Date  : 12-1-28
  * Time  : 上午12:22
  */
-public class ConstSelectInputReader {
+public class ConstSelectInputTool {
     
     
     public static ConstSelectValue parse(
@@ -35,13 +35,23 @@ public class ConstSelectInputReader {
         }
         return value;
     }
+
+
+
+    public static ConstSelectValue parseOrSave(String name,Scope.Params params,List<SysConstant> constants){
+        ConstSelectValue csValue=parse(name,params,constants);
+        if(csValue.selectedConst==null){
+            //todo: save as new constant, how to deal with concurrent case?
+        }
+        return csValue;
+    }
     
     
     public static class ConstSelectValue{
         public String value;//下拉菜单选择值
         public String input;//输入框值
-        public Long constType;
-        public SysConstant selectedConst;
+        public Long constType;//下来菜单所属常量类型ID
+        public SysConstant selectedConst;//选中的常量
 
         public ConstSelectValue() {
         }

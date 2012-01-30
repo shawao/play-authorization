@@ -1,12 +1,9 @@
 package controllers;
 
 import models.fault.AutoStation;
-import models.fault.Module;
 import models.fault.SysConstant;
 import models.fault.Vendor;
-import models.sys.District;
-import models.sys.SysUser;
-import tools.ConstSelectInputReader;
+import tools.ConstSelectInputTool;
 
 import java.util.Date;
 import java.util.List;
@@ -51,13 +48,13 @@ public class Stations extends Application{
         List<SysConstant> constants=SysConstant.findAll();
 
 
-        ConstSelectInputReader.ConstSelectValue powerSupplyTypeValue
-                =ConstSelectInputReader.parse("powerSupplyType", params,constants);
+        ConstSelectInputTool.ConstSelectValue powerSupplyTypeValue
+                = ConstSelectInputTool.parse("powerSupplyType", params, constants);
         log.info("powerSupplyTypeValue = "+powerSupplyTypeValue);
 
         //transModeId
-        ConstSelectInputReader.ConstSelectValue transModeIdValue
-                =ConstSelectInputReader.parse("transModeId", params,constants);
+        ConstSelectInputTool.ConstSelectValue transModeIdValue
+                = ConstSelectInputTool.parse("transModeId", params, constants);
         log.info("transModeId = "+transModeIdValue);
         show(1);
     }
