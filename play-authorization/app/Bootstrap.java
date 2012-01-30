@@ -14,6 +14,6 @@ public class Bootstrap extends Job{
     public void doJob() throws Exception {
         play.Logger.info("...Bootstrap started");
 
-        Application.initialize();
+        Application.reInitialize();
     }
 }

@@ -23,7 +23,7 @@ public class Application extends Controller {
     public static List<SysConstant> memConstList = null;
     public static List<District> memProvinces = null;
 
-    public static String initialize(){
+    public static String reInitialize(){
         StringBuilder buf=new StringBuilder();
         memConstList= SysConstant.findAll();
         String info="...memConstList("+memConstList.size()+") loaded in memory";
@@ -162,7 +162,7 @@ public class Application extends Controller {
 
     
     public static void reload(){
-        renderHtml(initialize());
+        renderHtml(reInitialize());
     }
 
 

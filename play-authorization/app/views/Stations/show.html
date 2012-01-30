@@ -219,8 +219,8 @@ ${stations.size()} / ${entityCount} 自动站
                 <td><input id="neighboringEnv" name="neighboringEnv" type="text" maxlength="50"/></td>
                 <td align="right" class="input_label"><label for="observationFieldSize" class="input_required">观测场规格：</label></td>
                 <td><input id="observationFieldSize" name="observationFieldSize" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="satLevelId" class="input_required">站点级别：</label></td>
-                <td><input id="satLevelId" name="satLevelId" type="text" maxlength="50"/></td>
+                <td align="right" class="input_label"><label class="input_required">站点级别：</label></td>
+                <td>#{constSelectInput name:'satLevelId', constType:8/}</td>
             </tr>
             <tr>
                 <td align="right" class="input_label"><label for="assessOrNot" class="input_required">是否考核：</label></td>

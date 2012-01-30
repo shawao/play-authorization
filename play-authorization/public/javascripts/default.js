@@ -169,7 +169,7 @@ function provinceChange(inputName, citySelectUrl) {
 
     if (provSelValue != '') {
         $.get(citySelectUrl + '?provinceId=' + provSelValue, function (data) {
-            $("#" + inputName + "_cityId").append(data);
+            $("#" + inputName + "_cityId").html(data);
             $("#" + inputName + "_cityId").get(0).selectedIndex = 0;
         });
     }
@@ -178,7 +178,7 @@ function provinceChange(inputName, citySelectUrl) {
 function cityChange(inputName,countySelectUrl) {
     var citySelValue = $("#" + inputName + "_cityId").val();
     $.get(countySelectUrl+'?cityId='+citySelValue, function (data) {
-        $("#" + inputName + "_countyId").append(data);
+        $("#" + inputName + "_countyId").html(data);
         $("#" + inputName + "_countyId").get(0).selectedIndex = 0;
     });
 }
