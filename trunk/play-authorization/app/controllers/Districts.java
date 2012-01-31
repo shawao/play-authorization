@@ -94,6 +94,7 @@ public class Districts extends Application {
             flash.error("禁用失败");
         }
 
+        refreshMemProvinces();
         show();
     }
 
@@ -108,13 +109,11 @@ public class Districts extends Application {
             flash.error("恢复失败");
         }
 
+        refreshMemProvinces();
         show();
     }
 
-//    public static void init(){
-//        long startTime=System.currentTimeMillis();
-//        District2.load2district();
-//        long endTime=System.currentTimeMillis();
-//        renderText("Okay, "+(endTime-startTime)/1000+" seconds cost");
-//    }
+    public static void init(){
+        District2.load2district();
+    }
 }
