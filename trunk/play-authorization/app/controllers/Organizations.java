@@ -47,6 +47,8 @@ public class Organizations extends Application {
 
         Organization organization = new Organization(name.trim(), key.trim(), remark == null ? null : remark.trim(), parentEntity);
         organization.save();
+
+        refreshMemOrganizations();
         show(1);
     }
 
@@ -58,12 +60,14 @@ public class Organizations extends Application {
             try{
                 entity.delete();
                 flash.success("（" + entity.name + "）成功删除");
+                refreshMemOrganizations();
             }catch (Throwable cve){
                 flash.error("（" + entity.name + "）删除失败，该组织已经被引用");
             }
         } else {
             flash.error("ID（" + id+ "）组织不存在");
         }
+
         show(1);
     }
 
@@ -97,6 +101,8 @@ public class Organizations extends Application {
                 parent, 0, 0);
         org.lastUpdate=new Date();
         org.save();
+
+        refreshMemOrganizations();
         show(1);
     }
 }

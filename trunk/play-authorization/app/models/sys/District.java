@@ -230,6 +230,18 @@ public class District extends AbstractEntity {
         }
         return resultMap;
     }
+    
+    
+    public static TreeMap<String,String> availableMap(){
+        List<District> districts=District.find("select o from District o where o.status in (1,3) order by o.disId asc").fetch();
+        
+        TreeMap<String,String> map=new TreeMap<String,String>();
+        for(District d:districts){
+            map.put(d.disId,d.disName);
+        }
+        return map;
+    }
+    
 
     public String showStatus() {
         String remark = "";

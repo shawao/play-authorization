@@ -1,6 +1,8 @@
 package tools;
 
 import models.fault.SysConstant;
+import models.sys.SysUser;
+import org.apache.log4j.Logger;
 import play.mvc.Scope;
 
 import java.util.List;
@@ -12,8 +14,8 @@ import java.util.List;
  * Date  : 12-1-28
  * Time  : 上午12:22
  */
-public class ConstSelectInputTool {
-    
+public class ConstTool {
+    static Logger log = Logger.getLogger(ConstTool.class);
     
     public static ConstSelectValue parse(
             String name,Scope.Params params,List<SysConstant> constants){
@@ -38,12 +40,10 @@ public class ConstSelectInputTool {
 
 
 
-    public static ConstSelectValue parseOrSave(String name,Scope.Params params,List<SysConstant> constants){
+    public static String parseOrSave(String name,Scope.Params params,List<SysConstant> constants,SysUser user){
         ConstSelectValue csValue=parse(name,params,constants);
-        if(csValue.selectedConst==null){
-            //todo: save as new constant, how to deal with concurrent case?
-        }
-        return csValue;
+        log.info("parsed: "+csValue);
+        return csValue.saveAsConst(user);
     }
     
     
@@ -62,6 +62,15 @@ public class ConstSelectInputTool {
             this.selectedConst = selectedConst;
             this.constType=constType;
         }
+
+        public String saveAsConst(SysUser user){
+            if(selectedConst==null){
+                selectedConst=SysConstant.saveConstByCodeIncreasing(constType,input,null,user);
+                log.info("saved okay: "+selectedConst);
+            }
+            return selectedConst.generateForeignKey();
+        }
+        
 
         @Override
         public String toString() {

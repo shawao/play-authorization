@@ -2,12 +2,14 @@ package controllers;
 
 import models.fault.SysConstant;
 import models.sys.District;
+import models.sys.Organization;
 import models.sys.SysUser;
 import play.*;
 import play.mvc.*;
 import play.data.validation.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class Application extends Controller {
 
@@ -21,6 +23,9 @@ public class Application extends Controller {
     // 系统启动时载入常量列表
     public static List<SysConstant> memConstList = null;
     public static List<District> memProvinces = null;
+    public static List<Organization> memOrganizations=null;
+    // <disId,disName>
+    public static Map<String,String> memDistrictMap=null;
 
     /**
      * 初始化系统全局域
@@ -32,6 +37,9 @@ public class Application extends Controller {
         buf.append(info).append("<br/>");
 
         info=refreshMemProvinces();
+        buf.append(info).append("<br/>");
+
+        info=refreshMemOrganizations();
         buf.append(info);
         // return to ajax dialog
         return buf.toString();
@@ -48,6 +56,15 @@ public class Application extends Controller {
         memProvinces=District.availableProvinces();
         String info= "...available memProvinces("+memProvinces.size()+") loaded in memory";
         log.info(info);
+        
+        memDistrictMap=District.availableMap();
+        return info;
+    }
+
+    public static String refreshMemOrganizations(){
+        memOrganizations=Organization.findAll();
+        String info= "...available memOrganizations("+memOrganizations.size()+") loaded in memory";
+        log.info(info);
         return info;
     }
 
@@ -62,6 +79,8 @@ public class Application extends Controller {
         renderArgs.put("pageSize", pageSize);
         renderArgs.put("memConstList", memConstList);
         renderArgs.put("memProvinces", memProvinces);
+        renderArgs.put("memDistrictMap", memDistrictMap);
+        renderArgs.put("memOrganizations", memOrganizations);
     }
 
 
