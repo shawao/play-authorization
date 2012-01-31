@@ -130,24 +130,32 @@ ${stations.size()} / ${entityCount} 自动站
     <tr>
         <th class="main">站名</th>
         <th class="main" width="50px">站号</th>
-        <th class="main" width="80px">型号</th>
+        <th class="main" width="70px">型号</th>
         <th class="main">站址</th>
-        <th class="main" width="120px">行政区</th>
-        <th class="main" width="80px">建设时间</th>
-        *{<th class="main" width="80px">IP地址</th>}*
-        *{<th class="main" width="40px">端口</th>}*
-        <th width="130px">操作</th>
+        <th class="main" width="190px">行政区</th>
+        <th class="main" width="100px">建设时间</th>
+        <th width="180px">操作</th>
     </tr>
     </thead>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+
+#{if stations.size()>0}
+    #{list items:stations, as:'st'}
+        <tr>
+            <td class="main">${st.name}</td>
+            <td class="main">${st.stationNo}</td>
+            <td class="main">#{showConstValue constForeignKey: st.stationTypeId/}</td>
+            <td class="main">${st.address}</td>
+            <td class="main">${st.districtId}</td>
+            <td class="main">${st.buildTime.format("yyyy-MM-dd")}</td>
+            <td class="main">
+                <a class="ui-state-default ui-corner-all opt_button" href="#">照片</a>
+                <a class="ui-state-default ui-corner-all opt_button" href="#">模块</a>
+                <a class="ui-state-default ui-corner-all opt_button" href="javascript:showEditForm('${st.id}','${st.name}');">编辑</a>
+                <a class="ui-state-default ui-corner-all opt_button" href="javascript:requireActionByPost('@{Stations.delete}','${st.id}','确定删除自动站(${st.name})？');">删除</a>
+            </td>
+        </tr>
+    #{/list}
+#{/if}
 </table>
 
 
@@ -159,7 +167,7 @@ ${stations.size()} / ${entityCount} 自动站
                 <td><input id="name" name="name" type="text" maxlength="50"/></td>
                 <td align="right" class="input_label"><label for="stationNo" class="input_required">站号：</label></td>
                 <td><input id="stationNo" name="stationNo" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="cardNo" class="input_required">卡号：</label></td>
+                <td align="right" class="input_label"><label for="cardNo">卡号：</label></td>
                 <td><input id="cardNo" name="cardNo" type="text" maxlength="50"/></td>
             </tr>
             <tr>
@@ -192,7 +200,15 @@ ${stations.size()} / ${entityCount} 自动站
                 <td align="right" class="input_label"><label class="input_required">型号：</label></td>
                 <td>#{constSelectInput name:'stationTypeId', constType:3/}</td>
                 <td align="right" class="input_label"><label for="vendorId" class="input_required">生产厂家：</label></td>
-                <td><input id="vendorId" name="vendorId" type="text" maxlength="50"/></td>
+                <td>
+                    <select id="vendorId" name="vendorId">
+                    #{if vendors!=null && vendors.size()>0}
+                        #{list items:vendors, as:'v'}
+                            <option value="${v.id}">${v.name}</option>
+                        #{/list}
+                    #{/if}
+                    </select>
+                </td>
                 <td align="right" class="input_label"><label for="buildTime" class="input_required">建设时间：</label></td>
                 <td><input id="buildTime" name="buildTime" type="text" maxlength="50"/></td>
             </tr>
@@ -225,8 +241,16 @@ ${stations.size()} / ${entityCount} 自动站
             <tr>
                 <td align="right" class="input_label"><label for="assessOrNot" class="input_required">是否考核：</label></td>
                 <td><input id="assessOrNot" name="assessOrNot" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="weatherBureau" class="input_required">所有权：</label></td>
-                <td><input id="weatherBureau" name="weatherBureau" type="text" maxlength="50"/></td>
+                <td align="right" class="input_label"><label for="weatherBureauId" class="input_required">所有权：</label></td>
+                <td>
+                    <select id="weatherBureauId" name="weatherBureauId">
+                    #{if memOrganizations!=null && memOrganizations.size()>0}
+                        #{list items:memOrganizations, as:'o'}
+                            <option value="${o.id}">${o.name}</option>
+                        #{/list}
+                    #{/if}
+                    </select>
+                </td>
                 <td align="right" class="input_label"><label for="accessPoints" class="input_required">接入点：</label></td>
                 <td><input id="accessPoints" name="accessPoints" type="text" maxlength="50"/></td>
             </tr>
@@ -239,7 +263,7 @@ ${stations.size()} / ${entityCount} 自动站
                 <td><input id="moduleRemark" name="remark" type="text" maxlength="200"/></td>
             </tr>
             <tr class="no_bottom">
-                <td align="right" class="input_label no_bottom"><label for="history" class="input_required">历史沿革：</label></td>
+                <td align="right" class="input_label no_bottom"><label for="history">历史沿革：</label></td>
                 <td colspan="5" class="no_bottom"><textarea id="history" name="history" rows="5" cols="90"></textarea></td>
             </tr>
 

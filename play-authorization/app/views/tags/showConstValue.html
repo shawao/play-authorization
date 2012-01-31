@@ -1,0 +1,7 @@
+*{
+_constForeignKey: constType_constCode形式的外键
+}*
+
+#{if _caller.memConstList!=null && _caller.memConstList.size()>0}#{list items:_caller.memConstList, as:'ct'}
+    #{if ct.constType+"_"+ct.constCode == _constForeignKey}${ct.constValue}#{/if}
+#{/list}#{/if}

@@ -39,8 +39,9 @@ public class AutoStation extends AbstractEntity {
     @Column(length = 100)
     public String address;
     // 所属行政区
+    @Column(length = 30)
     public String districtId;//province_city_county(disId)
-    // 具体地址位置
+    // 具体地址位置?  所属乡镇
     @Column(length = 100)
     public String location;
 
@@ -71,15 +72,16 @@ public class AutoStation extends AbstractEntity {
 
     public Long contactUserId2;
 
-    // 要素
-    public int elementNum;
-    // 观测要素
+    // 要素：关联常量
+    @Column(length = 20)
+    public String elementNumId;
+    // 观测要素：关联常量
     @Column(length = 50)
     public String observationElement;
-    // 地形特征
+    // 地形特征：关联常量
     @Column(length = 20)
     public String terrainId;//constType_constCode
-    // 地面
+    // 地面：关联常量
     @Column(length = 20)
     public String groundId;
     // 周边环境neighboring environment
@@ -136,7 +138,7 @@ public class AutoStation extends AbstractEntity {
             String address, String districtId, String location,
             String transModeId, String powerSupplyType, String stationTypeId,
             Vendor vendor, Date buildTime, Long contactUserId, Long contactUserId2,
-            int elementNum, String observationElement, String terrainId,
+            String elementNumId, String observationElement, String terrainId,
             String groundId, String neighboringEnv, String observationFieldSize,
             String satLevelId, int assessOrNot, String weatherBureau, String accessPoints,
             String port, String ip, String history, String remark, SysUser submitter) {
@@ -156,7 +158,7 @@ public class AutoStation extends AbstractEntity {
         this.buildTime = buildTime;
         this.contactUserId = contactUserId;
         this.contactUserId2 = contactUserId2;
-        this.elementNum = elementNum;
+        this.elementNumId = elementNumId;
         this.observationElement = observationElement;
         this.terrainId = terrainId;
         this.groundId = groundId;
@@ -181,7 +183,7 @@ public class AutoStation extends AbstractEntity {
             String address, String districtId, String location,
             String transModeId, String powerSupplyType, String stationTypeId,
             Vendor vendor, Date buildTime, Long contactUserId, Long contactUserId2,
-            int elementNum, String observationElement, String terrainId,
+            String elementNumId, String observationElement, String terrainId,
             String groundId, String neighboringEnv, String observationFieldSize,
             String satLevelId, int assessOrNot, String weatherBureau, String accessPoints,
             String port, String ip, String history, String remark, SysUser submitter) {
@@ -201,7 +203,7 @@ public class AutoStation extends AbstractEntity {
         this.buildTime = buildTime;
         this.contactUserId = contactUserId;
         this.contactUserId2 = contactUserId2;
-        this.elementNum = elementNum;
+        this.elementNumId = elementNumId;
         this.observationElement = observationElement;
         this.terrainId = terrainId;
         this.groundId = groundId;

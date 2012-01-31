@@ -146,6 +146,11 @@ public class SysConstant extends AbstractEntity {
         return remark;
     }
 
+    public String generateForeignKey(){
+        return constType+"_"+constCode;
+    }
+    
+    
     @Override
     public String toString() {
         return "SysConstant{" +
