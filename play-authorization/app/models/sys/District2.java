@@ -85,10 +85,10 @@ public class District2 extends Model {
 
             List<District2> cityList=District2.find("select o from District2 o where o.p_id=? group by o.c_id order by o.c_id asc", prov.p_id).fetch();
             for(District2 city:cityList){
-                String cityName=city.c_nm.trim().equals("市辖区")?prov.p_nm:city.c_nm;
-                String cityFullName=prov.p_nm+cityName;
+//                String cityName=city.c_nm.trim().equals("市辖区")?prov.p_nm:city.c_nm;
+//                String cityFullName=prov.p_nm+cityName;
                 District disCity=new District(
-                    city.c_id,city.districtCode,cityName,cityFullName,
+                    city.c_id,city.districtCode,city.c_nm,city.fullName,
                     city.zipCode,city.phoneCode,2,prov.p_id);
                 disCity.save();
                 play.Logger.info("\t[CITY]: "+disCity.toString());

@@ -51,6 +51,12 @@ public class SysConstants extends Application {
     }
 
 
+    /**
+     * 创建常量类型
+     *
+     * @param typeConstCode 常量编码，顺序，非数据库关联，其ConstType=0
+     * @param typeConstRemark 常量类型名称，注意：ConstValue为空
+     */
     public static void createType(Long typeConstCode, String typeConstRemark){
         if (typeConstCode == null) {
             flash.error("常量类型ID为空");
@@ -66,7 +72,7 @@ public class SysConstants extends Application {
             log.info("常量类型（" + typeConstRemark + "，" + typeConstCode + "）创建成功");
         }
 
-        reInitialize();
+        refreshMemConstList();
         show(1);
     }
 
@@ -76,17 +82,20 @@ public class SysConstants extends Application {
      * @param constType 常量类别（不能等于0）
      */
     public static void nextConstCode(Long constType){
-        Object nextCodeObj=SysConstant.em().createNativeQuery(
-                "select max(o.constCode)+1 from t_constant o where o.constType="+constType)
-                .getSingleResult();
-        int nextCode=1;
-        if(nextCodeObj!=null)
-            nextCode=Integer.parseInt(nextCodeObj+"");
+        int nextCode=SysConstant.nextConstCode(constType);
         log.info("{\"constType\":"+constType+",\"nextCode\':"+nextCode+"}");
         renderJSON(""+nextCode);
     }
 
 
+    /**
+     * 创建常量
+     *
+     * @param constType 常量类型ID
+     * @param constCode 常量编码
+     * @param constValue 常量值（通常名称保存在这里）
+     * @param constRemark 常量说明
+     */
     public static void create(Long constType, Long constCode, String constValue, String constRemark) {
         log.info("<< create SysConstant: {constRemark:" + constRemark + ",...}");
         if (!SysConstant.validateConstCode(constType, constCode)) {
@@ -97,7 +106,7 @@ public class SysConstants extends Application {
             flash.success("常量（"+constCode+":"+constValue+"）保存成功");
         }
 
-        reInitialize();
+        refreshMemConstList();
         show(1);
     }
 
@@ -114,7 +123,7 @@ public class SysConstants extends Application {
             flash.success("常量/类型（"+id+"）不存在");
         }
 
-        reInitialize();
+        refreshMemConstList();
         show(1);
     }
 
@@ -143,7 +152,7 @@ public class SysConstants extends Application {
         cont.lastUpdate = new Date();
         cont.save();
 
-        reInitialize();
+        refreshMemConstList();
         show(1);
     }
 }

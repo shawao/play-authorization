@@ -42,7 +42,8 @@ public class SysConstant extends AbstractEntity {
     * constType=1被占用，用作描述自身，每一种constCode和constRemark表示一种常量编码和名称
     * 之后的每一条常量记录，constType对应一条constType=1时的一个constCode值
     */
-    public SysConstant(Long constType, Long constCode, String constValue, String constRemark, String remark, SysUser submitter) {
+    public SysConstant(Long constType, Long constCode, String constValue,
+                       String constRemark, String remark, SysUser submitter) {
         this.constType = constType;
         this.constCode = constCode;
         this.constValue = constValue;
@@ -54,6 +55,34 @@ public class SysConstant extends AbstractEntity {
 
     public static SysConstant createConstType(Long constCode, String constRemark, SysUser submitter) {
         return new SysConstant(0L, constCode, null, constRemark, "常量类型", submitter);
+    }
+
+
+    /**
+     * 考虑插入站并不是一个并发性很强的操作，这里做同步避免冲撞
+     * @param constType
+     * @param constValue
+     * @param constRemark
+     * @param submitter
+     * @return
+     */
+    public static synchronized SysConstant saveConstByCodeIncreasing(
+            Long constType, String constValue, String constRemark, SysUser submitter) {
+        long nextCode=nextConstCode(constType);
+        SysConstant constant=new SysConstant(constType,nextCode,constValue,constRemark,null,submitter);
+        constant.save();
+        return constant;
+    }
+
+
+    public static int nextConstCode(Long constType){
+        Object nextCodeObj=SysConstant.em().createNativeQuery(
+                "select max(o.constCode)+1 from t_constant o where o.constType="+constType)
+                .getSingleResult();
+        int nextCode=1;
+        if(nextCodeObj!=null)
+            nextCode=Integer.parseInt(nextCodeObj+"");
+        return nextCode;
     }
 
 

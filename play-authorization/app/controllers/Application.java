@@ -19,23 +19,39 @@ public class Application extends Controller {
      * Application初始化时，载入下面全局域
      */
     // 系统启动时载入常量列表
-    // todo:常量更新时重新载入（失败了，不知道为什么bug?）
     public static List<SysConstant> memConstList = null;
     public static List<District> memProvinces = null;
 
+    /**
+     * 初始化系统全局域
+     * @return
+     */
     public static String reInitialize(){
         StringBuilder buf=new StringBuilder();
-        memConstList= SysConstant.findAll();
-        String info="...memConstList("+memConstList.size()+") loaded in memory";
-        play.Logger.info(info);
+        String info=refreshMemConstList();
         buf.append(info).append("<br/>");
 
-        memProvinces=District.availableProvinces();
-        info="...available memProvinces("+memProvinces.size()+") loaded in memory";
-        play.Logger.info(info);
+        info=refreshMemProvinces();
         buf.append(info);
+        // return to ajax dialog
         return buf.toString();
     }
+
+    public static String refreshMemConstList(){
+        memConstList= SysConstant.findAll();
+        String info= "...memConstList("+memConstList.size()+") loaded in memory";
+        log.info(info);
+        return info;
+    }
+
+    public static String refreshMemProvinces(){
+        memProvinces=District.availableProvinces();
+        String info= "...available memProvinces("+memProvinces.size()+") loaded in memory";
+        log.info(info);
+        return info;
+    }
+
+
 
 
     // ~~~~~~~~~~~~ @Before interceptors
