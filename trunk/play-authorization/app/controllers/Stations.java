@@ -32,10 +32,7 @@ public class Stations extends Application{
                 .from(from).fetch(pageSize);
         Long entityCount = AutoStation.count();
         
-        List<Vendor> vendors=Vendor.findAll();
-
-
-        render(entityCount, stations, pageSequence,vendors);
+        render(entityCount, stations, pageSequence);
     }
 
 
@@ -113,5 +110,10 @@ public class Stations extends Application{
             flash.error("ID（" + id + "）自动站不存在");
         }
         show(1);
+    }
+    
+    // for ajax loading new station tab
+    public static void newStation(){
+        render();
     }
 }
