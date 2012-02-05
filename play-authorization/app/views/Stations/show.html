@@ -10,6 +10,20 @@
 <script type="text/javascript">
 
     $(function () {
+
+        // Tabs
+        $(function () {
+            $("#station_tabs").tabs({
+                ajaxOptions:{
+                    error:function (xhr, status, index, anchor) {
+                        $(anchor.hash).html("载入失败");
+                    }
+                }
+            });
+            //$( "#district_tabs" ).tabs( "option", "spinner", '获取数据中...' );
+        });
+
+
         // -------- add const type dialog
         $('#add_station_div').dialog({
             autoOpen:false,
@@ -54,11 +68,11 @@
         });
 
         // Dialog Link
-        $('#create_station_link').click(function () {
+        *{$('#create_station_link').click(function () {
             $('#add_station_div').css('display', '');
             $('#add_station_div').dialog('open');
             return false;
-        });
+        });}*
 
         $('#create_module_type_link').click(function () {
             $('#add_type_div').css('display', '');
@@ -96,16 +110,14 @@
     };
 
 
-    var constListAction = #{jsAction @Modules.typeList(':id') /}
+    var showNewAction = #{jsAction @Stations.newStation() /}
 
-    function showTypesInTab(moduleId,moduleName){
-        $('#type_tab').load(constListAction({id:moduleId}), function () {});
-        $("#type_tab_link").html(moduleName);
-        $('#module_tabs').tabs('select', 1);
+    function showNewStationInTab(){
+        $('#new_edit_tab').load(showNewAction(), function () {});
+        $("#new_edit_title").html("新增");
+        $('#station_tabs').tabs('select', 1);
     };
 
-
-    /*initDistrictSelect("districtId",'@{Districts.citySelectList}','@{Districts.countySelectList}');*/
 </script>
 #{/set}
 
@@ -114,8 +126,8 @@
 <div class="light_bar">
 ${stations.size()} / ${entityCount} 自动站
     &nbsp;
-    <a href="#" id="create_station_link" class="ui-state-default ui-corner-all dialog_button">
-        <span class="ui-icon ui-icon-newwin"></span>新增自动站</a>
+    <a href="#" onclick="showNewStationInTab();" id="create_station_link" class="ui-state-default ui-corner-all dialog_button">
+        新增自动站</a>
 
     <label for="keyword" style="margin-left: 30px">名称：</label><input type="text" name="keyword" id="keyword" maxlength="30"/>
         <a href="#" id="search_link" class="ui-state-default ui-corner-all big_opt_button">搜索</a>
@@ -124,183 +136,52 @@ ${stations.size()} / ${entityCount} 自动站
 </div>
 
 
+<div id="station_tabs">
+    <ul>
+        <li><a href="#station_list_tab">自动站列表</a></li>
+        <li><a id="new_edit_title" href="#new_edit_tab">新建/编辑</a></li>
+        <li><a id="view_title" href="#view_tab">详情</a></li>
+    </ul>
+    <div id="station_list_tab" class="tab_div">
+        <table id="station-list">
+            <thead>
+            <tr>
+                <th class="main">站名</th>
+                <th class="main" width="50px">站号</th>
+                <th class="main" width="70px">型号</th>
+                <th class="main">站址</th>
+                <th class="main" width="190px">行政区</th>
+                <th class="main" width="100px">建设时间</th>
+                <th width="180px">操作</th>
+            </tr>
+            </thead>
 
-<table id="users-list">
-    <thead>
-    <tr>
-        <th class="main">站名</th>
-        <th class="main" width="50px">站号</th>
-        <th class="main" width="70px">型号</th>
-        <th class="main">站址</th>
-        <th class="main" width="190px">行政区</th>
-        <th class="main" width="100px">建设时间</th>
-        <th width="180px">操作</th>
-    </tr>
-    </thead>
-
-#{if stations.size()>0}
-    #{list items:stations, as:'st'}
-        <tr>
-            <td class="main">${st.name}</td>
-            <td class="main">${st.stationNo}</td>
-            <td class="main">#{showConstValue constForeignKey: st.stationTypeId/}</td>
-            <td class="main">${st.address}</td>
-            <td class="main">${st.districtId}</td>
-            <td class="main">${st.buildTime.format("yyyy-MM-dd")}</td>
-            <td class="main">
-                <a class="ui-state-default ui-corner-all opt_button" href="#">照片</a>
-                <a class="ui-state-default ui-corner-all opt_button" href="#">模块</a>
-                <a class="ui-state-default ui-corner-all opt_button" href="javascript:showEditForm('${st.id}','${st.name}');">编辑</a>
-                <a class="ui-state-default ui-corner-all opt_button" href="javascript:requireActionByPost('@{Stations.delete}','${st.id}','确定删除自动站(${st.name})？');">删除</a>
-            </td>
-        </tr>
-    #{/list}
-#{/if}
-</table>
-
-
-<div id="add_station_div" style="display: none;" title="新增自动站">
-    <form id="add_station_base_form" action="@{Stations.create()}" method="post">
-        <table class="myTable">
-            <tr>
-                <td align="right" class="input_label"><label for="name" class="input_required">站名：</label></td>
-                <td><input id="name" name="name" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="stationNo" class="input_required">站号：</label></td>
-                <td><input id="stationNo" name="stationNo" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="cardNo">卡号：</label></td>
-                <td><input id="cardNo" name="cardNo" type="text" maxlength="50"/></td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label for="longitude" class="input_required">经度：</label></td>
-                <td><input id="longitude" name="longitude" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="latitude" class="input_required">纬度：</label></td>
-                <td><input id="latitude" name="latitude" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="elevation" class="input_required">海拔：</label></td>
-                <td><input id="elevation" name="elevation" type="text" maxlength="50"/></td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label for="address" class="input_required">站址：</label></td>
-                <td><input id="address" name="address" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="location" class="input_required">具体位置：</label></td>
-                <td><input id="location" name="location" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label class="input_required">供电方式：</label></td>
-                <td>
-                    #{constSelectInput name:'powerSupplyType', constType:1/}
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label class="input_required">传输方式：</label></td>
-                <td>#{constSelectInput name:'transModeId', constType:2/}</td>
-                <td align="right" class="input_label"><label class="input_required">行政区：</label></td>
-                <td colspan="3">
-                    #{districtSelect name:'districtId' /}
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label class="input_required">型号：</label></td>
-                <td>#{constSelectInput name:'stationTypeId', constType:3/}</td>
-                <td align="right" class="input_label"><label for="vendorId" class="input_required">生产厂家：</label></td>
-                <td>
-                    <select id="vendorId" name="vendorId">
-                    #{if vendors!=null && vendors.size()>0}
-                        #{list items:vendors, as:'v'}
-                            <option value="${v.id}">${v.name}</option>
-                        #{/list}
-                    #{/if}
-                    </select>
-                </td>
-                <td align="right" class="input_label"><label for="buildTime" class="input_required">建设时间：</label></td>
-                <td><input id="buildTime" name="buildTime" type="text" maxlength="50"/></td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label for="contactUserId" class="input_required">维护人：</label></td>
-                <td><input id="contactUserId" name="contactUserId" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="contactUserId2" class="input_required">维护人2：</label></td>
-                <td><input id="contactUserId2" name="contactUserId2" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label class="input_required">要素：</label></td>
-                <td>
-                    #{constSelectInput name:'elementNum', constType:4/}
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label class="input_required">观测要素：</label></td>
-                <td>#{constSelectInput name:'observationElement', constType:5/}</td>
-                <td align="right" class="input_label"><label class="input_required">地形特征：</label></td>
-                <td>#{constSelectInput name:'terrainId', constType:6/}</td>
-                <td align="right" class="input_label"><label class="input_required">地面：</label></td>
-                <td>#{constSelectInput name:'groundId', constType:7/}</td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label for="neighboringEnv" class="input_required">周边环境：</label></td>
-                <td><input id="neighboringEnv" name="neighboringEnv" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="observationFieldSize" class="input_required">观测场规格：</label></td>
-                <td><input id="observationFieldSize" name="observationFieldSize" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label class="input_required">站点级别：</label></td>
-                <td>#{constSelectInput name:'satLevelId', constType:8/}</td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label for="assessOrNot" class="input_required">是否考核：</label></td>
-                <td><input id="assessOrNot" name="assessOrNot" type="text" maxlength="50"/></td>
-                <td align="right" class="input_label"><label for="weatherBureauId" class="input_required">所有权：</label></td>
-                <td>
-                    <select id="weatherBureauId" name="weatherBureauId">
-                    #{if memOrganizations!=null && memOrganizations.size()>0}
-                        #{list items:memOrganizations, as:'o'}
-                            <option value="${o.id}">${o.name}</option>
-                        #{/list}
-                    #{/if}
-                    </select>
-                </td>
-                <td align="right" class="input_label"><label for="accessPoints" class="input_required">接入点：</label></td>
-                <td><input id="accessPoints" name="accessPoints" type="text" maxlength="50"/></td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label "><label for="ip">IP地址：</label></td>
-                <td><input id="ip" name="ip" type="text" maxlength="200"/></td>
-                <td align="right" class="input_label "><label for="port">端口号：</label></td>
-                <td><input id="port" name="port" type="text" maxlength="200"/></td>
-                <td align="right" class="input_label "><label for="moduleRemark">备注：</label></td>
-                <td><input id="moduleRemark" name="remark" type="text" maxlength="200"/></td>
-            </tr>
-            <tr class="no_bottom">
-                <td align="right" class="input_label no_bottom"><label for="history">历史沿革：</label></td>
-                <td colspan="5" class="no_bottom"><textarea id="history" name="history" rows="5" cols="90"></textarea></td>
-            </tr>
-
+        #{if stations.size()>0}
+            #{list items:stations, as:'st'}
+                <tr>
+                    <td class="main">${st.name}</td>
+                    <td class="main">${st.stationNo}</td>
+                    <td class="main">#{showConstValue constForeignKey: st.stationTypeId/}</td>
+                    <td class="main">${st.address}</td>
+                    <td class="main">${st.districtId}</td>
+                    <td class="main">${st.buildTime.format("yyyy-MM-dd")}</td>
+                    <td class="main">
+                        <a class="ui-state-default ui-corner-all opt_button" href="#">照片</a>
+                        <a class="ui-state-default ui-corner-all opt_button" href="#">模块</a>
+                        <a class="ui-state-default ui-corner-all opt_button"
+                           href="javascript:showEditForm('${st.id}','${st.name}');">编辑</a>
+                        <a class="ui-state-default ui-corner-all opt_button"
+                           href="javascript:requireActionByPost('@{Stations.delete}','${st.id}','确定删除自动站(${st.name})？');">删除</a>
+                    </td>
+                </tr>
+            #{/list}
+        #{/if}
         </table>
-    </form>
+    </div>
+
+    <div id="new_edit_tab" class="tab_div">
+        *{load by ajax}*
+    </div>
+    <div id="view_tab" class="tab_div">
+    </div>
 </div>
-
-
-<div id="add_type_div" style="display: none;" title="新增模块型号">
-    <form id="add_type_form" action="@{Modules.createType}" method="post">
-        <table class="myTable">
-            <tr>
-                <td align="right" class="input_label"><label for="moduleIdSel" class="input_required">模块：</label></td>
-                <td>
-                    <select id="moduleIdSel" name="moduleId">
-                    *{#{if allModules!=null && allModules.size()>0}
-                        #{list items:allModules, as:'m'}
-                            <option value="${m.id}">${m.name}</option>
-                        #{/list}
-                    #{/if}}*
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" class="input_label"><label for="typeName" class="input_required">型号名称：</label></td>
-                <td><input id="typeName" name="name" type="text" maxlength="50"/></td>
-            </tr>
-            <tr class="no_bottom">
-                <td align="right" class="input_label no_bottom"><label for="typeRemark" >型号备注：</label></td>
-                <td class="no_bottom">
-                    <input id="typeRemark" name="remark" type="text" maxlength="20"/>
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
-
-<script type="text/javascript">
-    initDistrictSelect("districtId",'@{Districts.citySelectList}','@{Districts.countySelectList}');
-</script>

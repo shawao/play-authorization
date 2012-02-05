@@ -44,6 +44,8 @@ public class Vendors extends Application {
                 contactPerson, contactPersonMobile,
                 contactPerson2, contactPersonMobile2, remark, connectedUser());
         vendor.save();
+
+        refreshMemVendors();
         show(1);
     }
 
@@ -54,6 +56,7 @@ public class Vendors extends Application {
         if (entity != null) {
             try {
                 entity.delete();
+                refreshMemVendors();
                 flash.success("（" + entity.name + "）成功删除");
             } catch (Throwable cve) {
                 flash.error("（" + entity.name + "）删除失败，该厂商已经被引用");
@@ -61,6 +64,7 @@ public class Vendors extends Application {
         } else {
             flash.error("ID（" + id + "）厂商不存在");
         }
+
         show(1);
     }
 
@@ -93,6 +97,8 @@ public class Vendors extends Application {
                     remark);
         ven.lastUpdate = new Date();
         ven.save();
+
+        refreshMemVendors();
         show(1);
     }
 
@@ -108,6 +114,8 @@ public class Vendors extends Application {
                 if (vendor != null) {
                     //user.force2delete();
                     vendor.delete();
+
+                    refreshMemVendors();
                     log.info(">> SysUser(" + entityId + ") deleted okay, and render page to index");
                 } else {
                     buf.append("商家（" + entityId + "）不存在");
