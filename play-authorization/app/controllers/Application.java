@@ -5,9 +5,14 @@ import models.fault.Vendor;
 import models.sys.District;
 import models.sys.Organization;
 import models.sys.SysUser;
-import play.*;
-import play.mvc.*;
-import play.data.validation.*;
+import play.Play;
+import play.data.validation.Email;
+import play.data.validation.Equals;
+import play.data.validation.MinSize;
+import play.data.validation.Required;
+import play.mvc.Before;
+import play.mvc.Controller;
+import utils.SecurityCodeUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -26,59 +31,60 @@ public class Application extends Controller {
     // 系统启动时载入常量列表
     public static List<SysConstant> memConstList = null;
     public static List<District> memProvinces = null;
-    public static List<Organization> memOrganizations=null;
+    public static List<Organization> memOrganizations = null;
     // <disId,disName>
-    public static Map<String,String> memDistrictMap=null;
-    public static List<Vendor> memVendors=null;
+    public static Map<String, String> memDistrictMap = null;
+    public static List<Vendor> memVendors = null;
 
     /**
      * 初始化系统全局域
+     *
      * @return
      */
-    public static String reInitialize(){
-        StringBuilder buf=new StringBuilder();
-        String info=refreshMemConstList();
+    public static String reInitialize() {
+        StringBuilder buf = new StringBuilder();
+        String info = refreshMemConstList();
         buf.append(info).append("<br/>");
 
-        info=refreshMemProvinces();
+        info = refreshMemProvinces();
         buf.append(info).append("<br/>");
 
-        info=refreshMemOrganizations();
+        info = refreshMemOrganizations();
         buf.append(info).append("<br/>");
 
-        info=refreshMemVendors();
+        info = refreshMemVendors();
         buf.append(info);
 
         // return to ajax dialog
         return buf.toString();
     }
 
-    public static String refreshMemConstList(){
-        memConstList= SysConstant.findAll();
-        String info= "...memConstList("+memConstList.size()+") loaded in memory";
+    public static String refreshMemConstList() {
+        memConstList = SysConstant.findAll();
+        String info = "...memConstList(" + memConstList.size() + ") loaded in memory";
         log.info(info);
         return info;
     }
 
-    public static String refreshMemProvinces(){
-        memProvinces=District.availableProvinces();
-        String info= "...available memProvinces("+memProvinces.size()+") loaded in memory";
+    public static String refreshMemProvinces() {
+        memProvinces = District.availableProvinces();
+        String info = "...available memProvinces(" + memProvinces.size() + ") loaded in memory";
         log.info(info);
-        
-        memDistrictMap=District.availableMap();
+
+        memDistrictMap = District.availableMap();
         return info;
     }
 
-    public static String refreshMemOrganizations(){
-        memOrganizations=Organization.findAll();
-        String info= "...available memOrganizations("+memOrganizations.size()+") loaded in memory";
+    public static String refreshMemOrganizations() {
+        memOrganizations = Organization.findAll();
+        String info = "...available memOrganizations(" + memOrganizations.size() + ") loaded in memory";
         log.info(info);
         return info;
     }
 
-    public static String refreshMemVendors(){
-        memVendors=Vendor.findAll();
-        String info= "...available memVendors("+memVendors.size()+") loaded in memory";
+    public static String refreshMemVendors() {
+        memVendors = Vendor.findAll();
+        String info = "...available memVendors(" + memVendors.size() + ") loaded in memory";
         log.info(info);
         return info;
     }
@@ -88,7 +94,10 @@ public class Application extends Controller {
 
     @Before
     static void globals() {
-//        renderArgs.put("connected", connectedUser());
+        // 已登录用户信息（从数据库获取信息，session中仅保存ID）
+        renderArgs.put("connected", connectedUser());
+
+        // 系统预加载项
         renderArgs.put("pageSize", pageSize);
         renderArgs.put("memConstList", memConstList);
         renderArgs.put("memProvinces", memProvinces);
@@ -102,19 +111,27 @@ public class Application extends Controller {
     static void logAccess() {
         log.info("");
         log.info("=========================================================");
-        log.info("request.url = " + request.url);
-        log.info("request.controllerClass.actionMethod = " + request.controllerClass + "." + request.actionMethod);
-        //        log.info("request.actionMethod = "+request.actionMethod);
-        log.info("request.remoteAddress = " + request.remoteAddress);
+        log.info("url = " + request.url);
+        log.info("controllerClass.actionMethod = " + request.controllerClass + "." + request.actionMethod);
+        log.info("remoteAddress = " + request.remoteAddress);
+        log.info("loginFlag = " + (connectedUser()!=null));
         log.info("===============================");
     }
 
 
-    @Before(unless = "login")
-    static void authenticate() {
-        //todo
+    @Before(unless = {"/","login", "authenticate", "logout","SecurityCodes.createSecurityCode"})
+    static void checkLogin() {
+        SysUser user = connectedUser();
+        if (user == null) {
+            flash.error("您尚未登录系统，或登录已超时");
+            log.debug("checkLogin false");
+            login();
+        }
     }
 
+    /**
+     * 检查权限
+     */
     @Before
     static void checkSecure() {
         Secure secure = getActionAnnotation(Secure.class);
@@ -126,91 +143,62 @@ public class Application extends Controller {
     }
 
 
-
     // ~~~~~~~~~~~~ Actions
 
     public static void signup() {
         render();
     }
 
-    public static void register(@Required @Email String email, @Required @MinSize(5) String password, @Equals("password") String password2, @Required String name) {
-//        if (validation.hasErrors()) {
-//            validation.keep();
-//            params.flash();
-//            flash.error("Please correct these errors !");
-//            signup();
-//        }
-//        User user = new User(email, password, name);
-//        try {
-//            if (Notifier.welcome(user)) {
-//                flash.success("Your account is created. Please check your emails ...");
-//                login();
-//            }
-//        } catch (Exception e) {
-//            Logger.error(e, "Mail error");
-//        }
-//        flash.error("Oops ... (the email cannot be sent)");
-//        login();
+    public static void register(
+            @Required @Email String email,
+            @Required @MinSize(5) String password,
+            @Equals("password") String password2,
+            @Required String name) {
+        // 不提供自助注册，目前是管理员负责创建用户
     }
 
     public static void confirmRegistration(String uuid) {
-//        User user = User.findByRegistrationUUID(uuid);
-//        notFoundIfNull(user);
-//        user.needConfirmation = null;
-//        user.save();
-//        connect(user);
-//        flash.success("Welcome %s !", user.name);
-//        Users.show(user.id);
+        // 需要确认邮箱时使用
     }
 
     public static void login() {
-        render();
-    }
-
-    public static void authenticate(String email, String password) {
-//        User user = User.findByEmail(email);
-//        if (user == null || !user.checkPassword(password)) {
-//            flash.error("Bad email or bad password");
-//            flash.put("email", email);
-//            login();
-//        } else if (user.needConfirmation != null) {
-//            flash.error("This account is not confirmed");
-//            flash.put("notconfirmed", user.needConfirmation);
-//            flash.put("email", email);
-//            login();
-//        }
-//        connect(user);
-//        flash.success("Welcome back %s !", user.name);
-//        Users.show(user.id);
+        String scKey= SecurityCodeUtil.createRandomKey();
+        render(scKey);
     }
 
     public static void logout() {
-        flash.success("You've been logged out");
+        flash.success("您已经退出系统");
         session.clear();
-        Welcome.index();
+        login();
     }
+
+
+    public static void authenticate(String loginName, String password, String scKey, String securityCode) {
+        SysUser user = SysUser.findByLoginName(loginName);
+        if (user == null || !user.checkPassword(password)) {
+            flash.error("用户不存在或密码错误");
+            flash.put("loginName", loginName);
+
+            // 清空session中的一切设置，包括验证码
+            session.clear();
+            login();
+        } else if (!session.get(scKey).equals(securityCode)) {
+            flash.error("验证码错误");
+            session.clear();
+            login();
+        } else {
+            connect(user);
+            flash.success("欢迎登录系统，%s !", user.nickName);
+            Welcome.index(user.id);
+        }
+    }
+
 
     public static void resendConfirmation(String uuid) {
-//        User user = User.findByRegistrationUUID(uuid);
-//        notFoundIfNull(user);
-//        try {
-//            if (Notifier.welcome(user)) {
-//                flash.success("Please check your emails ...");
-//                flash.put("email", user.email);
-//                login();
-//            }
-//        } catch (Exception e) {
-//            Logger.error(e, "Mail error");
-//        }
-//        flash.error("Oops (the email cannot be sent)...");
-//        flash.put("email", user.email);
-//        login();
     }
 
 
-
-    
-    public static void reload(){
+    public static void reload() {
         renderHtml(reInitialize());
     }
 
@@ -218,12 +206,11 @@ public class Application extends Controller {
     // ~~~~~~~~~~~~ Some utils
 
     static void connect(SysUser user) {
-        session.put("logged", user.id);
+        session.put("loggedUserId", user.id);
     }
 
     static SysUser connectedUser() {
-//        String userId = session.get("logged");
-//        return userId == null ? null : (SysUser) SysUser.findById(Long.parseLong(userId));
-        return SysUser.findById(3L);
+        String userId = session.get("loggedUserId");
+        return userId == null ? null : (SysUser) SysUser.findById(Long.parseLong(userId));
     }
 }

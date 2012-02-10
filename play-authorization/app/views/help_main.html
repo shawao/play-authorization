@@ -25,17 +25,7 @@
 		<div id="main">
 	
 			<div id="header">
-				#{if connected}
-					<p>
-						欢迎 <a class="connectedUser" href="@{Users.show(connected.id)}">${connected.name}</a>
-						(<a href="@{Application.logout}">退出</a>)
-					</p>
-				#{/if}
-				#{else}
-                    <p>
-						<a href="@{Application.signup}">注册</a>&nbsp;&nbsp;<a href="@{Application.login}">登录</a>
-					</p>
-				#{/else}
+				#{include 'common/rightTopPanel.html'/}
 		
 				<ul id="menu">
                     <li><a id="megaanchor" style="background-color: #6495ed;" href="#">系统地图</a></li>

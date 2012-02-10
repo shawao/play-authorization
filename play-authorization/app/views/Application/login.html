@@ -1,26 +1,59 @@
 #{extends 'main.html' /}
 
-<h1 id="title">Login</h1>
-<p class="light">
-    
-</p>
+<h1 id="title">登录系统</h1>
+<div class="light_bar">
+    您必须登录才能使用此系统
+</div>
 
 <form id="login" action="@{Application.authenticate}" method="POST" accept-charset="${_response_encoding}">
 	<p>
-		<label>Email</label>
-		<input type="text" name="email" value="${flash.email}" id="email" />
+		<label for="loginName" style="padding-bottom:5px; font-size: 14px;">登录名</label>
+		<input type="text" name="loginName" value="${flash.loginName}" id="loginName" />
 	</p>
 	<p>
-		<label>Password</label>
+		<label for="password" style="padding-bottom:5px; font-size: 14px;">密码</label>
 		<input type="password" name="password" value="" id="password" />
 	</p>
-	<p class="buttons">
-		<input type="submit" value="Login" id="loginButton" />
+    <p>
+		<label for="securityCode" style="padding-bottom:5px; font-size: 14px;">验证码</label>
+		<input type="text" name="securityCode" value="" id="securityCode" size="6" style="width:100px"/>
+        <br/>
+        <img src="@{SecurityCodes.createSecurityCode(scKey)}"
+             alt="securityCodePhoto" id="securityCodePhoto"
+             style="padding-top: 10px;"
+             onclick="changeSecurityCodePhoto('securityCodePhoto');"/>
+        点击左侧图片<a href="#" onclick="changeSecurityCodePhoto('securityCodePhoto');">更换验证码</a>
 	</p>
+	<p class="buttons">
+		<input type="button" value="登录" id="loginButton" onclick="login()"/>
+	</p>
+    *{security code key}*
+    <input type="hidden" id="scKey" name="scKey" value="${scKey}"/>
 </form>
 
+<script type="text/javascript">
+    function login(){
+        if(checkInput("loginName","请填写登录名")
+                && checkInput("password","请填写密码")
+                && checkInput("securityCode","请按图片输入验证码")){
+            $("#login").submit();
+        }
+    }
+
+    function checkInput(eleId,prompt){
+        if($("#"+eleId).val()==''){
+            jqAlert(""+prompt);$("#"+prompt).focus();
+            return false;
+        }
+        return true
+    }
+</script>
+
+
+*{
 #{if flash.notconfirmed}
 	<p>
 		<a class="action" href="@{Application.resendConfirmation(flash.notconfirmed)}">Resend a confirmation email</a>
 	</p>
 #{/if}
+}*
