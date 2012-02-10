@@ -5,8 +5,8 @@ import models.fault.SysConstant;
 import models.fault.Vendor;
 import models.sys.SysUser;
 import play.data.validation.Required;
-import tools.ConstTool;
-import tools.DistrictTool;
+import utils.ConstUtil;
+import utils.DistrictUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -50,16 +50,16 @@ public class Stations extends Application{
         SysUser user=connectedUser();
         List<SysConstant> constants=SysConstant.findAll();
 
-        String powerSupplyType_foreignKey= ConstTool.parseOrSave("powerSupplyType", params, constants, user);
-        String transModeId_foreignKey= ConstTool.parseOrSave("transModeId", params, constants, user);
-        String stationTypeId_foreignKey= ConstTool.parseOrSave("stationTypeId", params, constants, user);
-        String elementNum_foreignKey= ConstTool.parseOrSave("elementNum", params, constants, user);
-        String observationElement_foreignKey= ConstTool.parseOrSave("observationElement", params, constants, user);
-        String terrainId_foreignKey= ConstTool.parseOrSave("terrainId", params, constants, user);
-        String groundId_foreignKey= ConstTool.parseOrSave("groundId", params, constants, user);
-        String satLevelId_foreignKey= ConstTool.parseOrSave("satLevelId", params, constants, user);
+        String powerSupplyType_foreignKey= ConstUtil.parseOrSave("powerSupplyType", params, constants, user);
+        String transModeId_foreignKey= ConstUtil.parseOrSave("transModeId", params, constants, user);
+        String stationTypeId_foreignKey= ConstUtil.parseOrSave("stationTypeId", params, constants, user);
+        String elementNum_foreignKey= ConstUtil.parseOrSave("elementNum", params, constants, user);
+        String observationElement_foreignKey= ConstUtil.parseOrSave("observationElement", params, constants, user);
+        String terrainId_foreignKey= ConstUtil.parseOrSave("terrainId", params, constants, user);
+        String groundId_foreignKey= ConstUtil.parseOrSave("groundId", params, constants, user);
+        String satLevelId_foreignKey= ConstUtil.parseOrSave("satLevelId", params, constants, user);
 
-        String districtId_foreignKey= DistrictTool.parse("districtId",params);
+        String districtId_foreignKey= DistrictUtil.parse("districtId", params);
         
         Vendor vendor=Vendor.findById(vendorId);
         Date buildDate=new Date();

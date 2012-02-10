@@ -1,0 +1,13 @@
+*{页面右上角菜单}*
+
+#{if connected!=null}
+<p>
+    欢迎 <a class="connectedUser" href="#">${connected.nickName}</a>
+    (<a href="#" onclick="logout('@{Application.logout}');">退出</a>)
+</p>
+#{/if}
+#{else}
+<p>
+    <a href="@{Application.signup}">注册</a>&nbsp;&nbsp;<a href="@{Application.login}">登录</a>
+</p>
+#{/else}
