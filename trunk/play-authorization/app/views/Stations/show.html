@@ -2,10 +2,31 @@
 
 #{set "moreStyles"}
 <style type="text/css">
+    img{border:none;}
+    	#slider ul, #slider li{
+		margin:0;
+		padding:0;
+		list-style:none;
+		}
+	#slider li{
+		/*
+			define width and height of list item (slide)
+			entire slider area will adjust according to the parameters provided here
+		*/
+		width:696px;
+		height:241px;
+		overflow:hidden;
+		}
+	span#prevBtn{}
+	span#nextBtn{}
 </style>
 #{/set}
 
 #{set 'moreScripts'}
+
+*{<script src="@{'/public/javascripts/ajaxfileupload.js'}"></script>}*
+<script src="@{'/public/javascripts/jquery.form.js'}"></script>
+<script src="@{'/public/javascripts/easySlider1.5.js'}"></script>
 
 <script type="text/javascript">
 
@@ -102,15 +123,22 @@
         $('#edit_div').dialog('open');
     };
 
-
     var showNewAction = #{jsAction @Stations.newStation() /}
 
     function showNewStationInTab(){
         $('#new_edit_tab').load(showNewAction(), function () {});
         $("#new_edit_title").html("新增");
         $('#station_tabs').tabs('select', 1);
-    };
+    }
 
+    //showAlbumInTab
+    var showAlbumAction = #{jsAction @Stations.album(':stationId') /}
+
+    function showAlbumInTab(id,stationName){
+        $('#view_tab').load(showAlbumAction({stationId:id}), function () {});
+        $("#view_title").html(stationName+"的相册");
+        $('#station_tabs').tabs('select', 2);
+    }
 </script>
 #{/set}
 
@@ -156,11 +184,13 @@ ${stations.size()} / ${entityCount} 自动站
                     <td class="main">${st.stationNo}</td>
                     <td class="main">#{showConstValue constForeignKey: st.stationTypeId/}</td>
                     <td class="main">${st.address}</td>
-                    <td class="main">${st.districtId}</td>
-                    <td class="main">${st.buildTime.format("yyyy-MM-dd")}</td>
+                    <td class="main">${st.showDistrictInfo(memDistrictMap)}</td>
+                    <td class="main">${st.buildTime==null?"":st.buildTime.format("yyyy-MM-dd")}</td>
                     <td class="main">
-                        <a class="ui-state-default ui-corner-all opt_button" href="#">照片</a>
-                        <a class="ui-state-default ui-corner-all opt_button" href="#">模块</a>
+                        <a class="ui-state-default ui-corner-all opt_button"
+                           href="javascript:showAlbumInTab('${st.id}','${st.name}')">照片</a>
+                        <a class="ui-state-default ui-corner-all opt_button"
+                           href="#">模块</a>
                         <a class="ui-state-default ui-corner-all opt_button"
                            href="javascript:showEditForm('${st.id}','${st.name}');">编辑</a>
                         <a class="ui-state-default ui-corner-all opt_button"
@@ -175,6 +205,5 @@ ${stations.size()} / ${entityCount} 自动站
     <div id="new_edit_tab" class="tab_div">
         *{load by ajax}*
     </div>
-    <div id="view_tab" class="tab_div">
-    </div>
+    <div id="view_tab" class="tab_div"></div>
 </div>

@@ -94,6 +94,17 @@ function jqConfirm(message,customFunction) {
 }
 
 
+/*
+ * Logout system
+ */
+function logout(logoutUrl){
+    jqConfirm("确认退出系统？",function(){
+        window.location=logoutUrl;
+    });
+}
+
+
+
 /**
  * 动态创建form，以post方法请求服务器action
  * @param action
@@ -194,4 +205,11 @@ function initDistrictSelect(inputName, citySelectUrl, countySelectUrl) {
             $("#" + inputName + "_countyId").html(data);
         });
     });
+}
+
+function changeSecurityCodePhoto(photoId){
+    // 增加时间参数强制浏览器请求服务器刷新
+    var append = '?' + new Date().getTime() + '_' + Math.random();
+    $("#"+photoId).attr("src",$("#"+photoId).attr("src")+append);
+
 }

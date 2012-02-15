@@ -3,10 +3,12 @@ package models.fault;
 import models.AbstractEntity;
 import models.sys.District;
 import models.sys.SysUser;
+import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Desc: 自动站实体
@@ -115,15 +117,6 @@ public class AutoStation extends AbstractEntity {
     @Column(length = 500)
     public String remark;
 
-
-
-//    @ManyToMany
-//    @JoinTable(name = "rel_sta_mod",
-//            joinColumns = @JoinColumn(name = "station_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "module_id", referencedColumnName = "id"))
-//    public List<Module> modules;
-
-
     // status
     public int status=1;//1:works, 2:broken
 
@@ -177,7 +170,7 @@ public class AutoStation extends AbstractEntity {
 
 
 
-    public void editAutoStation(
+    public void edit(
             String name, String stationNo, String cardNo,
             String longitude, String latitude, double elevation,
             String address, String districtId, String location,
@@ -218,5 +211,31 @@ public class AutoStation extends AbstractEntity {
         this.history = history;
         this.remark = remark;
         this.submitter = submitter;
+        
+        this.lastUpdate=new Date();
     }
+    
+    
+    public String showDistrictInfo(){
+        if(districtId==null) return "";
+        
+        String[] districtIdArray=StringUtils.split(districtId,"_");
+        StringBuilder buf=new StringBuilder();
+        for(String id:districtIdArray){
+            buf.append(District.findByDisId(id).disName);
+        }
+        return buf.toString();
+    }
+    
+    public String showDistrictInfo(Map<String, String> memDistrictMap){
+        if(districtId==null) return "";
+        
+        String[] districtIdArray=StringUtils.split(districtId,"_");
+        StringBuilder buf=new StringBuilder();
+        for(String id:districtIdArray){
+            buf.append(memDistrictMap.get(id));
+        }
+        return buf.toString();
+    }
+
 }

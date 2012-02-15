@@ -178,7 +178,7 @@ public class SysUser extends AbstractEntity {
     public static SysUser findByLoginName(String loginName){
         List<SysUser> users=SysUser.find("select o from SysUser o where o.loginName=?",loginName).fetch();
         if(users!=null && users.size()>0){
-            if(users.size()>0){
+            if(users.size()>1){
                 play.Logger.warn("More than one user named by \""+loginName+"\" : "+users.size());
             }
             return users.get(0);
@@ -188,5 +188,10 @@ public class SysUser extends AbstractEntity {
     
     public boolean checkPassword(String loginPassword){
         return loginPassword != null && this.password.equals(Codec.hexMD5(loginPassword));
+    }
+
+    // 1: common user, 2: forbidden
+    public boolean checkStatus(){
+        return status==1;
     }
 }
