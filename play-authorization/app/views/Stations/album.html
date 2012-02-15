@@ -1,0 +1,48 @@
+<div id="photoOptBar">
+    <form name="photoForm" id="photoForm" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="stationId" id="stationId" value="${station.id}"/>
+        <label for="photo">照片：</label>
+        <input type="file" id="photo" name="photo" size="50" maxlength="100"/>
+        <input type="button" value="上传" style="margin-left: 20px"/>
+    </form>
+</div>
+<div id="photoSlider" style="margin-top: 20px;">
+    <ul>
+        <li><img src="/public/images/test/01.jpg" alt="Css Template Preview"/></li>
+        <li><img src="/public/images/test/02.jpg" alt="Css Template Preview"/></li>
+        <li><img src="/public/images/test/03.jpg" alt="Css Template Preview"/></li>
+        <li><img src="/public/images/test/04.jpg" alt="Css Template Preview"/></li>
+        <li><img src="/public/images/test/05.jpg" alt="Css Template Preview"/></li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#photoSlider").easySlider();
+    });
+
+    var options = {
+        target:'#responseMsg', // target element(s) to be updated with server response
+        success:showResponse,  // post-submit callback
+        timeout:   3000
+    };
+
+    // bind to the form's submit event
+    $('#photoForm').submit(function () {
+        $(this).ajaxSubmit(options);
+        return false;
+    });
+
+    function showResponse(){
+        jqAlert("保存成功");
+    }
+
+    function save(){
+        if($('#name').val().trim()==''){
+            jqAlert("请填写站名");
+            $('#name').focus();
+        }else{
+            document.getElementById("add_station_base_form").submit();
+        }
+    }
+</script>

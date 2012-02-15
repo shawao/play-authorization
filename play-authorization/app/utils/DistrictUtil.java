@@ -20,7 +20,7 @@ public class DistrictUtil {
         String cityId=params.get(name+"_cityId");
         String countyId=params.get(name+"_countyId");
 
-        return new StringBuffer().append(provId).append("_").append(cityId).append("_").append(countyId).toString();
+        return new StringBuilder().append(provId).append("_").append(cityId).append("_").append(countyId).toString();
     }
     
 }

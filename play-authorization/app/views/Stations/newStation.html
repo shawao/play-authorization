@@ -1,25 +1,26 @@
-<form id="add_station_base_form" action="@{Stations.create()}" method="post">
+<form id="add_station_base_form" action="@{Stations.create()}" method="post" enctype="multipart/form-data">
     <table class="myTable">
+        <tr id="messageBar"><td colspan="6" id="responseMsg"></td></tr>
         <tr>
             <td align="right" class="input_label"><label for="name" class="input_required">站名：</label></td>
             <td><input id="name" name="name" type="text" maxlength="50"/></td>
-            <td align="right" class="input_label"><label for="stationNo" class="input_required">站号：</label></td>
+            <td align="right" class="input_label"><label for="stationNo">站号：</label></td>
             <td><input id="stationNo" name="stationNo" type="text" maxlength="50"/></td>
             <td align="right" class="input_label"><label for="cardNo">卡号：</label></td>
             <td><input id="cardNo" name="cardNo" type="text" maxlength="50"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="longitude" class="input_required">经度：</label></td>
+            <td align="right" class="input_label"><label for="longitude">经度：</label></td>
             <td><input id="longitude" name="longitude" type="text" maxlength="50"/></td>
-            <td align="right" class="input_label"><label for="latitude" class="input_required">纬度：</label></td>
+            <td align="right" class="input_label"><label for="latitude">纬度：</label></td>
             <td><input id="latitude" name="latitude" type="text" maxlength="50"/></td>
-            <td align="right" class="input_label"><label for="elevation" class="input_required">海拔：</label></td>
+            <td align="right" class="input_label"><label for="elevation">海拔：</label></td>
             <td><input id="elevation" name="elevation" type="text" maxlength="50"/></td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="address" class="input_required">站址：</label></td>
+            <td align="right" class="input_label"><label for="address">站址：</label></td>
             <td><input id="address" name="address" type="text" maxlength="50"/></td>
-            <td align="right" class="input_label"><label for="location" class="input_required">具体位置：</label></td>
+            <td align="right" class="input_label"><label for="location">具体位置：</label></td>
             <td><input id="location" name="location" type="text" maxlength="50"/></td>
             <td align="right" class="input_label"><label class="input_required">供电方式：</label></td>
             <td>
@@ -47,7 +48,7 @@
                 #{/if}
                 </select>
             </td>
-            <td align="right" class="input_label"><label for="buildTime" class="input_required">建设时间：</label></td>
+            <td align="right" class="input_label"><label for="buildTime">建设时间：</label></td>
             <td><input id="buildTime" name="buildTime" type="text" maxlength="50"/></td>
         </tr>
         <tr>
@@ -69,17 +70,21 @@
             <td>#{constSelectInput name:'groundId', constType:7/}</td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="neighboringEnv" class="input_required">周边环境：</label></td>
+            <td align="right" class="input_label"><label for="neighboringEnv">周边环境：</label></td>
             <td><input id="neighboringEnv" name="neighboringEnv" type="text" maxlength="50"/></td>
-            <td align="right" class="input_label"><label for="observationFieldSize"
-                                                         class="input_required">观测场规格：</label></td>
+            <td align="right" class="input_label"><label for="observationFieldSize">观测场规格：</label></td>
             <td><input id="observationFieldSize" name="observationFieldSize" type="text" maxlength="50"/></td>
             <td align="right" class="input_label"><label class="input_required">站点级别：</label></td>
             <td>#{constSelectInput name:'satLevelId', constType:8/}</td>
         </tr>
         <tr>
-            <td align="right" class="input_label"><label for="assessOrNot" class="input_required">是否考核：</label></td>
-            <td><input id="assessOrNot" name="assessOrNot" type="text" maxlength="50"/></td>
+            <td align="right" class="input_label"><label for="assessOrNot">是否考核：</label></td>
+            <td><select id="assessOrNot" name="assessOrNot">
+                <option value="0">未设置</option>
+                <option value="1">是</option>
+                <option value="2">否</option>
+            </select>
+            </td>
             <td align="right" class="input_label"><label for="weatherBureauId" class="input_required">所有权：</label></td>
             <td>
                 <select id="weatherBureauId" name="weatherBureauId">
@@ -90,7 +95,7 @@
                 #{/if}
                 </select>
             </td>
-            <td align="right" class="input_label"><label for="accessPoints" class="input_required">接入点：</label></td>
+            <td align="right" class="input_label"><label for="accessPoints">接入点：</label></td>
             <td><input id="accessPoints" name="accessPoints" type="text" maxlength="50"/></td>
         </tr>
         <tr>
@@ -107,14 +112,126 @@
         </tr>
         <tr>
             <td align="right" class="input_label "><label>照片：</label></td>
-            <td colspan="4"></td>
-            <td>
-                <a class="ui-state-default ui-corner-all opt_button" href="#">上传照片</a>
+            <td colspan="4" id="photoPanel">
+                *{<table width="100%" border="0" cellpadding="0" cellspacing="0" id="photoTable"></table>}*
+                *{在这里真正上传图片}*
+            </td>
+            <td style="vertical-align: bottom;">
+                <a class="ui-state-default ui-corner-all opt_button"
+                   href="javascript:appendFIleField();">继续上传照片</a>
+            </td>
+        </tr>
+        <tr class="no_bottom">
+            <td align="right" colspan="6" class="input_label no_bottom">
+                <a class="ui-state-default ui-corner-all big_opt_button"
+                           href="javascript:resetForm();"> 重 置 </a>
+                &nbsp;&nbsp;
+                <a class="ui-state-default ui-corner-all big_opt_button"
+                           href="javascript:save();"> 保 存 </a>
             </td>
         </tr>
     </table>
 </form>
 
+
 <script type="text/javascript">
-    initDistrictSelect("districtId",'@{Districts.citySelectList}','@{Districts.countySelectList}');
+    initDistrictSelect("districtId", '@{Districts.citySelectList}', '@{Districts.countySelectList}');
+
+    $(function () {
+        $("#buildTime").datepicker();
+    });
+
+    var options = {
+        target:'#responseMsg', // target element(s) to be updated with server response
+//        beforeSubmit:showRequest, // pre-submit callback
+        success:showResponse,  // post-submit callback
+        timeout:   3000
+        // other available options:
+        //url:       url         // override for form's 'action' attribute
+        //type:      type        // 'get' or 'post', override for form's 'method' attribute
+        //dataType:  null        // 'xml', 'script', or 'json' (expected server response type)
+        //clearForm: true        // clear all form fields after successful submit
+        //resetForm: true        // reset the form after successful submit
+    };
+
+    // bind to the form's submit event
+    $('#add_station_base_form').submit(function () {
+        $(this).ajaxSubmit(options);
+        return false;
+    });
+
+    function showResponse(){
+        jqAlert("保存成功");
+    }
+
+    function save(){
+        if($('#name').val().trim()==''){
+            jqAlert("请填写站名");
+            $('#name').focus();
+        }else{
+            document.getElementById("add_station_base_form").submit();
+        }
+    }
+
+
+    var photoIndex = 0;
+
+    function appendFIleField() {
+        var appendHtml = "";
+        if (photoIndex > 0)
+            appendHtml += "<br/>";
+        appendHtml += "<select name=\"photoDesc\" id=\"photoDesc_" + photoIndex + "\">" +
+                "<option value=\"1\">东</option>" +
+                "<option value=\"2\">南</option>" +
+                "<option value=\"3\">西</option>" +
+                "<option value=\"4\">北</option>" +
+                "<option value=\"5\">其它</option>" +
+                "</select>&nbsp;<img style='display:none' id=\"fiche_" + photoIndex + "\"/>" +
+                "<input type=\"file\" name=\"file\" id=\"photo_" + photoIndex +
+                "\" size=\"30\" maxlength=\"100\" " +
+                "onBlur=\"uploadFileAsync('photo_" + photoIndex + "','photoDesc_" + photoIndex + "','photoResp_" + photoIndex + "')\"/>" +
+                "<span style='margin-left: 5px' id=\"photoResp_" + photoIndex + "\"></span>";
+        $("#photoPanel").html($("#photoPanel").html() + appendHtml);
+        photoIndex++;
+    }
+    // initialize first photo field here
+    appendFIleField();
+
+    function resetForm(){
+        document.getElementById("add_station_base_form").reset();
+        $("#photoPanel").html("");
+        photoIndex=0;
+        appendFIleField();
+    }
+
+    function uploadFileAsync(fileId, descId,statusId,ficheId) {
+        *{
+        $.ajaxFileUpload({
+                    url:'@{Files.upload}', //需要链接到服务器地址
+                    secureuri:false,
+                    name:'file',
+                    fileElementId:fileId, //文件选择框的id属性
+                    data:{desc:$("#"+descId).val()},
+                    dataType:'', //服务器返回的格式，可以是json
+                    success:function (data, status)            //相当于java中try语句块的用法
+                    {
+                        $('#' + fileId).css('display',"none");
+
+                        $('#' + ficheId).attr('src','@{Files.showPhoto(data)}');
+                        $('#' + ficheId).css('display',"");
+
+                        $('#' + statusId).css({"background-color":"green","color":"white"});
+                    },
+                    error:function (data, status, e)            //相当于java中catch语句块的用法
+                    {
+                        $('#' + statusId).html(data.message);
+                        $('#' + statusId).css({"background-color":"red","color":"white"});
+                    },
+                    complete:function(data, status){
+                    }
+                }
+        );
+        }*
+    }
+
 </script>

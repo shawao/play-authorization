@@ -1,0 +1,17 @@
+*{照片方位描述}*
+<select name="desc" id="photoDesc_${photoIndex}">
+    <option value="1">东</option>
+    <option value="2">南</option>
+    <option value="3">西</option>
+    <option value="4">北</option>
+    <option value="5">其它</option>
+</select>
+*{照片选择框}*
+<input type="file" name="file" id="photo_${photoIndex}" size="30" maxlength="100"
+       onblur="uploadFileAsync('photo_${photoIndex}','photoDesc__${photoIndex}','responseInfo_${photoIndex}','photoDiv_${photoIndex}');"/>
+*{照片上传成功后，返回key值；对应session中的文件路径和媒体类型}*
+<input type="hidden" name="fileKey" id="fileKey_${photoIndex}"/>
+*{这里显示图片缩略图}*
+<div id="photoDiv_${photoIndex}" style="display: none"></div>
+*{这里显示文件上传文字信息}*
+<span id="responseInfo_${photoIndex}"></span>
