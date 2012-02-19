@@ -63,6 +63,10 @@ GET		/organizations/detailForEdit									Organizations.detailForEdit
 POST	/organizations/edit											Organizations.edit
 
 
+# AutoStation operations
+GET		/stations/photo												Stations.photo
+
+
 # SysConstants operations
 GET		/sysconstants												SysConstants.index
 GET		/sysconstants/show											SysConstants.show

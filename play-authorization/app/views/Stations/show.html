@@ -2,23 +2,11 @@
 
 #{set "moreStyles"}
 <style type="text/css">
-    img{border:none;}
-    	#slider ul, #slider li{
-		margin:0;
-		padding:0;
-		list-style:none;
-		}
-	#slider li{
-		/*
-			define width and height of list item (slide)
-			entire slider area will adjust according to the parameters provided here
-		*/
-		width:696px;
-		height:241px;
-		overflow:hidden;
-		}
-	span#prevBtn{}
-	span#nextBtn{}
+    .photoTable{border: none;}
+    .photoTable tr{border-left: none;border-right: none}
+    .photoTable tr td{border-left: none;border-right: none}
+
+    img{max-width:800px;}
 </style>
 #{/set}
 
@@ -26,12 +14,10 @@
 
 *{<script src="@{'/public/javascripts/ajaxfileupload.js'}"></script>}*
 <script src="@{'/public/javascripts/jquery.form.js'}"></script>
-<script src="@{'/public/javascripts/easySlider1.5.js'}"></script>
 
 <script type="text/javascript">
 
     $(function () {
-
         // Tabs
         $(function () {
             $("#station_tabs").tabs({
@@ -41,9 +27,7 @@
                     }
                 }
             });
-            //$( "#district_tabs" ).tabs( "option", "spinner", '获取数据中...' );
         });
-
 
         // -------- add const type dialog
         $('#add_station_div').dialog({
@@ -113,7 +97,7 @@
     });
 
 
-    var detailForEditAction = #{jsAction @SysConstants.detailForEdit(':id') /}
+    var detailForEditAction = #{jsAction2 @SysConstants.detailForEdit(':id') /}
 
     function showEditForm(constId,constRemark) {
         $('#edit_table_div').load(detailForEditAction({id:constId}), function () {});
@@ -123,7 +107,7 @@
         $('#edit_div').dialog('open');
     };
 
-    var showNewAction = #{jsAction @Stations.newStation() /}
+    var showNewAction = #{jsAction2 @Stations.newStation() /}
 
     function showNewStationInTab(){
         $('#new_edit_tab').load(showNewAction(), function () {});
@@ -132,7 +116,8 @@
     }
 
     //showAlbumInTab
-    var showAlbumAction = #{jsAction @Stations.album(':stationId') /}
+    *{var showAlbumAction2 = #{jsAction2 @Stations.album(':stationId') /}}*
+    var showAlbumAction = #{jsAction2 @Stations.album(':stationId') /}
 
     function showAlbumInTab(id,stationName){
         $('#view_tab').load(showAlbumAction({stationId:id}), function () {});

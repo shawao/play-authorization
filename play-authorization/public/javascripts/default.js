@@ -211,5 +211,4 @@ function changeSecurityCodePhoto(photoId){
     // 增加时间参数强制浏览器请求服务器刷新
     var append = '?' + new Date().getTime() + '_' + Math.random();
     $("#"+photoId).attr("src",$("#"+photoId).attr("src")+append);
-
 }

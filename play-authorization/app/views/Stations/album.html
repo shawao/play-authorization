@@ -1,48 +1,144 @@
 <div id="photoOptBar">
-    <form name="photoForm" id="photoForm" method="post" enctype="multipart/form-data">
+    <form name="photoForm" id="photoForm"
+          action="@{Stations.uploadPhoto()}"
+          method="post" enctype="multipart/form-data">
         <input type="hidden" name="stationId" id="stationId" value="${station.id}"/>
         <label for="photo">照片：</label>
         <input type="file" id="photo" name="photo" size="50" maxlength="100"/>
-        <input type="button" value="上传" style="margin-left: 20px"/>
+        <label for="desc">方位：</label>
+        <select name="desc" id="desc">
+            <option value="1">东</option>
+            <option value="2">南</option>
+            <option value="3">西</option>
+            <option value="4">北</option>
+            <option value="5">其它</option>
+        </select>
+        <input type="submit" value="上传" style="margin-left: 20px"/>
+        *{<input type="button" value="TestNewRow" onclick="freshPhotoList(4)"/>}*
+        <span id="responseMsg"
+         style="padding: 5px 0 5px 10px;color: #FFFFFF;
+         background-color: #0d80ad;
+         display: none;width: 200px;float: right"></span>
     </form>
 </div>
 <div id="photoSlider" style="margin-top: 20px;">
-    <ul>
-        <li><img src="/public/images/test/01.jpg" alt="Css Template Preview"/></li>
-        <li><img src="/public/images/test/02.jpg" alt="Css Template Preview"/></li>
-        <li><img src="/public/images/test/03.jpg" alt="Css Template Preview"/></li>
-        <li><img src="/public/images/test/04.jpg" alt="Css Template Preview"/></li>
-        <li><img src="/public/images/test/05.jpg" alt="Css Template Preview"/></li>
-    </ul>
+    <table id="photoTable" class="photoTable">
+    #{if albums.size()>0}#{list items:albums, as:'ab'}
+        <tr>
+            <td><img src="@{Stations.photo(ab.id)}" alt="${ab.showDirection()}" onload="autoAdjustParentSize(this,600)"/>
+                <a class="ui-state-default ui-corner-all opt_button"
+                   style="vertical-align: top;margin-top: 5px;"
+                   href="javascript:;"
+                   onclick="deletePhoto(this,'${ab.id}');">删除</a>
+            </td>
+        </tr>
+    #{/list}#{/if}
+    </table>
 </div>
 
 <script type="text/javascript">
+    // prepare the form when the DOM is ready
     $(document).ready(function () {
-        $("#photoSlider").easySlider();
+        var options = {
+            target:'#responseMsg', // target element(s) to be updated with server response
+            beforeSubmit:showRequest, // pre-submit callback
+            success:showResponse  // post-submit callback
+
+            // other available options:
+            //url:       url         // override for form's 'action' attribute
+            //type:      type        // 'get' or 'post', override for form's 'method' attribute
+            //dataType:  null        // 'xml', 'script', or 'json' (expected server response type)
+            //clearForm: true        // clear all form fields after successful submit
+            //resetForm: true        // reset the form after successful submit
+
+            // $.ajax options can be used here too, for example:
+            //timeout:   3000
+        };
+
+        // bind to the form's submit event
+        $('#photoForm').submit(function () {
+            // inside event callbacks 'this' is the DOM element so we first
+            // wrap it in a jQuery object and then invoke ajaxSubmit
+            $(this).ajaxSubmit(options);
+
+            // !!! Important !!!
+            // always return false to prevent standard browser submit and page navigation
+            return false;
+        });
     });
 
-    var options = {
-        target:'#responseMsg', // target element(s) to be updated with server response
-        success:showResponse,  // post-submit callback
-        timeout:   3000
-    };
+    // pre-submit callback
+    function showRequest(formData, jqForm, options) {
+        // formData is an array; here we use $.param to convert it to a string to display it
+        // but the form plugin does this for you automatically when it submits the data
+        var queryString = $.param(formData);
 
-    // bind to the form's submit event
-    $('#photoForm').submit(function () {
-        $(this).ajaxSubmit(options);
-        return false;
-    });
+        // jqForm is a jQuery object encapsulating the form element.  To access the
+        // DOM element for the form do this:
+        // var formElement = jqForm[0];
 
-    function showResponse(){
-        jqAlert("保存成功");
+        //alert('About to submit: \n\n' + queryString);
+
+        if (document.getElementById('photo').value == '') {
+            alert('请选择照片');
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    function save(){
-        if($('#name').val().trim()==''){
-            jqAlert("请填写站名");
-            $('#name').focus();
-        }else{
-            document.getElementById("add_station_base_form").submit();
+    // post-submit callback
+    function showResponse(responseText, statusText, xhr, $form) {
+        // for normal html responses, the first argument to the success callback
+        // is the XMLHttpRequest object's responseText property
+
+        // if the ajaxSubmit method was passed an Options Object with the dataType
+        // property set to 'xml' then the first argument to the success callback
+        // is the XMLHttpRequest object's responseXML property
+
+        // if the ajaxSubmit method was passed an Options Object with the dataType
+        // property set to 'json' then the first argument to the success callback
+        // is the json data object returned by the server
+
+//    alert('status: ' + statusText + '\n\nresponseText: \n' + responseText +
+//            '\n\nThe output div should have already been updated with the responseText.');
+
+        $("#responseMsg").css("display","");
+        if (responseText != '') {
+            $("#responseMsg").html("保存成功");
+            freshPhotoList(responseText);
+            document.getElementById("photo").value = "";
+            document.getElementById("desc").value = "";
+        } else {
+            $("#responseMsg").html("保存失败");
         }
+    }
+
+    function freshPhotoList(newPhotoId){
+        var desc="";
+
+        var table=document.getElementById("photoTable");
+        var row1=table.insertRow(0);
+        var cell1=row1.insertCell(0);
+
+        var src="@{Stations.photo}"+"?photoId="+newPhotoId;
+        var aButton="<a class=\"ui-state-default ui-corner-all opt_button\""+
+                   "style=\"vertical-align: top;margin-top: 5px;\""+
+                   "href=\"javascript:;\""+
+                   "onclick=\"deletePhoto(this,'"+newPhotoId+"');\">删除</a>";
+        cell1.innerHTML="<img src=\""+src+"\" alt=\""+desc+"\"/>"+aButton;
+    }
+
+    function deletePhoto(self, id) {
+        jqConfirm("确定删除此照片？", function () {
+            $.ajax({
+                url:"@{Stations.deletePhoto}" + "?photoId=" + id,
+                success:function (data) {
+//                    jqAlert("删除成功");
+                    var row = self.parentNode.parentNode;
+                    document.getElementById("photoTable").deleteRow(row.rowIndex);
+                }
+            });
+        })
     }
 </script>

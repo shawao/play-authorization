@@ -47,4 +47,16 @@ public class Fault extends AbstractEntity {
 
     @ManyToOne
     public SysUser submitter;// who submit it
+
+    public Fault(AutoStation station, Module module, Module module2, Module module3, int fixed, String behavior, String remark, String status, SysUser submitter) {
+        this.station = station;
+        this.module = module;
+        this.module2 = module2;
+        this.module3 = module3;
+        this.fixed = fixed;
+        this.behavior = behavior;
+        this.remark = remark;
+        this.status = status;
+        this.submitter = submitter;
+    }
 }

@@ -105,7 +105,6 @@ public class Stations extends Application{
             String groundId, String neighboringEnv, String observationFieldSize,
             String satLevelId, int assessOrNot, String weatherBureau, String accessPoints,
             String port, String ip, String history, String remark){
-        //
         AutoStation station =AutoStation.findById(id);
 
         SysUser user=connectedUser();
@@ -119,18 +118,16 @@ public class Stations extends Application{
         String terrainId_foreignKey= ConstUtil.parseOrSave("terrainId", params, constants, user);
         String groundId_foreignKey= ConstUtil.parseOrSave("groundId", params, constants, user);
         String satLevelId_foreignKey= ConstUtil.parseOrSave("satLevelId", params, constants, user);
-
         String districtId_foreignKey= DistrictUtil.parse("districtId", params);
 
         Vendor vendor=Vendor.findById(vendorId);
-        Date buildDate=null;//todo
 
         station.edit(
                 name, stationNo, cardNo,
                 longitude, latitude, elevation,
                 address, districtId_foreignKey, location,
                 transModeId_foreignKey, powerSupplyType_foreignKey, stationTypeId_foreignKey,
-                vendor, buildDate, contactUserId, contactUserId2,
+                vendor, buildTime, contactUserId, contactUserId2,
                 elementNum_foreignKey, observationElement_foreignKey, terrainId_foreignKey,
                 groundId_foreignKey, neighboringEnv, observationFieldSize,
                 satLevelId_foreignKey, assessOrNot, weatherBureau, accessPoints,
@@ -145,7 +142,7 @@ public class Stations extends Application{
 
         if (entity != null) {
             try {
-                entity.delete();
+                AutoStation.force2delete(id);
                 flash.success("（" + entity.name + "）成功删除");
             } catch (Throwable cve) {
                 flash.error("（" + entity.name + "）删除失败，该自动站已经被使用");
@@ -166,5 +163,32 @@ public class Stations extends Application{
         AutoStation station = AutoStation.findById(stationId);
         List<StationAlbum> albums=StationAlbum.findByStation(station);
         render(station,albums);
+    }
+    
+    public static void uploadPhoto(Long stationId, File photo, Integer desc){
+        AutoStation station=AutoStation.findById(stationId);
+        StationAlbum album=StationAlbum.saveAlbum(station,photo,desc,connectedUser(),albumHomeDir);
+        //album.save();
+        log.info("Upload file successfully");
+        renderText(album.id);
+    }
+    
+    public static void photo(Long photoId){
+        StationAlbum album=StationAlbum.findById(photoId);
+
+        StringBuilder pathBuf=new StringBuilder();
+        pathBuf.append(albumHomeDir.getAbsolutePath()).append(File.separator);
+        pathBuf.append(album.station.id).append(File.separator).append(album.fileName);
+        File photoFile=new File(pathBuf.toString());
+
+        response.setContentTypeIfNotSet(album.contentType);
+        renderBinary(photoFile);
+    }
+
+    public static void deletePhoto(Long photoId){
+        StationAlbum album=StationAlbum.findById(photoId);
+        if(album!=null)
+            album.delete();
+        renderText("success");
     }
 }
