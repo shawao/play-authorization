@@ -238,4 +238,9 @@ public class AutoStation extends AbstractEntity {
         return buf.toString();
     }
 
+    
+    public static void force2delete(Long id){
+        int deletedRowNum=AutoStation.em().createNativeQuery("delete from t_sta_album where station_id="+id).executeUpdate();
+        int deletedRowNum2=AutoStation.em().createNativeQuery("delete from t_auto_station where id="+id).executeUpdate();
+    }
 }

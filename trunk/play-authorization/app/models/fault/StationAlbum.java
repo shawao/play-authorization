@@ -70,10 +70,16 @@ public class StationAlbum extends AbstractEntity {
         this.contentType= PlayFileUtil.getContentType(file);
         this.fileSize=file.length();
         this.submitter = submitter;
-
-
     }
-    
+
+    public static StationAlbum saveAlbum(AutoStation station, File file, int desc, SysUser submitter, File albumHomeDir) {
+        StationAlbum stationAlbum = new StationAlbum(station, file, desc, submitter);
+        stationAlbum.path = saveFile(file, albumHomeDir, station);
+        stationAlbum.save();
+        return stationAlbum;
+    }
+
+
     public static void saveAlbum(AutoStation station,File[] file,int[] desc,SysUser submitter, File albumHomeDir){
         play.Logger.info("file.length: "+(file==null?0:file.length));
         for(int i=0;i<file.length;i++){
@@ -99,7 +105,8 @@ public class StationAlbum extends AbstractEntity {
             }
             
             FileUtils.moveFileToDirectory(file, stationAlbumFolder, true);
-            path=stationAlbumPath+File.separator+file.getName();
+//            path=stationAlbumPath+File.separator+file.getName();
+            path=station.id+File.separator+file.getName();
         } catch (IOException e) {
             play.Logger.error(e.getMessage());
         }
@@ -109,5 +116,30 @@ public class StationAlbum extends AbstractEntity {
     
     public static List<StationAlbum> findByStation(AutoStation station){
         return StationAlbum.find("byStation",station).fetch();
+    }
+    
+    public String showDirection(){
+        switch (direction){
+            case 1: return "东";
+            case 2: return "南";
+            case 3: return "西";
+            case 4: return "北";
+            case 5: return "其它";
+            default: return "";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "StationAlbum{" +
+                "station=" + station +
+                ", direction=" + direction +
+                ", remark='" + remark + '\'' +
+                ", path='" + path + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", fileSize=" + fileSize +
+                ", submitter=" + submitter +
+                '}';
     }
 }

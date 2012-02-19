@@ -1,0 +1,1 @@
+*{附加日期参数，强制从服务器获取新数据}* function(options) {var pattern = '${_arg}'+('${_arg}'.indexOf('?')>0?'&':'?')+ (new Date().getTime()) + '_' + Math.random(); for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern }
