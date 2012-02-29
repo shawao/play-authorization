@@ -11,6 +11,10 @@ String.prototype.trim= function(){
     return this.replace(/(^\s*)|(\s*$)/g, "");
 };
 
+function dateTimeAddRandom(){
+    return new Date().getTime() + '_' + ((Math.random()+'').substring(3,8));
+}
+
 /**
  * jQuery 警告窗口
  * @param message
@@ -69,26 +73,29 @@ function jqAlert2(message,customFunction) {
  * @param customFunction
  */
 function jqConfirm(message,customFunction) {
+    //仅保存一个确定对话框
     if ($("#_dialog_confirm").length == 0) {
         $("body").append('<div id="_dialog_confirm"></div>');
-        $("#_dialog_confirm").dialog({
-            autoOpen:false,
-            title:'提示信息',
-            modal:true,
-            width:400,
-            closeOnEscape:false,
-            buttons:{
-                '确认':function () {
-                    $(this).dialog('close');
-                    customFunction($);
-                },
-                '取消':function () {
-                    $(this).dialog('close');
-                    return false;
-                }
-            }
-        });
     }
+    // 必须每次执行此函数，否则会产生类似缓存的效果，
+    // 导致customFunction中的参数总是使用第一次的值
+    $("#_dialog_confirm").dialog({
+        autoOpen:false,
+        title:'提示信息',
+        modal:true,
+        width:400,
+        closeOnEscape:false,
+        buttons:{
+            '确认':function () {
+                $(this).dialog('close');
+                customFunction($);
+            },
+            '取消':function () {
+                $(this).dialog('close');
+                return false;
+            }
+        }
+    });
     $("#_dialog_confirm").html(message);
     $("#_dialog_confirm").dialog('open');
 }
@@ -207,8 +214,22 @@ function initDistrictSelect(inputName, citySelectUrl, countySelectUrl) {
     });
 }
 
+
+
+
 function changeSecurityCodePhoto(photoId){
     // 增加时间参数强制浏览器请求服务器刷新
-    var append = '?' + new Date().getTime() + '_' + Math.random();
-    $("#"+photoId).attr("src",$("#"+photoId).attr("src")+append);
+    $("#"+photoId).attr("src",$("#"+photoId).attr("src")+"?"+dateTimeAddRandom());
+}
+
+function trimPRE(str){
+    var PREs="<PRE>";
+    var PREe="</PRE>";
+
+    if(str=='') return str;
+    if(str.indexOf(PREs)>=0)
+        str=str.replace(PREs,'');
+    if(str.indexOf(PREe)>=0)
+        str=str.replace(PREe,'');
+    return str;
 }

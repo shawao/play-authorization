@@ -1,5 +1,6 @@
 package controllers;
 
+import models.fault.Module;
 import models.fault.SysConstant;
 import models.fault.Vendor;
 import models.sys.District;
@@ -36,6 +37,7 @@ public class Application extends Controller {
     // <disId,disName>
     public static Map<String, String> memDistrictMap = null;
     public static List<Vendor> memVendors = null;
+    public static List<Module> memModules=null;
 
     /**
      * 初始化系统全局域
@@ -44,17 +46,12 @@ public class Application extends Controller {
      */
     public static String reInitialize() {
         StringBuilder buf = new StringBuilder();
-        String info = refreshMemConstList();
-        buf.append(info).append("<br/>");
 
-        info = refreshMemProvinces();
-        buf.append(info).append("<br/>");
-
-        info = refreshMemOrganizations();
-        buf.append(info).append("<br/>");
-
-        info = refreshMemVendors();
-        buf.append(info);
+        buf.append(refreshMemConstList()).append("<br/>");
+        buf.append(refreshMemProvinces()).append("<br/>");
+        buf.append(refreshMemOrganizations()).append("<br/>");
+        buf.append(refreshMemVendors()).append("<br/>");
+        buf.append(refreshMemModules()).append("");
 
         // return to ajax dialog
         return buf.toString();
@@ -90,6 +87,13 @@ public class Application extends Controller {
         return info;
     }
 
+    public static String refreshMemModules() {
+        memModules = Module.findAll();
+        String info = "...available memModules(" + memModules.size() + ") loaded in memory";
+        log.info(info);
+        return info;
+    }
+
 
     // ~~~~~~~~~~~~ @Before interceptors
 
@@ -105,6 +109,7 @@ public class Application extends Controller {
         renderArgs.put("memDistrictMap", memDistrictMap);
         renderArgs.put("memOrganizations", memOrganizations);
         renderArgs.put("memVendors", memVendors);
+        renderArgs.put("memModules", memModules);
     }
 
 

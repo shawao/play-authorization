@@ -1,10 +1,8 @@
 package controllers;
 
-import models.fault.AutoStation;
-import models.fault.StationAlbum;
-import models.fault.SysConstant;
-import models.fault.Vendor;
+import models.fault.*;
 import models.sys.SysUser;
+import org.apache.commons.lang.StringUtils;
 import play.Play;
 import play.data.binding.As;
 import play.data.validation.Required;
@@ -12,6 +10,7 @@ import utils.ConstUtil;
 import utils.DistrictUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -170,25 +169,74 @@ public class Stations extends Application{
         StationAlbum album=StationAlbum.saveAlbum(station,photo,desc,connectedUser(),albumHomeDir);
         //album.save();
         log.info("Upload file successfully");
+        log.info(album);
         renderText(album.id);
     }
     
     public static void photo(Long photoId){
-        StationAlbum album=StationAlbum.findById(photoId);
+        if (photoId == null) {
+            log.error("No photo referred");
+            renderText("No photo referred");
+        } else {
+            StationAlbum album = StationAlbum.findById(photoId);
 
-        StringBuilder pathBuf=new StringBuilder();
-        pathBuf.append(albumHomeDir.getAbsolutePath()).append(File.separator);
-        pathBuf.append(album.station.id).append(File.separator).append(album.fileName);
-        File photoFile=new File(pathBuf.toString());
+            StringBuilder pathBuf = new StringBuilder();
+            pathBuf.append(albumHomeDir.getAbsolutePath()).append(File.separator);
+            pathBuf.append(album.station.id).append(File.separator).append(album.fileName);
+            File photoFile = new File(pathBuf.toString());
 
-        response.setContentTypeIfNotSet(album.contentType);
-        renderBinary(photoFile);
+            response.setContentTypeIfNotSet(album.contentType);
+            renderBinary(photoFile);
+        }
     }
 
-    public static void deletePhoto(Long photoId){
-        StationAlbum album=StationAlbum.findById(photoId);
-        if(album!=null)
+    public static void deletePhoto(@Required Long id){
+        StationAlbum album=StationAlbum.findById(id);
+        if(album!=null){
             album.delete();
+            renderText("success");
+        }else{
+            log.info("No photo found by ["+id+"]");
+            renderText("failed");
+        }
+    }
+
+
+    public static void modules(Long stationId){
+        log.info("stationId = "+stationId);
+        List<Module> modules=StationModule.findModulesByStationId(stationId);
+        List<StationModule> stationModules=StationModule.find("byStationId",stationId).fetch();
+        render(stationModules,modules, stationId);
+    }
+    
+    
+    public static void saveModules(Long stationId,Long[] moduleId){
+        log.info("stationId = "+stationId);
+        log.info("moduleId = "+ StringUtils.join(moduleId,","));
+
+        if(moduleId!=null && moduleId.length>0){
+            // remove all old StationModules
+            StationModule.delete("stationId",stationId);
+            SysUser user=connectedUser();
+
+            for(Long mId:moduleId){
+                Module module=Module.findById(mId);
+                Long typeId=params._contains("moduleType_"+mId)?params.get("moduleType_"+mId,Long.class):null;
+                if(typeId!=null){
+                    ModuleType moduleType=ModuleType.findById(typeId);
+                    StationModule staMod=new StationModule(stationId,module,moduleType,user);
+                    staMod.save();
+                    log.info(staMod);
+                }
+            }
+        }
+        log.info("success");
         renderText("success");
+    }
+    
+
+    public static void test(){
+        //todo
+        render();
     }
 }

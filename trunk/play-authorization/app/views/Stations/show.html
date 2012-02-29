@@ -3,12 +3,27 @@
 #{set "moreStyles"}
 <style type="text/css">
     .photoTable{border: none;}
+    /*.photoTable{border: solid 1px;width:1000px;}*/
     .photoTable tr{border-left: none;border-right: none}
     .photoTable tr td{border-left: none;border-right: none}
 
     img{max-width:800px;}
+
+    .module {
+        float: left;
+        padding: 5px 5px 5px 5px;
+        margin: 10px 20px 10px 0;
+            -moz-box-shadow: 10px 5px 5px #000000;
+    -webkit-box-shadow: 10px 5px 5px #000000;
+    box-shadow: 10px 5px 5px #000000;
+            border:inset 2px #000000;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    }
 </style>
 #{/set}
+
 
 #{set 'moreScripts'}
 
@@ -94,6 +109,10 @@
                 }
             }
         });
+
+
+        ////////////////////////////////
+        ////////////////////////////////
     });
 
 
@@ -108,7 +127,6 @@
     };
 
     var showNewAction = #{jsAction2 @Stations.newStation() /}
-
     function showNewStationInTab(){
         $('#new_edit_tab').load(showNewAction(), function () {});
         $("#new_edit_title").html("新增");
@@ -116,15 +134,22 @@
     }
 
     //showAlbumInTab
-    *{var showAlbumAction2 = #{jsAction2 @Stations.album(':stationId') /}}*
     var showAlbumAction = #{jsAction2 @Stations.album(':stationId') /}
-
     function showAlbumInTab(id,stationName){
         $('#view_tab').load(showAlbumAction({stationId:id}), function () {});
-        $("#view_title").html(stationName+"的相册");
+        $("#view_title").html(stationName+"站的相册");
+        $('#station_tabs').tabs('select', 2);
+    }
+
+    var showModulesAction = #{jsAction2 @Stations.modules(':stationId') /}
+    function showModulesInTab(id,stationName){
+        $('#view_tab').load(showModulesAction({stationId:id}), function () {});
+        $("#view_title").html(stationName+"站的模块");
         $('#station_tabs').tabs('select', 2);
     }
 </script>
+
+
 #{/set}
 
 
@@ -172,10 +197,10 @@ ${stations.size()} / ${entityCount} 自动站
                     <td class="main">${st.showDistrictInfo(memDistrictMap)}</td>
                     <td class="main">${st.buildTime==null?"":st.buildTime.format("yyyy-MM-dd")}</td>
                     <td class="main">
-                        <a class="ui-state-default ui-corner-all opt_button"
-                           href="javascript:showAlbumInTab('${st.id}','${st.name}')">照片</a>
-                        <a class="ui-state-default ui-corner-all opt_button"
-                           href="#">模块</a>
+                        <a class="ui-state-default ui-corner-all opt_button" href="javascript:;"
+                           onclick="showAlbumInTab('${st.id}','${st.name}')">照片</a>
+                        <a class="ui-state-default ui-corner-all opt_button" href="javascript:;"
+                           onclick="showModulesInTab('${st.id}','${st.name}');">模块</a>
                         <a class="ui-state-default ui-corner-all opt_button"
                            href="javascript:showEditForm('${st.id}','${st.name}');">编辑</a>
                         <a class="ui-state-default ui-corner-all opt_button"

@@ -45,8 +45,6 @@ public class Modules extends Application {
             flash.error("模块不存在");
         } else {
             module.add(new ModuleType(name, remark));
-//            ModuleType moduleType = new ModuleType(name, remark);
-//            moduleType.save();
             module.save();
             flash.success("模块型号\""+module.name+"--" + name + "\"保存成功");
         }

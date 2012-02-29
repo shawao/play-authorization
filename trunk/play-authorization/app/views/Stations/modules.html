@@ -1,5 +1,127 @@
 <div id="moduleTotal">
-    <div id="unselected"></div>
-    <div id="selected"></div>
-    <div id="moduleOptBar"></div>
+    <form action="@{Stations.saveModules()}"
+          id="modulesForm"
+          name="modulesForm" method="post"
+          enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="stationId" id="stationId" value="${stationId}"/>
+    <table width="100%">
+        <tr><td>自动站模块：</td></tr>
+        <tr>
+            <td id="selectedTd">
+            #{if stationModules.size()>0}#{list items:stationModules, as:'staMod'}
+            <div id="div_${staMod.module.id}" class="module">
+            <input type="checkbox" id="ck_mod_${staMod.module.id}" checked="checked"
+                   name="moduleId" value="${staMod.module.id}" onchange="onChangeSelection('${staMod.module.id}')"/>
+                <label for="ck_mod_${staMod.module.id}">${staMod.module.name}</label>
+                #{if staMod.module.types.size()>0}
+                <hr><label for="moduleType_${staMod.module.id}">型号</label>
+                    <select id="moduleType_${staMod.module.id}" name="moduleType_${staMod.module.id}">
+                    #{list items:staMod.module.types, as: 'type'}
+                        #{if staMod.moduleType.id==type.id}
+                        <option value="${type.id}" selected="selected">${type.name}</option>
+                        #{/if}#{else}
+                        <option value="${type.id}">${type.name}</option>
+                        #{/else}
+                    #{/list}
+                </select>
+                #{/if}
+            </div>
+            #{/list}#{/if}
+            </td>
+        </tr>
+        <tr><td style="background-color: #d3d3d3;color: blue;font-weight: bold;">不包含以下模块：</td></tr>
+        <tr>
+            <td id="unSelectedTd">
+            #{if memModules.size()>0}#{list items:memModules, as:'mod'}
+            #{if modules==null || modules.size()==0 || !modules.contains(mod)}
+            <div id="div_${mod.id}" class="module">
+            <input type="checkbox" id="ck_mod_${mod.id}"
+                   name="moduleId" value="${mod.id}" onchange="onChangeSelection('${mod.id}')"/>
+                <label for="ck_mod_${mod.id}">${mod.name}</label>
+                #{if mod.types.size()>0}
+                <hr><label for="moduleType_${mod.id}">型号</label>
+                    <select id="moduleType_${mod.id}" name="moduleType_${mod.id}">
+                    #{list items:mod.types, as: 'type'}
+                    <option value="${type.id}">${type.name}</option>
+                    #{/list}
+                </select>
+                #{/if}
+            </div>
+            #{/if}
+            #{/list}#{/if}
+            </td>
+        </tr>
+        <tr><td>
+            <input type="submit" value="保存" style="padding-left: 20px;padding-right: 20px;"/>
+            <span id="responseMsg"
+                  style="padding: 5px 0 5px 10px;color: #FFFFFF;
+         background-color: #0d80ad;
+         display: none;width: 200px;float: right"></span>
+        </td></tr>
+    </table>
+    </form>
 </div>
+<script type="text/javascript">
+    // prepare the form when the DOM is ready
+    $(document).ready(function () {
+        var options = {
+            target:'#responseMsg', // target element(s) to be updated with server response
+            beforeSubmit:showRequest, // pre-submit callback
+            success:showResponse  // post-submit callback
+        };
+
+        // bind to the form's submit event
+        $('#modulesForm').submit(function () {
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+    });
+
+    // pre-submit callback
+    function showRequest(formData, jqForm, options) {
+        var moduleIdArray=document.getElementsByName("moduleId");
+        var atLeastOneChecked=false;
+        for(i=0;i<moduleIdArray.length;i++){
+            if(moduleIdArray[i].checked){
+                atLeastOneChecked=true;
+                break;
+            }
+        }
+        if(!atLeastOneChecked){
+            jqAlert("请至少选择一个模块");
+            return false;
+        }
+        return true;
+    }
+
+    // post-submit callback
+    function showResponse(responseText, statusText, xhr, $form) {
+        $("#responseMsg").css("display","");
+        if (responseText.indexOf('success')>=0) {
+            jqAlert("保存成功");
+        } else {
+            jqAlert("保存失败");
+        }
+    }
+
+
+    function onChangeSelection(modId){
+        var selDiv=document.getElementById("div_"+modId);
+        var module=document.getElementById("ck_mod_"+modId);
+
+        var selectedTd=document.getElementById("selectedTd");
+        var unSelectedTd=document.getElementById("unSelectedTd");
+
+        // 判断当前是否为选中，如果是选中，则移动到未选中区；
+        // 反之移动到选中区
+        var chosen=module.checked;// onChange事件在状态变更之后!!
+
+        if(chosen){
+            selectedTd.appendChild(selDiv);
+            unSelectedTd.removeChild(selDiv);
+        }else{
+            selectedTd.removeChild(selDiv);
+            unSelectedTd.appendChild(selDiv);
+        }
+    }
+</script>

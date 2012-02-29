@@ -28,7 +28,7 @@ public class Module extends AbstractEntity {
     @Column(length = 50)
     public String name;//模块名称
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "rel_mod_type",
             joinColumns = @JoinColumn(name = "module_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "type_id", referencedColumnName = "id"))
