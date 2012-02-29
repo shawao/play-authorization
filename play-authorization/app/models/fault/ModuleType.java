@@ -2,10 +2,7 @@ package models.fault;
 
 import models.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Desc  : 模块型号
@@ -21,11 +18,14 @@ public class ModuleType extends AbstractEntity {
     @Column(length = 50)
     public String name;
 
+    @ManyToOne
+    public Vendor vendor;//可能暂时不知道厂商是哪里，允许后补
+
     @Column(length = 200)
     public String remark;
 
 
-    public int status = 1;//1：正常使用，2：禁用（禁止登录）
+    public int status = 1;//1：正常使用，2：禁用
 
     public ModuleType(String name, String remark) {
         this.name = name;

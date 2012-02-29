@@ -115,7 +115,7 @@ public class StationAlbum extends AbstractEntity {
     
     
     public static List<StationAlbum> findByStation(AutoStation station){
-        return StationAlbum.find("byStation",station).fetch();
+        return StationAlbum.find("station = ? order by id desc",station).fetch();
     }
     
     public String showDirection(){
@@ -132,7 +132,8 @@ public class StationAlbum extends AbstractEntity {
     @Override
     public String toString() {
         return "StationAlbum{" +
-                "station=" + station +
+                "id=" + id +
+                ", station=" + station +
                 ", direction=" + direction +
                 ", remark='" + remark + '\'' +
                 ", path='" + path + '\'' +

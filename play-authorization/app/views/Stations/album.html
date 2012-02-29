@@ -14,7 +14,6 @@
             <option value="5">其它</option>
         </select>
         <input type="submit" value="上传" style="margin-left: 20px"/>
-        *{<input type="button" value="TestNewRow" onclick="freshPhotoList(4)"/>}*
         <span id="responseMsg"
          style="padding: 5px 0 5px 10px;color: #FFFFFF;
          background-color: #0d80ad;
@@ -24,8 +23,9 @@
 <div id="photoSlider" style="margin-top: 20px;">
     <table id="photoTable" class="photoTable">
     #{if albums.size()>0}#{list items:albums, as:'ab'}
-        <tr>
+        <tr id="tr_${ab.id}">
             <td><img src="@{Stations.photo(ab.id)}" alt="${ab.showDirection()}" onload="autoAdjustParentSize(this,600)"/>
+                <span style="vertical-align: top;margin-top: 5px;">${ab.showDirection()}</span>
                 <a class="ui-state-default ui-corner-all opt_button"
                    style="vertical-align: top;margin-top: 5px;"
                    href="javascript:;"
@@ -80,7 +80,10 @@
         //alert('About to submit: \n\n' + queryString);
 
         if (document.getElementById('photo').value == '') {
-            alert('请选择照片');
+            jqAlert('请选择照片');
+            return false;
+        }else if (document.getElementById('desc').value == '') {
+            jqAlert('请选择方位');
             return false;
         } else {
             return true;
@@ -106,19 +109,21 @@
         $("#responseMsg").css("display","");
         if (responseText != '') {
             $("#responseMsg").html("保存成功");
-            freshPhotoList(responseText);
+            freshPhotoList(trimPRE(responseText));
             document.getElementById("photo").value = "";
-            document.getElementById("desc").value = "";
+//            document.getElementById("desc").value = "";
         } else {
             $("#responseMsg").html("保存失败");
         }
     }
 
     function freshPhotoList(newPhotoId){
-        var desc="";
+        var selDesc=document.getElementById("desc");
+        var desc=selDesc.options[selDesc.selectedIndex].text;
 
         var table=document.getElementById("photoTable");
         var row1=table.insertRow(0);
+        row1.id="tr_"+newPhotoId;
         var cell1=row1.insertCell(0);
 
         var src="@{Stations.photo}"+"?photoId="+newPhotoId;
@@ -126,19 +131,31 @@
                    "style=\"vertical-align: top;margin-top: 5px;\""+
                    "href=\"javascript:;\""+
                    "onclick=\"deletePhoto(this,'"+newPhotoId+"');\">删除</a>";
-        cell1.innerHTML="<img src=\""+src+"\" alt=\""+desc+"\"/>"+aButton;
+
+        var photoIdSpan="<span style=\"vertical-align: top;margin-top: 5px;\">"+desc+"</span>"
+        cell1.innerHTML="<img src=\""+src+"\" alt=\""+desc+"\"/>"+photoIdSpan+aButton;
+//        cell1.appendChild(imgEle);
+//        cell1.appendChild(buttonEle);
     }
 
-    function deletePhoto(self, id) {
-        jqConfirm("确定删除此照片？", function () {
+    function deletePhoto(self, photoId) {
+        var delUrl="@{Stations.deletePhoto}";
+        var deleteUrl=delUrl + "?id=" + photoId+"&"+dateTimeAddRandom();
+
+        var deletePhotoAction=function () {
             $.ajax({
-                url:"@{Stations.deletePhoto}" + "?photoId=" + id,
+                url:deleteUrl,
                 success:function (data) {
-//                    jqAlert("删除成功");
-                    var row = self.parentNode.parentNode;
-                    document.getElementById("photoTable").deleteRow(row.rowIndex);
+                    if("success"==data){
+                        var row = self.parentNode.parentNode;
+                        document.getElementById("photoTable").deleteRow(row.rowIndex);
+                    }else{
+                        jqAlert("删除失败");
+                    }
                 }
             });
-        })
+        };
+
+        jqConfirm("确定删除此照片？",deletePhotoAction);
     }
 </script>

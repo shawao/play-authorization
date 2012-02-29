@@ -65,6 +65,8 @@ POST	/organizations/edit											Organizations.edit
 
 # AutoStation operations
 GET		/stations/photo												Stations.photo
+GET		/stations/deletePhoto											Stations.deletePhoto
+#POST	/stations/deletePhoto											Stations.deletePhoto
 
 
 # SysConstants operations

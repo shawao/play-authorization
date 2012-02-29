@@ -22,14 +22,13 @@ public class Fault extends AbstractEntity {
     @ManyToOne(optional = false)
     public AutoStation station;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     public Module module;//故障模块(with type and model)
 
-    //
-    @ManyToOne(optional = false)
+    @ManyToOne
     public Module module2;//故障模块(with type and model)
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     public Module module3;//故障模块(with type and model)
 
 
@@ -48,7 +47,11 @@ public class Fault extends AbstractEntity {
     @ManyToOne
     public SysUser submitter;// who submit it
 
-    public Fault(AutoStation station, Module module, Module module2, Module module3, int fixed, String behavior, String remark, String status, SysUser submitter) {
+    public Fault(
+            AutoStation station, Module module,
+            Module module2, Module module3,
+            int fixed, String behavior, String remark,
+            String status, SysUser submitter) {
         this.station = station;
         this.module = module;
         this.module2 = module2;
