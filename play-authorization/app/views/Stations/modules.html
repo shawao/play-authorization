@@ -11,7 +11,7 @@
             #{if stationModules.size()>0}#{list items:stationModules, as:'staMod'}
             <div id="div_${staMod.module.id}" class="module">
             <input type="checkbox" id="ck_mod_${staMod.module.id}" checked="checked"
-                   name="moduleId" value="${staMod.module.id}" onchange="onChangeSelection('${staMod.module.id}')"/>
+                   name="moduleId" value="${staMod.module.id}" onclick="onChangeSelection('${staMod.module.id}')"/>
                 <label for="ck_mod_${staMod.module.id}">${staMod.module.name}</label>
                 #{if staMod.module.types.size()>0}
                 <hr><label for="moduleType_${staMod.module.id}">型号</label>
@@ -36,7 +36,7 @@
             #{if modules==null || modules.size()==0 || !modules.contains(mod)}
             <div id="div_${mod.id}" class="module">
             <input type="checkbox" id="ck_mod_${mod.id}"
-                   name="moduleId" value="${mod.id}" onchange="onChangeSelection('${mod.id}')"/>
+                   name="moduleId" value="${mod.id}" onclick="onChangeSelection('${mod.id}')"/>
                 <label for="ck_mod_${mod.id}">${mod.name}</label>
                 #{if mod.types.size()>0}
                 <hr><label for="moduleType_${mod.id}">型号</label>

@@ -11,7 +11,6 @@ import java.util.Date;
 
 /**
  * Desc: 维修历史；每维修一次故障都做一次记录，包括没有修好
- *      todo:一次可能到一个站修理几个故障怎么办
  *      审核通过可以作为一张故障单
  * --------
  * Author: <a href="mailto:ember319@gmail.com">zou bo</a>
@@ -69,4 +68,46 @@ public class Servicing extends AbstractEntity {
 
     @ManyToOne
     public SysUser submitter;// who submit it
+
+
+    public Servicing(AutoStation station, Fault fault, SysUser user, SysUser user2, SysUser user3,
+                     Date startTime, Date endTime, String process, String result, Long reason,
+                     String remark, int fixed, int audited, SysUser auditor, String auditComment,
+                     SysUser submitter) {
+        this.station = station;
+        this.fault = fault;
+        this.user = user;
+        this.user2 = user2;
+        this.user3 = user3;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.process = process;
+        this.result = result;
+        this.reason = reason;
+        this.remark = remark;
+        this.fixed = fixed;
+        this.audited = audited;
+        this.auditor = auditor;
+        this.auditComment = auditComment;
+        this.submitter = submitter;
+    }
+
+
+    public Servicing(AutoStation station, Fault fault, SysUser user, SysUser user2, SysUser user3,
+                     Date startTime, Date endTime, String process, String result, Long reason,
+                     String remark, int fixed,SysUser submitter) {
+        this.station = station;
+        this.fault = fault;
+        this.user = user;
+        this.user2 = user2;
+        this.user3 = user3;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.process = process;
+        this.result = result;
+        this.reason = reason;
+        this.remark = remark;
+        this.fixed = fixed;
+        this.submitter = submitter;
+    }
 }

@@ -1,10 +1,61 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-  <title></title>
-</head>
-<body>
+#{extends 'fault_main.html' /}
 
-</body>
-</html>
+#{set "moreStyles"}
+<style type="text/css">
+</style>
+#{/set}
+
+
+#{set 'moreScripts'}
+
+<script src="@{'/public/javascripts/jquery.form.js'}"></script>
+
+<script type="text/javascript">
+
+</script>
+
+
+#{/set}
+
+
+<h1 id="title">故障管理</h1>
+<div class="light_bar">
+喵喵
+</div>
+
+
+<table id="station-list">
+    <thead>
+    <tr>
+        <th class="main">站名</th>
+        *{<th class="main" width="50px">站号</th>}*
+        *{<th class="main" width="70px">型号</th>}*
+        <th class="main">站址</th>
+        <th class="main" width="190px">故障模块</th>
+        <th class="main" width="190px">故障现象</th>
+        <th class="main" width="100px">维修状态</th>
+        <th class="main" width="100px">报告时间</th>
+        <th width="180px">操作</th>
+    </tr>
+    </thead>
+
+    #{if faults!=null && faults.size()>0}
+        #{list items:faults, as:'fault'}
+            <tr>
+                <td class="main">${fault.station.name}</td>
+                *{<td class="main">${fault.station.stationNo}</td>}*
+                *{<td class="main">#{showConstValue constForeignKey: fault.station.stationTypeId/}</td>}*
+                <td class="main">${fault.station.address}</td>
+                <td class="main">${fault.module}</td>
+                <td class="main">${fault.showFixed()}</td>
+                <td class="main">${fault.createDate==null?"":fault.createDate.format("yyyy-MM-dd")}</td>
+                <td class="main">
+                    <a class="ui-state-default ui-corner-all opt_button"
+                       href="javascript:showEditForm('${fault.id}','${fault.name}');">编辑</a>
+                    <a class="ui-state-default ui-corner-all opt_button"
+                       href="javascript:requireActionByPost('@{Faults.delete}','${st.id}','确定删除故障(${fault.id})？');">删除</a>
+                </td>
+            </tr>
+        #{/list}
+    #{/if}
+</table>

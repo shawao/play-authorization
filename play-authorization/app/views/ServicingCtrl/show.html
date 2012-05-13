@@ -1,0 +1,250 @@
+#{extends 'fault_main.html' /}
+
+#{set "moreStyles"}
+<style type="text/css">
+    .formTable{border: none;}
+    .formTable tr{border-left: none;border-right: none;border-bottom: none;}
+    .formTable tr td{border-left: none;border-right: none;border-bottom: none;}
+
+    .longInput{width: 300px;}
+</style>
+#{/set}
+
+#{set 'moreScripts'}
+
+<script type="text/javascript">
+    var stationSelDialog=null;//handle of dialog, for closing
+
+    $(function () {
+        stationSelDialog=$('#stationSelDiv').dialog({
+            autoOpen:false,
+            width:500,
+            modal:true,
+            resizable: false,
+            buttons:{
+                "关闭":function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
+
+    function chooseStation(stationId,stationNo){
+        $('#stationId').val(stationId);
+        $('#stationName').val(stationNo);
+
+        stationSelDialog.dialog('close');
+        var ajaxUrl="@{ServicingCtrl.moduleSel}"+'?stationId='+stationId;
+        $.ajax({
+            url:ajaxUrl,
+            success:function (data) {
+                var modulesArray=data.MODULES;
+                fillSelectEleByJson("moduleId",modulesArray);
+                fillSelectEleByJson("moduleId2",modulesArray);
+                fillSelectEleByJson("moduleId3",modulesArray);
+            }
+        });
+    }
+
+
+    function fillSelectEleByJson(selectEleId, jsonArray){
+        $("#"+selectEleId).empty();
+        $("#"+selectEleId).append("<option value='-1'>请选择</option>");
+        for(var i=0;i<jsonArray.length;i++){
+            $("#"+selectEleId).append("<option value='"+jsonArray[i].ID+"'>"+jsonArray[i].NAME+"</option>");
+        }
+    }
+
+    function testCleanSelect(selectEleId){
+        $("#"+selectEleId).empty();
+    }
+
+
+    var stationSelAction = #{jsAction2 @ServicingCtrl.stationSel() /}
+    function showStationSel() {
+        $('#stationSelDiv').load(stationSelAction(), function () {});
+        $('#stationSelDiv').css('display', '');
+        $('#stationSelDiv').dialog('open');
+        return false;
+    }
+</script>
+
+<script type="text/javascript">
+</script>
+#{/set}
+
+
+<h1 id="title">维修报告</h1>
+
+<div class="light_bar">
+故障情况
+</div>
+<form name="faultServicingForm" method="post">
+    <table id="fault_info" class="formTable">
+        <tr>
+            <td align="right" class="input_label" width="20%"><label for="stationName" class="input_required">站点：</label></td>
+            <td width="40%">
+                <input id="stationName" class="longInput" name="stationName"
+                       type="text" maxlength="20" style="width: 150px" readonly="readonly" value=""/>
+                <input type="hidden" name="stationId" id="stationId"/>
+                <a class="ui-state-default ui-corner-all opt_button" onclick="showStationSel()"
+                       href="#">选择</a>
+            </td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="moduleId" class="input_required">损毁模块：</label></td>
+            <td>
+                <select id="moduleId" name="moduleId" class="longInput" style="width: 155px">
+                </select>
+            </td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="moduleId2" class="input_required">损毁模块2：</label></td>
+            <td>
+                <select id="moduleId2" name="moduleId2" class="longInput" style="width: 155px">
+                </select>
+            </td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="moduleId2" class="input_required">损毁模块3：</label></td>
+            <td>
+                <select id="moduleId3" name="moduleId3" class="longInput" style="width: 155px">
+                </select>
+            </td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="behavior" class="input_required">故障现象：</label></td>
+            <td>
+                <textarea id="behavior" name="behavior" rows="6" cols="50"></textarea>
+            </td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="faultRemark">备注：</label></td>
+            <td><textarea id="faultRemark" name="faultRemark" rows="6" cols="50"></textarea></td>
+            <td class="input_label"></td>
+        </tr>
+    </table>
+    <div class="light_bar">
+        <input type="checkbox" id="servicingChk" name="servicingChk" value="1" onclick="chkServicing();"/>
+        <label for="servicingChk">填写维修结果</label>
+    </div>
+    <table id="servicing_info" class="formTable" style="display: none">
+        <tr>
+            <td align="right" class="input_label" width="20%"><label for="userId" class="input_required">维修人：</label></td>
+            <td width="40%">
+                <select id="userId" name="userId" class="longInput" style="width: 155px">
+                </select></td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label" width="20%"><label for="userId2">维修人2：</label></td>
+            <td width="40%">
+                <select id="userId2" name="userId2" class="longInput" style="width: 155px">
+                </select>
+            </td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label" width="20%"><label for="userId3">维修人3：</label></td>
+            <td width="40%">
+                <select id="userId3" name="userId3" class="longInput" style="width: 155px">
+                </select>
+            </td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label" width="20%"><label for="startTime" class="input_required">维修开始时间：</label></td>
+            <td width="40%"><input id="startTime" class="longInput" readonly="readonly" name="startTime" type="text" maxlength="50"/></td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label" width="20%"><label for="endTime" class="input_required">维修结束时间：</label></td>
+            <td width="40%"><input id="endTime" class="longInput" readonly="readonly" name="endTime" type="text" maxlength="50"/></td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label" width="20%"><label for="reasonId" class="input_required">损毁原因：</label></td>
+            <td width="40%">
+                <select id="reasonId" name="reasonId">
+                    <option value="1">在那个风雨交加的夜晚，温度计它爆了……</option>
+                    <option value="2">会不会是它想家了？</option>
+                    <option value="3">其他</option>
+                </select>
+            </td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label" width="20%"><label for="process" class="input_required">维修过程：</label></td>
+            <td width="40%"><textarea id="process" name="process" rows="6" cols="50"></textarea></td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="result" class="input_required">维修结果：</label></td>
+            <td><textarea id="result" name="result" rows="6" cols="50"></textarea></td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="servicingRemark">备注：</label></td>
+            <td><textarea id="servicingRemark" name="servicingRemark" rows="6" cols="50"></textarea></td>
+            <td class="input_label"></td>
+        </tr>
+        <tr>
+            <td align="right" class="input_label"><label for="servicingRemark">是否修好：</label></td>
+            <td><input type="checkbox" id="fixedFlag" name="fixedFlag" value="1" onclick="chkServicing();"/>
+            <label for="fixedFlag">修复标志</label></td>
+            <td class="input_label"></td>
+        </tr>
+    </table>
+    <div class="light_bar">
+        <a class="ui-state-default ui-corner-all opt_button"
+                       href="javascript:save();">保存</a>
+    </div>
+</form>
+
+
+<div id="stationSelDiv" style="display: none;" title="选择站点"></div>
+
+<script type="text/javascript">
+//    使用onclick时间替代onchange，因为IE对onchange的响应总是在失去焦点时才生效
+    function chkServicing(){
+        $('#servicing_info').css('display',$('#servicingChk').attr('checked')?'':'none');
+    }
+
+    function save(){
+        if(checkBeforeSubmit()){
+            jqAlert('可以保存');
+        }
+    }
+
+
+    function checkBeforeSubmit(){
+        var paramsInfo=[
+                ['#stationName','请选择自动站',true],
+                ['#moduleId','请选择损毁模块',true],
+                ['#behavior','请填写故障现象',true],
+                ['#userId','请选择维修人',$('#servicingChk').attr('checked')],
+                ['#startTime','请输入维修开始时间',$('#servicingChk').attr('checked')],
+                ['#endTime','请输入维修结束时间',$('#servicingChk').attr('checked')],
+                ['#process','请输入维修过程',$('#servicingChk').attr('checked')],
+                ['#result','请输入维修结果',$('#servicingChk').attr('checked')]
+        ];
+
+        var checkResult=true;
+        for (var i = 0; i < paramsInfo.length && paramsInfo[i][2]; i++) {
+            var pInfo=paramsInfo[i];
+            if ($.trim($(pInfo[0]).val()) == '') {
+                jqAlert(pInfo[1]);
+                $(pInfo[0]).focus();
+                checkResult=false;
+                break;
+            }
+        }
+        return checkResult;
+    }
+
+</script>

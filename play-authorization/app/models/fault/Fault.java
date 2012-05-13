@@ -62,4 +62,15 @@ public class Fault extends AbstractEntity {
         this.status = status;
         this.submitter = submitter;
     }
+    
+    
+    public String showFixed(){
+        //0:待维修, 1:修好, 2:未修好
+        switch (fixed){
+            case 0: return "待维修";
+            case 1: return "已修好";
+            case 2: return "未修好";
+            default: return "";
+        }
+    }
 }

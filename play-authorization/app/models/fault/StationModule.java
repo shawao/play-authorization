@@ -3,10 +3,7 @@ package models.fault;
 import models.AbstractEntity;
 import models.sys.SysUser;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +23,8 @@ public class StationModule extends AbstractEntity {
     @ManyToOne
     public Module module;//模块
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     public ModuleType moduleType;//模块型号
-
 
 
     @Column(length = 200)

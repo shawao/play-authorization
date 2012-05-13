@@ -1,7 +1,6 @@
 package controllers;
 
 import models.fault.Fault;
-import play.data.validation.Required;
 
 import java.util.List;
 
@@ -9,10 +8,10 @@ import java.util.List;
  * Desc  :
  * -----
  * Author: <a href="mailto:ember319@gmail.com">ember</a>
- * Date  : 12-2-19
- * Time  : 上午5:11
+ * Date  : 12-3-14
+ * Time  : 下午11:55
  */
-public class Faults extends Application{
+public class FaultAuditing extends Application{
 
     public static void index(){
         show(1);
@@ -27,22 +26,5 @@ public class Faults extends Application{
         Long entityCount = Fault.count();
 
         render(entityCount, faults, pageSequence);
-    }
-
-
-    public static void delete(@Required Long id) {
-        Fault entity = Fault.findById(id);
-
-        if (entity != null) {
-            try {
-                entity.delete();
-                flash.success("成功删除");
-            } catch (Throwable cve) {
-                flash.error("删除失败，该自动站已经被使用");
-            }
-        } else {
-            flash.error("ID（" + id + "）自动站不存在");
-        }
-        show(1);
     }
 }

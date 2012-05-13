@@ -1,0 +1,23 @@
+<table id="station_list">
+    <thead>
+    <tr>
+        <th class="main" width="15%">站号</th>
+        <th class="main" width="15%">站名</th>
+        <th class="main" width="55%">地址</th>
+        <th class="main" width="15%">选择列</th>
+    </tr>
+    </thead>
+#{if stations.size()>0}
+    #{list items:stations, as:'st'}
+        <tr>
+            <td class="main">${st.stationNo}</td>
+            <td class="main">${st.name}</td>
+            <td class="main">${st.address}</td>
+            <td class="main">
+                <a class="ui-state-default ui-corner-all opt_button" href="javascript:;"
+                   onclick="chooseStation('${st.id}','${st.stationNo}')">选择</a>
+            </td>
+        </tr>
+    #{/list}
+#{/if}
+</table>

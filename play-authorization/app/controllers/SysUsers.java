@@ -1,5 +1,7 @@
 package controllers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import models.sys.District;
 import models.sys.Organization;
 import models.sys.SysRole;
@@ -260,5 +262,24 @@ public class SysUsers extends Application {
         flash.success("用户（"+sysUser.nickName+"）信息修改成功");
         log.info("User("+sysUser.loginName+") saved okay");
         show(1);
+    }
+
+
+    public static void usersSel() {
+        List<SysUser> entityList = SysUser.find("select o from SysUser o order by id desc").fetch();
+
+        JsonArray ja=new JsonArray();
+        for(SysUser m:entityList){
+            JsonObject jsonObject=new JsonObject();
+            jsonObject.addProperty("ID",""+m.id);
+            jsonObject.addProperty("NAME",m.nickName);
+            ja.add(jsonObject);
+        }
+
+        JsonObject modulesJson=new JsonObject();
+        modulesJson.add("USERS",ja);
+        String jsonString=modulesJson.toString();
+        log.info(">> ja.toString() = "+jsonString);
+        renderJSON(jsonString);
     }
 }
