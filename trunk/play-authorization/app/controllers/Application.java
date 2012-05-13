@@ -211,11 +211,13 @@ public class Application extends Controller {
             flash.error("用户未被授权访问系统");
             session.clear();
             login(visitUrl);
-        } else if (!session.get(scKey).equals(securityCode)) {
-            flash.error("验证码错误");
-            session.clear();
-            login(visitUrl);
-        } else {
+        }
+//        else if (!session.get(scKey).equals(securityCode)) {
+//            flash.error("验证码错误");
+//            session.clear();
+//            login(visitUrl);
+//        }
+        else {
             connect(user);
             flash.success("欢迎登录系统，%s !", user.nickName);
             

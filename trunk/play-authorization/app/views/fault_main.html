@@ -32,7 +32,10 @@
         <ul id="menu">
             <li><a id="megaanchor" style="background-color: #6495ed;" href="#">系统地图</a></li>
             <li><a class="${request?.controller == 'Welcome'? 'selected' : ''}" href="@{Welcome.index}">首页</a></li>
-            <li><a class="${request?.controller == 'Stations'? 'selected' : ''}" href="@{Stations.show}">自动站</a></li>
+            <li><a class="${request?.controller == 'Faults'? 'selected' : ''}" href="@{Faults.show}">故障管理</a></li>
+            <li><a class="${request?.controller == 'ServicingCtrl'? 'selected' : ''}" href="@{ServicingCtrl.show}">维修报告</a></li>
+            <li><a class="${request?.controller == 'FaultAuditing'? 'selected' : ''}" href="@{FaultAuditing.show}">故障单审核</a></li>
+            *{<li><a class="${request?.controller == 'Faults'? 'selected' : ''}" href="@{Faults.show}">分析助诊</a></li>}*
         </ul>
     </div>
 
