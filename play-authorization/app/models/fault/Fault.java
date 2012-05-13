@@ -3,10 +3,7 @@ package models.fault;
 import models.AbstractEntity;
 import models.sys.SysUser;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Desc: 故障信息表(故障单)；
@@ -19,16 +16,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "t_fault")
 public class Fault extends AbstractEntity {
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
     public AutoStation station;
 
     @ManyToOne
     public Module module;//故障模块(with type and model)
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     public Module module2;//故障模块(with type and model)
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     public Module module3;//故障模块(with type and model)
 
 
