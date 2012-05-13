@@ -11,6 +11,7 @@
 #{/set}
 
 #{set 'moreScripts'}
+<script src="@{'/public/javascripts/jquery/ui/i18n/jquery.ui.datepicker-zh-CN.js'}"></script>
 
 <script type="text/javascript">
     var stationSelDialog=null;//handle of dialog, for closing
@@ -27,6 +28,10 @@
                 }
             }
         });
+
+        $("#startTime").datepicker({dateFormat:'yy-mm-dd'},$.datepicker.regional['zh-CN']);
+        $("#endTime").datepicker({dateFormat:'yy-mm-dd'},$.datepicker.regional['zh-CN']);
+
     });
 
     function chooseStation(stationId,stationNo){
@@ -79,7 +84,7 @@
 <div class="light_bar">
 故障情况
 </div>
-<form name="faultServicingForm" method="post">
+<form name="faultServicingForm" id="faultServicingForm" method="post" action="@{ServicingCtrl.create}">
     <table id="fault_info" class="formTable">
         <tr>
             <td align="right" class="input_label" width="20%"><label for="stationName" class="input_required">站点：</label></td>
@@ -138,13 +143,26 @@
             <td align="right" class="input_label" width="20%"><label for="userId" class="input_required">维修人：</label></td>
             <td width="40%">
                 <select id="userId" name="userId" class="longInput" style="width: 155px">
-                </select></td>
+                    <option value="-1">请选择</option>
+                #{if users!=null && users.size()>0}
+                    #{list items:users, as:'u'}
+                        <option value="${u.id}">${u.nickName}</option>
+                    #{/list}
+                #{/if}
+                </select>
+            </td>
             <td class="input_label"></td>
         </tr>
         <tr>
             <td align="right" class="input_label" width="20%"><label for="userId2">维修人2：</label></td>
             <td width="40%">
                 <select id="userId2" name="userId2" class="longInput" style="width: 155px">
+                    <option value="-1">请选择</option>
+                #{if users!=null && users.size()>0}
+                    #{list items:users, as:'u'}
+                        <option value="${u.id}">${u.nickName}</option>
+                    #{/list}
+                #{/if}
                 </select>
             </td>
             <td class="input_label"></td>
@@ -153,24 +171,34 @@
             <td align="right" class="input_label" width="20%"><label for="userId3">维修人3：</label></td>
             <td width="40%">
                 <select id="userId3" name="userId3" class="longInput" style="width: 155px">
+                    <option value="-1">请选择</option>
+                #{if users!=null && users.size()>0}
+                    #{list items:users, as:'u'}
+                        <option value="${u.id}">${u.nickName}</option>
+                    #{/list}
+                #{/if}
                 </select>
             </td>
             <td class="input_label"></td>
         </tr>
         <tr>
             <td align="right" class="input_label" width="20%"><label for="startTime" class="input_required">维修开始时间：</label></td>
-            <td width="40%"><input id="startTime" class="longInput" readonly="readonly" name="startTime" type="text" maxlength="50"/></td>
+            <td width="40%">
+                <input id="startTime" class="longInput" readonly="readonly" name="startTime" type="text" maxlength="50" style="width: 155px"/>
+            </td>
             <td class="input_label"></td>
         </tr>
         <tr>
             <td align="right" class="input_label" width="20%"><label for="endTime" class="input_required">维修结束时间：</label></td>
-            <td width="40%"><input id="endTime" class="longInput" readonly="readonly" name="endTime" type="text" maxlength="50"/></td>
+            <td width="40%">
+                <input id="endTime" class="longInput" readonly="readonly" name="endTime" type="text" maxlength="50" style="width: 155px"/>
+            </td>
             <td class="input_label"></td>
         </tr>
         <tr>
             <td align="right" class="input_label" width="20%"><label for="reasonId" class="input_required">损毁原因：</label></td>
             <td width="40%">
-                <select id="reasonId" name="reasonId">
+                <select id="reasonId" name="reasonId" style="width: 155px">
                     <option value="1">在那个风雨交加的夜晚，温度计它爆了……</option>
                     <option value="2">会不会是它想家了？</option>
                     <option value="3">其他</option>
@@ -217,7 +245,8 @@
 
     function save(){
         if(checkBeforeSubmit()){
-            jqAlert('可以保存');
+//            jqAlert('可以保存');
+            $('#faultServicingForm').submit();
         }
     }
 

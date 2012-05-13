@@ -22,7 +22,8 @@ public class ServicingCtrl extends Application{
     }
 
     public static void show(Integer page){
-        render();
+        List<SysUser> users=SysUser.findAll();
+        render(users);
     }
 
 
@@ -85,5 +86,6 @@ public class ServicingCtrl extends Application{
             flash.success("维修报告保存成功");
         }
 
+        show(1);
     }
 }
