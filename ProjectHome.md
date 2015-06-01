@@ -1,0 +1,1 @@
+Simple authorization implementation by play framework
